@@ -9,7 +9,7 @@ class main extends Yros{
 
 
     function index(){
-        view("welcome");
+        view_page("welcome");
     }
     
     function page_not_found(){

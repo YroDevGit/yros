@@ -32,6 +32,12 @@ if(! function_exists("controller")){
     }
 }
 
+if(! function_exists("route")){
+    function route(string $path){
+        return controller($path);
+    }
+}
+
 if(! function_exists("img")){
     function img(string $img=""){
         if($img=="" || $img==null){
@@ -90,15 +96,15 @@ if(! function_exists("view_error")){
     }
 }
 
-if(! function_exists("view_content")){
-    function view_content(string $view, array $data=[]){
+if(! function_exists("view_content_page")){
+    function view_content_page(string $view, array $data=[]){
         $YROS = new Yros();
         $YROS->view_content($view, $data);
     }
 }
 
-if(! function_exists("view_include")){
-    function view_include(string $view, array $data=[]){
+if(! function_exists("view_include_page")){
+    function view_include_page(string $view, array $data=[]){
         $YROS = new Yros();
         $YROS->view_include($view, $data);
     }
@@ -111,12 +117,7 @@ if(! function_exists("view_page")){
     }
 }
 
-if(! function_exists("view_partial")){
-    function view_partial(string $view, array $data=[]){
-        $YROS = new Yros();
-        $YROS->view_partial($view, $data);
-    }
-}
+
 
 
 ?>

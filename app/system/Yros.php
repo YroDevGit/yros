@@ -82,9 +82,6 @@ class Yros {
         $this->view("pages/".$view, $data);
     }
 
-    public function view_partial(string $view, array $data = array()){
-        $this->view("partials/".$view, $data);
-    }
 
     public function loader($name, $once = true){
         if($once==true){
