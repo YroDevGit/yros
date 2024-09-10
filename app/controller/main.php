@@ -7,9 +7,17 @@ class main extends Yros{
         $YROS = &Yros::get_instance();
     }
 
+
     function index(){
         view("welcome");
-      
+    }
+    
+    function page_not_found(){
+        view_error("page_not_found");
+    }
+
+    function error_page(){
+        view_error("error_page");
     }
 
     

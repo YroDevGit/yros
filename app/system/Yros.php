@@ -11,6 +11,7 @@ class Yros {
     public $apilib;
     public $filelib;
     public $sessionlib;
+    public $arraylib;
     public $data_yros;
     public $POST;
     private static $instance;
@@ -19,6 +20,9 @@ class Yros {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+
+        include "app/database/config.php";
+        $this->db = new Database($dbConfig);
         require_once "app/system/libraries/db_lib.php";
         $this->dblib = new Db_lib();
         require_once "app/system/libraries/api_lib.php";
@@ -28,9 +32,12 @@ class Yros {
         require_once "app/system/libraries/session_lib.php";
         $this->sessionlib = new Session_lib();
 
-        require_once "app/database/config.php";
-        $this->db = new Database($dbConfig);
+        require_once "app/system/libraries/array_lib.php";
+        $this->arraylib = new Array_lib();
+        
         require_once "app/system/helpers/db_helper.php";
+        require_once "app/system/helpers/api_helper.php";
+        require_once "app/system/helpers/array_helper.php";
         require_once "app/system/helpers/form_helper.php";
         require_once "app/system/helpers/url_helper.php";
         require_once "app/system/helpers/yros_helper.php";

@@ -118,8 +118,9 @@ function addApi($name){
                 //This is a API file, where we can share our data across sites.
             }
 
-            function index(){
-                echo 'Hello Yros user.';
+            function test(){
+                \$data = ["code"=>200, "status"=>"success", "message"=>"Yros PHP framework"];
+                json_response(\$data);
             }
         }
     ?>

@@ -1,14 +1,16 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 if(! function_exists('escapeString')){
     function escapeString($input) {
-        $YROS =& Yros::get_instance();
+        $YROS = new Yros();
         return $YROS->db->pdo->quote($input);
     }
 }
 
 
 if(! function_exists('post_data')){
-    function post_data() {
+    function post_data() :array{
         /**
          * Array
          * return the array data from from submission
@@ -35,11 +37,12 @@ if(! function_exists("post")){
          * get post data from your form submission
          */
         $post = post_data();
+        
         if(empty($post)){
             return "";
         }
         else{
-            if(in_array($inputname, $post)){
+            if(value_in_array($inputname, $post)){
                 return $post[$inputname];
             }
             else{
@@ -66,6 +69,17 @@ if(! function_exists("input_value")){
          * get post data from your form submission
          */
         return post($inputname);
+    }
+}
+
+if(! function_exists("value_in_array")){
+    function value_in_array($val, $arr){
+        foreach($arr as $ar=>$b){
+            if($ar==$val){
+                return true;
+            }
+        }
+        return false;
     }
 }
 

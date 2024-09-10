@@ -1,8 +1,19 @@
 <?php
+require_once "app/config/settings.php";
+function customErrorHandler($errno, $errstr, $errfile, $errline) {
+    $logMessage = "[" . date("Y-m-d H:i:s") . "] Error: [$errno] $errstr - $errfile:$errline\n";
+    $filename = date("Y-M-d")."_yros.log";
+    error_log($logMessage, 3,__DIR__."/app/system/logs/".$filename); // Log errors to a specific file
+}
+if($app_settings['error_log']){
+set_error_handler("customErrorHandler");
+}
+
 require_once "app/system/Yros.php";
 require_once "app/system/Api.php";
 require_once "app/system/extras/database.php";
 require_once "app/config/routes.php";
+
 
 if(! function_exists("define_value")){
     function define_value($title, $value){
@@ -24,7 +35,6 @@ if(! function_exists("getProjectRoot")){
         $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 
         $root = $protocol . $host . $path;
-        
         return $root."/";
     }
 }
@@ -42,14 +52,14 @@ if(! defined("rootpath")){
 }
 
 if(! defined("assets")){
-    define("assets", getProjectRoot()."public/assets/");
+    define("assets", getProjectRoot()."ui/public/assets/");
 }
 
 if(! defined("src")){
-    define("src", getProjectRoot()."public/src/");
+    define("src", getProjectRoot()."ui/public/src/");
 }
 if(! defined("uploads")){
-    define("uploads", getProjectRoot()."public/uploads/");
+    define("uploads", getProjectRoot()."ui/public/uploads/");
 }
 
 if(! defined("img")){
@@ -86,7 +96,7 @@ if(! isset($routes['default'])){
 
 // Assuming the first part of the URL is the class name
 function routing_controller($urls){
-    require_once "app/config/routes.php";
+    include "app/config/routes.php";
     $url = isset($urls) ? $urls :$routes['default'];
     $url = rtrim($url, '/');
     $url = explode('/', $url);
@@ -141,13 +151,17 @@ function routing_controller($urls){
                 if (method_exists($classInstance, $methodName)) {
                     $classInstance->$methodName();
                 } else {
-                    echo "Method $methodName not found.";
+                    $YROS = new Yros();
+                    redirect($routes["page_not_found"]."?err=method&class=$className&method=$methodName");
                 }
             } else {
-                echo "Class $className not found.";
+                $YROS = new Yros();
+                redirect($routes["page_not_found"]."?err=class&class=$className&method=$methodName");
             }
         } else {
-            echo "File $className.php not found.";
+            
+            $YROS = new Yros();
+            redirect($routes["page_not_found"]."?err=class&class=$className&method=$methodName");
         }
     }
 }

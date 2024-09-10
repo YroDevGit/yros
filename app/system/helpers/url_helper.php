@@ -1,4 +1,6 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 if(! function_exists("redirect_to")){
     function redirect_to(string $controller, int $delay=0){
         header("refresh:$delay;url=".rootpath.$controller);
@@ -76,42 +78,42 @@ if(! function_exists("uploads")){
 
 if(! function_exists("view")){
     function view(string $view, array $data=[]){
-        $YROS = &Yros::get_instance();
+        $YROS = new Yros();
         $YROS->view($view, $data);
     }
 }
 
 if(! function_exists("view_error")){
     function view_error(string $view, array $data=[]){
-        $YROS = &Yros::get_instance();
+        $YROS = new Yros();
         $YROS->view_error($view, $data);
     }
 }
 
 if(! function_exists("view_content")){
     function view_content(string $view, array $data=[]){
-        $YROS = &Yros::get_instance();
+        $YROS = new Yros();
         $YROS->view_content($view, $data);
     }
 }
 
 if(! function_exists("view_include")){
     function view_include(string $view, array $data=[]){
-        $YROS = &Yros::get_instance();
+        $YROS = new Yros();
         $YROS->view_include($view, $data);
     }
 }
 
 if(! function_exists("view_page")){
     function view_page(string $view, array $data=[]){
-        $YROS = &Yros::get_instance();
+        $YROS = new Yros();
         $YROS->view_page($view, $data);
     }
 }
 
 if(! function_exists("view_partial")){
     function view_partial(string $view, array $data=[]){
-        $YROS = &Yros::get_instance();
+        $YROS = new Yros();
         $YROS->view_partial($view, $data);
     }
 }
