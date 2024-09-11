@@ -20,6 +20,10 @@ class main extends Yros{
         view_error("error_page");
     }
 
+    function arr(){
+        echo get_root_page();
+    }
+
     
 }
 ?>

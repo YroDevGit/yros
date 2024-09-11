@@ -47,7 +47,7 @@ if(! function_exists("fetch_api")){
 if(! function_exists("my_post_api")){
     function my_post_api(string $apiurl,$data=[], $type="php"){
         include_once "app/config/api_config.php";
-        $headers = [$api_config['api_key_header_name'].":".$api_config['api_key']];
+        $headers = [$api_config['api_key_header_name'].":".$api_config['api_key'][0]];
         return post_api(my_api($apiurl), $headers, $data, $type);
     }
 }

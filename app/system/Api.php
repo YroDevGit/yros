@@ -21,17 +21,8 @@ class Api {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        require_once "app/config/api_config.php";
+        
 
-        if($api_config['enabled']){
-            $headersTR = getallheaders();
-            $apiKey = isset($headersTR[$api_config['api_key_header_name']]) ? $headersTR[$api_config['api_key_header_name']] : null;
-            if ($apiKey !== $api_config['api_key']) {
-                http_response_code(401);
-                echo json_encode(["error_num"=>-1, "status"=>"Error", "message"=>"Invalid ".$api_config['api_key_header_name']."!"]);
-                exit;
-            }
-        }
         require_once "app/system/libraries/db_lib.php";
         $this->dblib = new Db_lib();
         require_once "app/system/libraries/api_lib.php";
@@ -48,6 +39,17 @@ class Api {
         require_once "app/system/helpers/form_helper.php";
         require_once "app/system/helpers/url_helper.php";
         require_once "app/system/helpers/yros_helper.php";
+
+        require_once "app/config/api_config.php";
+        if($api_config['enabled']){
+            $headersTR = getallheaders();
+            $apiKey = isset($headersTR[$api_config['api_key_header_name']]) ? $headersTR[$api_config['api_key_header_name']] : null;
+            if (! in_array($apiKey,$api_config['api_key'])) {
+                http_response_code(401);
+                echo json_encode(["error_num"=>-1, "status"=>"Error", "message"=>"Invalid ".$api_config['api_key_header_name']."!"]);
+                exit;
+            }
+        }
         
     }
 

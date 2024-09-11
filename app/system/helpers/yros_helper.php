@@ -104,4 +104,12 @@ if(! function_exists("form_close")){
     }
 }
 
+if(! function_exists("array_append")){
+    function array_append(&$array, $element){
+        if(! in_array($array, $element)){
+            array_push($array, $element);
+        }
+    }
+}
+
 ?>

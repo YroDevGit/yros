@@ -35,7 +35,9 @@ if(! function_exists("getProjectRoot")){
         $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 
         $root = $protocol . $host . $path;
-        return $root."/";
+        $rt =  $root."/";
+        $new_root = str_replace("index.php/main/",'', $rt);
+        return $new_root;
     }
 }
 
@@ -94,7 +96,6 @@ if(! isset($routes['default'])){
     exit;
 }
 
-// Assuming the first part of the URL is the class name
 function routing_controller($urls){
     include "app/config/routes.php";
     $url = isset($urls) ? $urls :$routes['default'];
@@ -108,18 +109,14 @@ function routing_controller($urls){
         $className = ucfirst($url[1]);
         $methodName = isset($url[2]) ? $url[2] : 'index';
 
-        // Construct the path to the class file
         $classFile = 'app/api/' . $className . '.php';
 
-        // Include the class file if it exists
         if (file_exists($classFile)) {
             include $classFile;
 
-            // Instantiate the class
             if (class_exists($className)) {
                 $classInstance = new $className();
 
-                // Call the method if it exists
                 if (method_exists($classInstance, $methodName)) {
                     $classInstance->$methodName();
                 } else {
@@ -136,49 +133,67 @@ function routing_controller($urls){
         $className = ucfirst($url[0]);
         $methodName = isset($url[1]) ? $url[1] : 'index';
 
-        // Construct the path to the class file
         $classFile = 'app/controller/' . $className . '.php';
 
-        // Include the class file if it exists
         if (file_exists($classFile)) {
             include $classFile;
 
-            // Instantiate the class
             if (class_exists($className)) {
                 $classInstance = new $className();
 
-                // Call the method if it exists
                 if (method_exists($classInstance, $methodName)) {
                     $classInstance->$methodName();
                 } else {
-                    $YROS = new Yros();
-                    redirect($routes["page_not_found"]."?err=method&class=$className&method=$methodName");
+                    header("refresh:0;url=".$routes["page_not_found"]."?err=method&class=$className&method=$methodName");
                 }
             } else {
-                $YROS = new Yros();
-                redirect($routes["page_not_found"]."?err=class&class=$className&method=$methodName");
+                header("refresh:0; url=".$routes["page_not_found"]."?err=class&class=$className&method=$methodName");
             }
         } else {
-            
-            $YROS = new Yros();
-            redirect($routes["page_not_found"]."?err=class&class=$className&method=$methodName");
+            header("refresh:0;url=".$routes["page_not_found"]."?err=class&class=$className&method=$methodName");
         }
     }
 }
-
-
-if(isset($_GET['url'])){
-    if(array_key_exists($_GET['url'],$routes)){
-        $val = $routes[$_GET['url']];
+    
+    $_url = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    
+    $_all = null;
+    if($_SERVER['HTTP_HOST'] === "localhost"){
+        $str = explode("/", $_url);
+        $col1= isset($str[1]) ? $str[1]: "";
+        $col1 = strtoupper($col1);
+        if($col1=="API"){
+            $class = isset($str[2]) ? $str[2]: "";
+            $method = isset($str[3]) ? $str[3] : "";
+            if($class=="" && $method==""){
+                $_all = "";
+            }
+            else{
+                $_all = "api/".$class."/".$method;
+            }
+        }
+        else{
+            $class = isset($str[1]) ? $str[1]: "";
+            $method = isset($str[2]) ? $str[2] : "";
+            if($class=="" && $method==""){
+                $_all = "";
+            }
+            else{
+                $_all = $class."/".$method;
+            }
+        }
+    }
+    else{
+        $_all = $_url;
+    }
+    $_urls = empty($_all) ? $routes['default'] : $_all;
+    if(array_key_exists($_urls, $routes)){
+        $val = $routes[$_urls];
         routing_controller($val);
     }
     else{
-        $urls = isset($_GET['url']) ? $_GET['url'] :$routes['default'];
-        routing_controller($urls);
+        routing_controller($_urls);
     }
-}
-else{
-    $urls = isset($_GET['url']) ? $_GET['url'] :$routes['default'];
-    routing_controller($urls);
-}
+
+?>
 
