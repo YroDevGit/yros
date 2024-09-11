@@ -5,9 +5,13 @@ if(! defined("SUCCESS")){
 if(! defined("SUCCESS_CODE")){
     define("SUCCESS_CODE", 200);
 }
+if(! defined("yros_input_old_value_1005_yro")){
+    define("yros_input_old_value_1005_yro","yros_input_old_value_1005_yro_");
+}
 class Yros {
     public $db;
     public $dblib;
+    public $old_input_value_mask_yros = yros_input_old_value_1005_yro;
     public $apilib;
     public $filelib;
     public $sessionlib;
@@ -15,6 +19,8 @@ class Yros {
     public $data_yros;
     public $yrosdb;
     public $validationlib;
+
+    private $old_post_data;
     public $POST;
     private static $instance;
     public function __construct() {
@@ -47,7 +53,7 @@ class Yros {
         require_once "app/system/helpers/url_helper.php";
         require_once "app/system/helpers/yros_helper.php";
         require_once "app/system/helpers/session_helper.php";
-        
+        $this->old_post_data = post_data();
     }
 
     public static function &get_instance()
@@ -85,6 +91,12 @@ class Yros {
 
     public function view_page(string $view, array $data = array()){
         $this->view("pages/".$view, $data);
+    }
+
+
+    public function get_previous_page(){
+        $previousUrl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] :rootpath;
+        return $previousUrl;
     }
 
 

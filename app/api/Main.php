@@ -13,13 +13,5 @@
             json_response($data);
         }
 
-        function tst(){
-            $data = [
-                "name" => "rozz",
-                "course" => "hhs"
-            ];
-            $res = db_insert("student", $data);
-            print_r($res);
-        }
     }
 ?>

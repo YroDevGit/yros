@@ -68,4 +68,40 @@ if(! function_exists("display")){
     }
 }
 
+if(! function_exists("string_contains")){
+    function string_contains(string $string, string $contains){
+        if(strpos($string, $contains) !== false){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+if(! function_exists("string_remove")){
+    function string_remove(string $string, string $remove){
+        return str_replace($remove, '', $string);
+    }
+}
+
+if(! function_exists("string_replace")){
+    function string_replace(string $string, string $toreplace,string $replacer){
+        return str_replace($toreplace,$replacer, $string);
+    }
+}
+
+
+if(! function_exists("form_open")){
+    function form_open(string $route){
+        $controller = route($route);
+       return '<form method="post" enctype="multipart/form-data" action="'.$controller.'">';
+    }
+}
+
+if(! function_exists("form_close")){
+    function form_close(){
+        return "</form>";
+    }
+}
+
 ?>

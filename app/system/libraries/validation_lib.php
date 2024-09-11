@@ -3,6 +3,7 @@
 class Validation_lib{
     public $validation_errors;
     public $validation_session_error = "yros_1005_codeyro_";
+    public $validation_temp_error = "yros_1005_temp_codeyro_";
     public function __construct()
 	{
 		
@@ -77,6 +78,7 @@ class Validation_lib{
     
         if (!empty($errors)) {
             $this->validation_errors = $errors;
+            set_flash_data($this->validation_temp_error.$inputname, $errors[$inputname]);
         }
     }
 
@@ -85,16 +87,31 @@ class Validation_lib{
         set_flash_data($this->validation_session_error.$input, $message);
     }
 
-    public function get_input_error($inputname){
-        return get_flash_data($this->validation_session_error.$inputname);
+    public function get_input_error(string $inputname):string{
+        $val = get_flash_data($this->validation_session_error.$inputname);
+        if($val==""||$val==null){
+            return "";
+        }
+        else{
+            return $val;
+        }
     }
 
 
 
     public function validation_failed(){
         if(! empty($this->validation_errors)){
-            foreach($this->validation_errors as $key=>$value){
-                set_flash_data($this->validation_session_error.$key, $value);
+            foreach($_SESSION as $key=>$val){
+                if(string_contains($key, $this->validation_session_error)){
+                    unset($_SESSION[$key]);
+                }
+            }
+            foreach($_SESSION as $key=>$val){
+                if(string_contains($key, $this->validation_temp_error)){
+                    $newname = string_replace($key,$this->validation_temp_error, $this->validation_session_error);
+                    $_SESSION[$newname] = $val;
+                    unset($_SESSION[$key]);
+                }
             }
             return true;
         }
