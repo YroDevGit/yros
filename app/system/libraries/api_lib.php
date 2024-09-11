@@ -54,8 +54,8 @@ class Api_lib{
 		}
 	}
 
-	public function fetch_api(string $url){
-		$url = $url;
+	public function fetch_api(string $urlink){
+		$url = $urlink;
          $ch = curl_init();
          curl_setopt($ch, CURLOPT_URL, $url);
          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
