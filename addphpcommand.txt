@@ -1,0 +1,23 @@
+Add PHP to the System PATH
+Open the System Properties:
+
+Press Win + R, type sysdm.cpl, and press Enter.
+Open Environment Variables:
+
+In the System Properties window, go to the Advanced tab and click on Environment Variables.
+Edit the PATH Variable:
+
+In the Environment Variables window, find the Path variable in the System variables section and select it, then click Edit.
+Add PHP Directory to PATH:
+
+In the Edit Environment Variable window, click New and add the path to your PHP directory (e.g., C:\xampp\php).
+Save and Close:
+
+Click OK to close all the windows.
+Step 3: Verify PHP Installation
+Open a New Command Prompt:
+
+Close any existing Command Prompt windows and open a new one to ensure the changes take effect.
+Verify PHP:
+
+Type php -v and press Enter. You should see the PHP version information if it’s correctly installed.
