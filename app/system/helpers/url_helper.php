@@ -57,7 +57,7 @@ if(! function_exists("global_redirect")){
 
 if(! function_exists("get_root_page")){
     function get_root_page(){
-        $newroot = string_remove(rootpath, "index.php/main/");
+        $newroot = rootpath;
         return $newroot;
     }
 }

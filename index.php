@@ -1,4 +1,11 @@
 <?php
+/**
+ * Welcome to Yros PHP framework
+ * Created by Tyrone Limen Malocon
+ * Enjoy Coding.
+ * @author YRO <tyronemalocon@gmail.com>
+ * 
+ */
 require_once "app/config/settings.php";
 function customErrorHandler($errno, $errstr, $errfile, $errline) {
     $logMessage = "[" . date("Y-m-d H:i:s") . "] Error: [$errno] $errstr - $errfile:$errline\n";
@@ -34,10 +41,9 @@ if(! function_exists("getProjectRoot")){
 
         $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 
-        $root = $protocol . $host . $path;
+        $root = $protocol . $host ;
         $rt =  $root."/";
-        $new_root = str_replace("index.php/main/",'', $rt);
-        return $new_root;
+        return $rt;
     }
 }
 
