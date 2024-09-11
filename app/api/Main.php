@@ -12,5 +12,14 @@
             $data = ["code"=>200, "status"=>"success", "message"=>"Yros PHP framework"];
             json_response($data);
         }
+
+        function tst(){
+            $data = [
+                "name" => "rozz",
+                "course" => "hhs"
+            ];
+            $res = db_insert("student", $data);
+            print_r($res);
+        }
     }
 ?>

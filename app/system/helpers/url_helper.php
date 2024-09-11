@@ -84,35 +84,35 @@ if(! function_exists("uploads")){
 
 if(! function_exists("view")){
     function view(string $view, array $data=[]){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         $YROS->view($view, $data);
     }
 }
 
 if(! function_exists("view_error")){
     function view_error(string $view, array $data=[]){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         $YROS->view_error($view, $data);
     }
 }
 
 if(! function_exists("view_content_page")){
     function view_content_page(string $view, array $data=[]){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         $YROS->view_content($view, $data);
     }
 }
 
 if(! function_exists("view_include_page")){
     function view_include_page(string $view, array $data=[]){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         $YROS->view_include($view, $data);
     }
 }
 
 if(! function_exists("view_page")){
     function view_page(string $view, array $data=[]){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         $YROS->view_page($view, $data);
     }
 }

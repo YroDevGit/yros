@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 if(! function_exists("json_response")){
     function json_response($arr, bool $direct=true){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         if($direct==true){
             if($YROS->arraylib->isJsonArray($arr)){
                 echo $arr;
@@ -32,14 +32,14 @@ if(! function_exists("json_response_data")){
 
 if(! function_exists("post_api")){
     function post_api(string $url, array $headers=[], array $data=[], string $type="php"){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         return $YROS->apilib->post_api($url, $headers, $data, $type);
     }
 }
 
 if(! function_exists("fetch_api")){
     function fetch_api(string $url){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         return $YROS->apilib->fetch_api($url);
     }
 }

@@ -3,49 +3,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 if(! function_exists("set_session_data")){
     function set_session_data(string $key, $data){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         $YROS->sessionlib->set_session_data($key, $data);
     }
 }
 
 if(! function_exists("get_session_data")){
     function get_session_data(string $key){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         return $YROS->sessionlib->get_session_data($key);
     }
 }
 
 if(! function_exists("remove_session_data")){
     function remove_session_data(string $key){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         return $YROS->sessionlib->remove_session_data($key);
     }
 }
 
 if(! function_exists("set_flash_data")){
     function set_flash_data(string $key, $data){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         $YROS->sessionlib->set_flash_data($key, $data);
     }
 }
 
 if(! function_exists("get_flash_data")){
     function get_flash_data(string $key){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         return $YROS->sessionlib->get_flash_data($key);
     }
 }
 
 if(! function_exists("remove_flash_data")){
     function remove_flash_data(string $key){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         $YROS->sessionlib->remove_flash_data($key);
     }
 }
 
 if(! function_exists("set_cookie_value")){
     function set_cookie_value(string $key, $value, $time = null){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         if ($time === null) {
             $time = time() + (86400 * 30);
         }
@@ -55,21 +55,21 @@ if(! function_exists("set_cookie_value")){
 
 if(! function_exists("get_cookie_value")){
     function get_cookie_value(string $key){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         return $YROS->sessionlib->get_cookie_value($key);
     }
 }
 
 if(! function_exists("remove_cookie")){
     function remove_cookie(string $key){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         $YROS->sessionlib->remove_cookie($key);
     }
 }
 
 if(! function_exists("set_cookie_data")){
     function set_cookie_data(string $key, array $data, $time = null){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         if ($time === null) {
             $time = time() + (86400 * 30);
         }
@@ -79,7 +79,7 @@ if(! function_exists("set_cookie_data")){
 
 if(! function_exists("get_cookie_data")){
     function get_cookie_data(string $key, string $subkey=""){
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         return $YROS->sessionlib->get_cookie_data($key, $subkey);
     }
 }

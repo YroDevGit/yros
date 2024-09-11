@@ -13,6 +13,8 @@ class Yros {
     public $sessionlib;
     public $arraylib;
     public $data_yros;
+    public $yrosdb;
+    public $validationlib;
     public $POST;
     private static $instance;
     public function __construct() {
@@ -21,7 +23,7 @@ class Yros {
             session_start();
         }
 
-        include "app/database/config.php";
+        require_once "app/database/config.php";
         $this->db = new Database($dbConfig);
         require_once "app/system/libraries/db_lib.php";
         $this->dblib = new Db_lib();
@@ -34,6 +36,9 @@ class Yros {
 
         require_once "app/system/libraries/array_lib.php";
         $this->arraylib = new Array_lib();
+
+        require_once "app/system/libraries/validation_lib.php";
+        $this->validationlib = new Validation_lib();
         
         require_once "app/system/helpers/db_helper.php";
         require_once "app/system/helpers/api_helper.php";

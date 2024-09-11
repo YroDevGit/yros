@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 if(! function_exists('escapeString')){
     function escapeString($input) {
-        $YROS = new Yros();
+        $YROS = &Yros::get_instance();
         return $YROS->db->pdo->quote($input);
     }
 }
@@ -80,6 +80,22 @@ if(! function_exists("value_in_array")){
             }
         }
         return false;
+    }
+}
+
+if(! function_exists("file_input")){
+    function file_input(string $inputname){
+        if(empty($_FILES)){
+            return null;
+        }
+        else{
+            if(value_in_array($inputname, $_FILES)){
+                return $_FILES[$inputname];
+            }
+            else{
+                return null;
+            }
+        }
     }
 }
 

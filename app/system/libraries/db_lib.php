@@ -2,7 +2,7 @@
 class Db_lib{
     public function __construct()
 	{
-		
+
 	}
 
     public function insert($table, $data){
