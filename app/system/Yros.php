@@ -54,6 +54,8 @@ class Yros {
         require_once "app/system/helpers/yros_helper.php";
         require_once "app/system/helpers/session_helper.php";
         $this->old_post_data = post_data();
+
+        require_once "app/autorun.php";
     }
 
     public static function &get_instance()
