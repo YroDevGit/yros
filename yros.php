@@ -3,7 +3,7 @@
 /**
  * Yros console command
  */
-
+require_once "app/system/functions/console_command.php";
 if (PHP_SAPI !== 'cli') {
     echo "This script should only be run from the command line.";
     exit(1);
@@ -65,7 +65,7 @@ else{
 
 
 
-require_once "app/system/functions/console_command.php";
+
 
 
 

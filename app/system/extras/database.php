@@ -6,6 +6,8 @@ class Database
     private $stmt;
     private $error;
 
+    public $pdo_success =true;
+
     public function __construct($dbConfig)
     {
         $dsn = "mysql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'] . ";charset=" . $dbConfig['charset'];
@@ -159,19 +161,29 @@ public function update($table, $data, $conditions = []) {
 
     public function beginTransaction()
     {
+        $this->pdo_success = true;
         return $this->pdo->beginTransaction();
     }
 
     // Commit a transaction
     public function commit()
     {
-        return $this->pdo->commit();
+        if($this->pdo_success==true){
+            return $this->pdo->commit();
+        }
+        else{
+            $this->rollBack();
+        }
     }
 
     // Rollback a transaction
     public function rollBack()
     {
         return $this->pdo->rollBack();
+    }
+
+    public function inTransaction(){
+        return $this->pdo->inTransaction();
     }
 }
 ?>

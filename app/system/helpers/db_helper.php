@@ -38,4 +38,25 @@ if(! function_exists("db_update")){
     }
 }
 
+if(! function_exists("db_tracker_start")){
+    function db_tracker_start(){
+        $YROS = &Yros::get_instance();
+        $YROS->db->beginTransaction();
+        FunctionPair::callFirst('db_tracker_start', 'db_tracker_complete');
+    }
+}
+
+if(! function_exists("db_tracker_complete")){
+    function db_tracker_complete(){
+        $YROS = &Yros::get_instance();
+        if ($YROS->db->inTransaction()) {
+            $YROS->db->commit();
+        } else {
+            trigger_error("tracker not started, db_tracker_start() must be called", E_USER_WARNING);
+        }
+        FunctionPair::callSecond('db_tracker_complete');
+    }
+}
+FunctionPair::pair('db_tracker_start', 'db_tracker_complete');
+
 ?>

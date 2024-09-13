@@ -18,6 +18,7 @@ class Db_lib{
 
         }
         catch (Exception $e) {
+            $YROS->db->pdo_success = false;
             return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
         }
     }
@@ -42,6 +43,7 @@ class Db_lib{
             }
             }
         catch (Exception $e) {
+            $YROS->db->pdo_success = false;
             return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
         }
     }
@@ -65,6 +67,7 @@ class Db_lib{
             }
         }
         catch(Exception $e){
+            $YROS->db->pdo_success = false;
             return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
         }    
     }
@@ -87,8 +90,8 @@ class Db_lib{
             }
         }
         catch(Exception $e){
+            $YROS->db->pdo_success = false;
             return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
-
         }
     }
 

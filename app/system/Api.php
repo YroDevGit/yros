@@ -25,6 +25,7 @@ class Api {
 
         require_once "app/system/libraries/db_lib.php";
         $this->dblib = new Db_lib();
+        require_once "app/system/functions/FunctionPair.php";
         require_once "app/system/libraries/api_lib.php";
         $this->apilib = new Api_lib();
 

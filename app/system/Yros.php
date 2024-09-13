@@ -33,6 +33,7 @@ class Yros {
         $this->db = new Database($dbConfig);
         require_once "app/system/libraries/db_lib.php";
         $this->dblib = new Db_lib();
+        require_once "app/system/functions/FunctionPair.php";
         require_once "app/system/libraries/api_lib.php";
         $this->apilib = new Api_lib();
         require_once "app/system/libraries/file_lib.php";
