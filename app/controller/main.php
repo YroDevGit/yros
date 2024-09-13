@@ -9,7 +9,11 @@ class main extends Yros{
 
 
     function index(){
-        view_page("welcome");
+        require_once "app/models/filer.php";
+        $filer = new Filer();
+        echo $filer->test();
+        //post_api()
+        //view_page("welcome");
     }
     
     function page_not_found(){
