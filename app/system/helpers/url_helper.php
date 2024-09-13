@@ -68,6 +68,17 @@ if(! function_exists("controller")){
     }
 }
 
+if(! function_exists("public_path")){
+    function public_path(string $path = ""){
+        if($path==""||$path==null){
+            return rootpath."public/";
+        }
+        else{
+            return rootpath."public/".$path;
+        }
+    }
+}
+
 if(! function_exists("route")){
     function route(string $path){
         return controller($path);

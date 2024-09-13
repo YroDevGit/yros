@@ -29,7 +29,7 @@ class Yros {
             session_start();
         }
 
-        require_once "app/database/config.php";
+        require_once "app/database/db_config.php";
         $this->db = new Database($dbConfig);
         require_once "app/system/libraries/db_lib.php";
         $this->dblib = new Db_lib();

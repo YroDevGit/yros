@@ -80,6 +80,8 @@ if(! defined("home")){
     define("home", getProjectRoot()."public/home/");
 }
 
+
+
 function getRoute(string $router, callable $func){
     include_once "app/system/core/frnevt.php";
     if(isset($_GET['url'])){

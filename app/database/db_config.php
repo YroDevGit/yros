@@ -1,11 +1,12 @@
 <?php
 
+//This is the database config, all database settings can be customize here...
 
-$hostname = "localhost";
-$dbname = "schooldb";
+$hostname = "localhost"; //hostname
 
-$username = "root";
-$password = "";
+$dbname = "school"; //database name
+$username = "root"; //username
+$password = ""; //password
 
 /**
  * @YROS framework

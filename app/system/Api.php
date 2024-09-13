@@ -31,7 +31,7 @@ class Api {
         require_once "app/system/libraries/array_lib.php";
         $this->arraylib = new Array_lib();
 
-        include "app/database/config.php";
+        include "app/database/db_config.php";
         $this->db = new Database($dbConfig);
         require_once "app/system/helpers/db_helper.php";
         require_once "app/system/helpers/api_helper.php";
