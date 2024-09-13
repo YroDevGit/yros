@@ -21,7 +21,7 @@ else{
                 if($route=="create_controller"||$route=="CREATE_CONTROLLER"){
                     $createcontroller = addController($filename);
                     if($createcontroller==200){
-                        echo "Controller created.";
+                        echo "\nController $filename created.\nOpen @: app/controller/$filename.php\n\n";
                     }
                     elseif($createcontroller==-1){
                         echo "Error";
@@ -33,7 +33,7 @@ else{
                 else{
                     $createcontroller = addApi($filename);
                     if($createcontroller==200){
-                        echo "Api created.";
+                        echo "\nApi created.\nOpen @: app/api/$filename.php\n\n";
                     }
                     elseif($createcontroller==-1){
                         echo "Error";
@@ -83,7 +83,7 @@ function addController($name){
             }
 
             function index(){
-                echo 'Hello Yros user.';
+                echo 'Hello Yros user. This is $newname controller';
             }
 
             
