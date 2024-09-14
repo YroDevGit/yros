@@ -34,25 +34,31 @@ require_once "app/config/definitions.php";
 
 if(! function_exists("getProjectRoot")){
     function getProjectRoot() {
-       
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
- 
-        $host = $_SERVER['HTTP_HOST'];
+        include "app/config/settings.php";
+        $given_root = strtolower($app_settings['project_root_url']);
+        if($given_root=="" ||$given_root==null){
+            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    
+            $host = $_SERVER['HTTP_HOST'];
 
-        $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-        $rt = null;
-        if($host === "localhost"){
-            $_url = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-            $str = explode("/", $_url);
-            $root = $protocol . $host."/".$str[0] ;
-            $rt =  $root."/";
+            $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            $rt = null;
+            if($host === "localhost"){
+                $_url = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+                $str = explode("/", $_url);
+                $root = $protocol . $host."/".$str[0] ;
+                $rt =  $root."/";
+            }
+            else{
+                $root = $protocol . $host ;
+                $rt =  $root."/";
+            }
+            
+            return $rt;
         }
         else{
-            $root = $protocol . $host ;
-            $rt =  $root."/";
+            return $given_root."/";
         }
-        
-        return $rt;
     }
 }
 

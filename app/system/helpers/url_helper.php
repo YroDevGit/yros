@@ -62,6 +62,18 @@ if(! function_exists("get_root_page")){
     }
 }
 
+if(! function_exists("get_project_root_url")){
+    function get_project_root_url(){
+        return get_root_page();
+    }
+}
+
+if(! function_exists("get_main_page_url")){
+    function get_main_page_url(){
+        return get_root_page();
+    }
+}
+
 if(! function_exists("controller")){
     function controller(string $controller){
         return rootpath.$controller;
