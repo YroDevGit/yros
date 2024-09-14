@@ -38,6 +38,13 @@ if(! function_exists("db_update")){
     }
 }
 
+if(! function_exists("db_last_query")){
+    function db_last_query(){
+        $YROS = &Yros::get_instance();
+        return $YROS->dblib->db_last_query();
+    }
+}
+
 if(! function_exists("db_tracker_start")){
     function db_tracker_start(){
         $YROS = &Yros::get_instance();

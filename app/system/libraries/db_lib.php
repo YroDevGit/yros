@@ -18,6 +18,7 @@ class Db_lib{
 
         }
         catch (Exception $e) {
+            write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
             $YROS->db->pdo_success = false;
             return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
         }
@@ -32,6 +33,7 @@ class Db_lib{
             $YROS = &Yros::get_instance();
             $YROS->db->sql_query($command, $param);
             $results = $YROS->db->resultSet();
+            
             if (stripos(trim($command), 'select') === 0) {
                 return ["code"=>SUCCESS, "status"=>"success", "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$results[0]];
             }
@@ -43,6 +45,7 @@ class Db_lib{
             }
             }
         catch (Exception $e) {
+            write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
             $YROS->db->pdo_success = false;
             return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
         }
@@ -67,6 +70,7 @@ class Db_lib{
             }
         }
         catch(Exception $e){
+            write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
             $YROS->db->pdo_success = false;
             return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
         }    
@@ -90,9 +94,15 @@ class Db_lib{
             }
         }
         catch(Exception $e){
+            write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
             $YROS->db->pdo_success = false;
             return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
         }
+    }
+
+    public function db_last_query(){
+        $YROS = &Yros::get_instance();
+        return $YROS->db->getLastQuery();
     }
 
 

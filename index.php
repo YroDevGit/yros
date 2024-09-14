@@ -10,10 +10,10 @@ require_once "app/config/settings.php";
 function customErrorHandler($errno, $errstr, $errfile, $errline) {
     $logMessage = "[" . date("Y-m-d H:i:s") . "] Error: [$errno] $errstr - $errfile:$errline\n";
     $filename = date("Y-M-d")."_yros.log";
-    error_log($logMessage, 3,__DIR__."/app/system/logs/".$filename); // Log errors to a specific file
+    error_log($logMessage, 3,"app/system/logs/error_logs/".$filename); // Log errors to a specific file
 }
 if($app_settings['error_log']){
-set_error_handler("customErrorHandler");
+    set_error_handler("customErrorHandler");
 }
 
 require_once "app/system/Yros.php";
@@ -40,9 +40,18 @@ if(! function_exists("getProjectRoot")){
         $host = $_SERVER['HTTP_HOST'];
 
         $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-
-        $root = $protocol . $host ;
-        $rt =  $root."/";
+        $rt = null;
+        if($host === "localhost"){
+            $_url = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+            $str = explode("/", $_url);
+            $root = $protocol . $host."/".$str[0] ;
+            $rt =  $root."/";
+        }
+        else{
+            $root = $protocol . $host ;
+            $rt =  $root."/";
+        }
+        
         return $rt;
     }
 }

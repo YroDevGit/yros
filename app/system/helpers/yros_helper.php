@@ -112,4 +112,20 @@ if(! function_exists("array_append")){
     }
 }
 
+if(! function_exists("write_sql_log")){
+    function write_sql_log($message){
+            include "app/config/settings.php";
+            $setting = $app_settings['save_db_logs'];
+            if($setting==true){
+                $filename = "sql_".date("Y-M-d")."_yros.log";
+                $logfile =  "app/system/logs/sql_logs/". $filename;
+                $formatted_message = "[" . date('Y-m-d H:i:s') . "] " . $message . PHP_EOL;
+                file_put_contents($logfile, $formatted_message, FILE_APPEND);
+            }  
+    }
+}
+
+
+
+
 ?>

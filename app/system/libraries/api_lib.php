@@ -7,52 +7,68 @@ class Api_lib{
 	}
 
 
-	public function post_api(string $url, array $headers=[], array $data=[], $type="php"){
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_POST, true);
-		if(! empty($data)){
-			if (in_array('Content-Type: application/json', $headers)) {
-				curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-			}else{
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-			}  
-		}
-		
-		if(! empty($headers)){
-			curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-		}
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	public function post_api(string $url, array $headers=[], array $data=[], $type="json") {
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_POST, true);
+    if (!empty($data)) {
+        if (in_array('Content-Type: application/json', $headers)) {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        } else {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+    }
 
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    if (!empty($headers)) {
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    }
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
 
+    $response = curl_exec($curl);
+    
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-		$response = curl_exec($curl);
+    if (curl_errno($curl)) {
+        if($type=="php"||$type=="PHP"){
+            return ["error" => 'Curl error: ' . curl_error($curl)];
+        } elseif($type=="json"||$type=="JSON"){
+            return json_encode(["error" => 'Curl error: ' . curl_error($curl)]);
+        } else {
+            die("Invalid Type");
+        }
+    }
 
+    // Check HTTP response code
+    if ($httpCode != 200) {
+        if($type=="php"||$type=="PHP"){
+            return ["error" => 'HTTP Error: ' . $httpCode];
+        } elseif($type=="json"||$type=="JSON"){
+            return json_encode(["error" => 'HTTP Error: ' . $httpCode]);
+        } else {
+            die("Invalid Type");
+        }
+    }
 
-		if(curl_errno($curl)) {
-			if($type=="php"||$type=="PHP"){
-				return ['Curl error: ' . curl_error($curl)];
-			}elseif($type=="json"||$type=="JSON"){
-				return json_encode(['Curl error: ' . curl_error($curl)]);
-			}else{
-				die("Invalid Type");
-			}
-			//die('Curl error: ' . curl_error($curl));
-		}
+    curl_close($curl);
 
-		curl_close($curl);
-		if($type=="php"||$type=="PHP"){
-			return json_decode($response, true);
-		}
-		elseif($type=="json"||$type=="JSON"){
-			return $response;
-		}
-		else{
-			die("Invalid type");
-		}
-	}
+    if ($type=="php"||$type=="PHP") {
+        if ($this->isJsonArray($response)) {
+            return json_decode($response, true);
+        } else {
+            return $response;
+        }
+    } elseif ($type=="json"||$type=="JSON") {
+        if ($this->isJsonArray($response)) {
+            return $response;
+        } else {
+            return json_encode($response);
+        }
+    } else {
+        die("Invalid type");
+    }
+}
 
 	public function fetch_api(string $urlink){
 		$url = $urlink;
@@ -74,6 +90,16 @@ class Api_lib{
 
          return $ret;
 	}
+
+	public function isJsonArray($input){
+        if (!is_string($input)) {
+            return false;
+        }
+    
+        $decoded = json_decode($input, true);
+    
+        return (json_last_error() == JSON_ERROR_NONE) && is_array($decoded);
+    }
 	
 }
 

@@ -24,13 +24,16 @@ function routing_controller($urls){
                 if (method_exists($classInstance, $methodName)) {
                     $classInstance->$methodName();
                 } else {
-                    echo "Method $methodName not found.";
+                    echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: Method $methodName not found.!"]);
+                    //please dont do anything here:: YROS :: No method found
                 }
             } else {
-                echo "Class $className not found.";
+                echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: Class $className not found.!"]);
+                //please dont do anything here:: YROS :: no classname found
             }
         } else {
-            echo "File $className.php not found.";
+            echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: File $className.php not found.!"]);
+            // //please dont do anything here:: YROS :: Nof file found
         }
     }
     else{

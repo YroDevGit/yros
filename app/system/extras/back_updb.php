@@ -1,14 +1,12 @@
 <?php
 
-class Database
+class Back_updb
 {
     public $pdo;
     private $stmt;
     private $error;
 
-    public $pdo_success = true;
-    private $lastQuery;
-    private $lastParams = [];
+    public $pdo_success =true;
 
     public function __construct($dbConfig)
     {
@@ -28,11 +26,9 @@ class Database
         }
     }
 
+    // Prepare SQL query
     public function sql_query(string $sql, $params = [])
     {
-        $this->lastQuery = $sql;
-        $this->lastParams = $params;
-
         $this->stmt = $this->pdo->prepare($sql);
         if (!empty($params)) {
             foreach ($params as $key => $value) {
@@ -45,51 +41,55 @@ class Database
         }
     }
 
-    public function delete($table, $conditions = [])
-    {
-        $sql = "DELETE FROM $table";
+public function delete($table, $conditions = []) {
+    $sql = "DELETE FROM $table";
 
-        if (!empty($conditions)) {
-            $sql .= " WHERE ";
+    if (!empty($conditions)) {
+        $sql .= " WHERE ";
 
-            $whereClause = [];
-            foreach ($conditions as $column => $value) {
-                $whereClause[] = "$column = ?";
-            }
-            $sql .= implode(" AND ", $whereClause);
+        $whereClause = [];
+        foreach ($conditions as $column => $value) {
+            $whereClause[] = "$column = ?";
         }
-        $this->sql_query($sql, array_values($conditions));
+        $sql .= implode(" AND ", $whereClause);
+    }
+        $this->stmt = $this->pdo->prepare($sql);
 
-        $this->execute();
+        $this->stmt->execute(array_values($conditions));
 
         return $this->stmt->rowCount();
+}
+
+
+public function update($table, $data, $conditions = []) {
+
+    $sql = "UPDATE $table SET ";
+
+    $setClause = [];
+    foreach ($data as $column => $value) {
+        $setClause[] = "$column = ?";
     }
+    $sql .= implode(", ", $setClause);
 
-    public function update($table, $data, $conditions = [])
-    {
-        $sql = "UPDATE $table SET ";
+    if (!empty($conditions)) {
+        $sql .= " WHERE ";
 
-        $setClause = [];
-        foreach ($data as $column => $value) {
-            $setClause[] = "$column = ?";
+        $whereClause = [];
+        foreach ($conditions as $column => $value) {
+            $whereClause[] = "$column = ?";
         }
-        $sql .= implode(", ", $setClause);
+        $sql .= implode(" AND ", $whereClause);
+    }
+        $this->stmt = $this->pdo->prepare($sql);
 
-        if (!empty($conditions)) {
-            $sql .= " WHERE ";
+        $params = array_merge(array_values($data), array_values($conditions));
 
-            $whereClause = [];
-            foreach ($conditions as $column => $value) {
-                $whereClause[] = "$column = ?";
-            }
-            $sql .= implode(" AND ", $whereClause);
-        }
-        $this->sql_query($sql, array_merge(array_values($data), array_values($conditions)));
-
-        $this->execute();
+        $this->stmt->execute($params);
 
         return $this->stmt->rowCount();
-    }
+}
+
+
 
     public function bind($param, $value, $type = null)
     {
@@ -113,89 +113,77 @@ class Database
 
     public function execute()
     {
-        write_sql_log($this->getLastQuery());
-        return $this->stmt->execute();
+
+        $ret = $this->stmt->execute();
+        return $ret;
     }
 
+    // Fetch multiple rows as an array
     public function resultSet()
     {
         $this->execute();
         return $this->stmt->fetchAll();
     }
 
+    // Fetch a single row
     public function single()
     {
         $this->execute();
         return $this->stmt->fetch();
     }
 
+    // Get row count
     public function rowCount()
     {
         return $this->stmt->rowCount();
     }
 
+    // Get the last inserted ID
     public function lastInsertId()
     {
         return $this->pdo->lastInsertId();
     }
 
-    public function insert($table, $data)
-    {
+    public function insert($table, $data) {
         $columns = implode(", ", array_keys($data));
         $placeholders = implode(", ", array_fill(0, count($data), '?'));
-
+        
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-        $this->sql_query($sql, array_values($data));
-
-        $res = $this->execute();
-
-        if ($res) {
-            return $this->pdo->lastInsertId();
-        } else {
-            return -1;
-        }
+            $this->stmt = $this->pdo->prepare($sql);
+            $res = $this->stmt->execute(array_values($data));
+            if($res){
+                return $this->pdo->lastInsertId();
+            }
+            else{
+                return -1;
+            }      
     }
 
     public function beginTransaction()
     {
-        write_sql_log("<<=== YROS:: db tracker started ===>>");
         $this->pdo_success = true;
         return $this->pdo->beginTransaction();
     }
 
+    // Commit a transaction
     public function commit()
     {
-        if ($this->pdo_success == true) {
-            write_sql_log("<<=== YROS:: db_tracker_success : sql queries submitted ===>>");
+        if($this->pdo_success==true){
             return $this->pdo->commit();
-        } else {
-            write_sql_log("<<=== YROS:: db_tracker failed : sql rollback ===>>");
+        }
+        else{
             $this->rollBack();
         }
     }
 
+    // Rollback a transaction
     public function rollBack()
     {
         return $this->pdo->rollBack();
     }
 
-    public function inTransaction()
-    {
+    public function inTransaction(){
         return $this->pdo->inTransaction();
     }
-
-    public function getLastQuery()
-    {
-        $query = $this->lastQuery;
-        if (!empty($this->lastParams)) {
-            foreach ($this->lastParams as $param) {
-                $quotedParam = $this->pdo->quote($param);
-                $query = preg_replace('/\?/', $quotedParam, $query, 1);
-            }
-        }
-        return $query;
-    }
-
-   
 }
 ?>
