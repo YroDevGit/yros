@@ -105,12 +105,10 @@ require_once "app/config/routes.php";
 
 if(empty($routes)){
     die("Route data not found.!");
-    exit;
 }
 
 if(! isset($routes['default'])){
     die("No default route");
-    exit;
 }
 
     require_once "app/system/functions/routing.php";
