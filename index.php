@@ -57,7 +57,13 @@ if(! function_exists("getProjectRoot")){
             return $rt;
         }
         else{
-            return $given_root."/";
+            $lastChar = substr($given_root, -1);
+            if($lastChar=="/"){
+                return $given_root;
+            }
+            else{
+                return $given_root."/";
+            }     
         }
     }
 }
