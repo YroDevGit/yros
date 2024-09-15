@@ -20,6 +20,8 @@ class Yros {
     public $yrosdb;
     public $validationlib;
 
+    public $yrosmail;
+
     private $old_post_data;
     public $POST;
     private static $instance;
@@ -29,7 +31,7 @@ class Yros {
             session_start();
         }
 
-        require_once "app/database/db_config.php";
+        require_once "app/config/database.php";
         $this->db = new Database($dbConfig);
         require_once "app/system/libraries/db_lib.php";
         $this->dblib = new Db_lib();
@@ -46,6 +48,9 @@ class Yros {
 
         require_once "app/system/libraries/validation_lib.php";
         $this->validationlib = new Validation_lib();
+
+        require_once "app/system/libraries/yros_mail.php";
+        $this->yrosmail = new Yros_mail();
         
         require_once "app/system/helpers/db_helper.php";
         require_once "app/system/helpers/api_helper.php";
@@ -54,6 +59,7 @@ class Yros {
         require_once "app/system/helpers/url_helper.php";
         require_once "app/system/helpers/yros_helper.php";
         require_once "app/system/helpers/session_helper.php";
+        require_once "app/system/helpers/email_helper.php";
         $this->old_post_data = post_data();
 
         require_once "app/autorun.php";
