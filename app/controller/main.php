@@ -12,11 +12,6 @@ class Main extends Yros{
         view_page("welcome.php");
     }
 
-
-    function sample(){
-        view_page("design.php");
-    }
-
     function page(){
         view_page("page.php");
     }
