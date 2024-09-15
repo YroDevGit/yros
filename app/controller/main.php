@@ -11,10 +11,6 @@ class Main extends Yros{
     function welcome_page(){
         view_page("welcome.php");
     }
-
-    function page(){
-        view_page("page.php");
-    }
     
     function page_not_found(){
         view_error("page_not_found.php");
