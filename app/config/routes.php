@@ -12,6 +12,4 @@ $routes["error"] = "main/error_page";
 
 
 
-
-
 ?>

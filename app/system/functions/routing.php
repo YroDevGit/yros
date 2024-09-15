@@ -8,7 +8,6 @@ function routing_controller($urls){
     if($url[0]=="API"||$url[0]=="api"||$url[0]=="Api"){
         if(! isset($url[1])){
             die("No api file found.!");
-            exit;
         }
         $className = ucfirst($url[1]);
         $methodName = isset($url[2]) ? $url[2] : 'index';
