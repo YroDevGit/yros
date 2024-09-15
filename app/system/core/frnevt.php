@@ -4,7 +4,12 @@ function view(string $view, array $data = array()){
     if(! empty($data)){
         extract($data);
     }
-    include_once "views/".$view.".php";
+    if(substr($view, -4)==".php"){
+        include_once "views/".$view;
+    }
+    else{
+        include_once "views/".$view.".php";
+    }
 }
 
  function view_content(string $view, array $data = array()){

@@ -83,7 +83,12 @@ class Yros {
         if(! empty($data)){
             extract($data);
         }
-        include "views/".$view.".php";
+        if(substr($view, -4)==".php"){
+            include_once "views/".$view;
+        }
+        else{
+            include_once "views/".$view.".php";
+        }
     }
 
     public function view_content(string $view, array $data = array()){
