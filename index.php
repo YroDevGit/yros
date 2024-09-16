@@ -135,8 +135,8 @@ if(! isset($routes['default'])){
         if($col1=="API"){
             $class = isset($str[2]) ? $str[2]: "";
             $method = isset($str[3]) ? $str[3] : "";
-            if($class=="" && $method==""){
-                $_all = "";
+            if($class=="" || $method==""){
+                echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: API url is not valid.!"]);exit;
             }
             else{
                 $_all = "api/".$class."/".$method;
@@ -149,14 +149,23 @@ if(! isset($routes['default'])){
                 $_all = "";
             }
             else{
-                $_all = $class."/".$method;
+                if($method==""){
+                    $_all = $class;
+                }
+                else{
+                    $_all = $class."/".$method;
+                }
             }
         }
     }
     else{
         $_all = $_url;
     }
+ 
+
+
     $_urls = empty($_all) ? $routes['default'] : $_all;
+   
     if(array_key_exists($_urls, $routes)){
         $val = $routes[$_urls];
         routing_controller($val);

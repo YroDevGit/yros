@@ -24,4 +24,26 @@ if(! function_exists("php_to_json_array")){
     }
 }
 
+if(! function_exists("array_is_multidimensional")){
+    function array_is_multidimensional(array $arr){
+        foreach ($arr as $element) {
+            if (is_array($element)) {
+                return true; 
+            }
+        }
+        return false;
+    }
+}
+
+if(! function_exists("array_contains")){
+    function array_contains(array $array, $contains){
+        if(array_is_multidimensional($array)){
+            return array_key_exists($contains, $array);
+        }
+        else{
+            return in_array($contains, $array);
+        }
+    }
+}
+
 ?>

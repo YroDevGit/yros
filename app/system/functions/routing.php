@@ -7,7 +7,7 @@ function routing_controller($urls){
     $url = explode('/', $url);
     if($url[0]=="API"||$url[0]=="api"||$url[0]=="Api"){
         if(! isset($url[1])){
-            die("No api file found.!");
+            echo  json_encode(["code"=>404, "status"=>"API Not specified", "message"=>"API:: API not specified.!"]);exit;
         }
         $className = ucfirst($url[1]);
         $methodName = isset($url[2]) ? $url[2] : 'index';
@@ -23,15 +23,15 @@ function routing_controller($urls){
                 if (method_exists($classInstance, $methodName)) {
                     $classInstance->$methodName();
                 } else {
-                    echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: Method $methodName not found.!"]);
+                    echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: Method $methodName not found.!"]);exit;
                     //please dont do anything here:: YROS :: No method found
                 }
             } else {
-                echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: Class $className not found.!"]);
+                echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: Class $className not found.!"]);exit;
                 //please dont do anything here:: YROS :: no classname found
             }
         } else {
-            echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: File $className.php not found.!"]);
+            echo  json_encode(["code"=>404, "status"=>"Page Not Found", "message"=>"API:: File $className.php not found.!"]);exit;
             // //please dont do anything here:: YROS :: Nof file found
         }
     }
@@ -50,13 +50,13 @@ function routing_controller($urls){
                 if (method_exists($classInstance, $methodName)) {
                     $classInstance->$methodName();
                 } else {
-                    header("refresh:0;url=".$routes["page_not_found"]."?err=method&class=$className&method=$methodName");
+                    header("refresh:0;url=".getProjectRoot().$routes["page_not_found"]."?err=method&class=$className&method=$methodName");
                 }
             } else {
-                header("refresh:0; url=".$routes["page_not_found"]."?err=class&class=$className&method=$methodName");
+                header("refresh:0; url=".getProjectRoot().$routes["page_not_found"]."?err=class&class=$className&method=$methodName");
             }
         } else {
-            header("refresh:0;url=".$routes["page_not_found"]."?err=class&class=$className&method=$methodName");
+            header("refresh:0;url=".getProjectRoot().$routes["page_not_found"]."?err=class&class=$className&method=$methodName");
         }
     }
 }

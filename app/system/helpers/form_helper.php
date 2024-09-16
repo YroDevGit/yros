@@ -39,16 +39,28 @@ if(! function_exists("post")){
         $post = post_data();
         
         if(empty($post)){
-            return "";
+            trigger_error(display_error("No POST data found.!"));exit;
         }
         else{
             if(value_in_array($inputname, $post)){
                 return $post[$inputname];
             }
             else{
-                return "";
+                trigger_error(display_error("undefined input post '$inputname' .!"));exit;
             }
         }
+    }
+}
+
+
+
+if(! function_exists("display_error")){
+    function display_error(string $message){
+        $str = new Exception($message);
+        $arr = explode("#", $str);
+        $ff = implode("\n", $arr);
+        $final = "\n\n".date("Y-m-d H:i:s")." ERROR:: ".$ff." ";
+        return $final;
     }
 }
 
@@ -71,6 +83,24 @@ if(! function_exists("input_value")){
         return post($inputname);
     }
 }
+
+if(! function_exists("get")){
+    function get(string $url){
+        $get = $_GET;
+        if(empty($get)){
+            trigger_error(display_error("No GET data found.!"));exit;
+        }
+        else{
+            if(array_key_exists($url, $get)){
+                return $_GET[$url];
+            }
+            else{
+                trigger_error(display_error("No GET '$url' found.!"));exit;
+            }
+        }
+    }
+}
+
 
 if(! function_exists("value_in_array")){
     function value_in_array($val, $arr){
