@@ -169,15 +169,18 @@ if(! function_exists("view_include_page")){
     }
 }
 
+if(! function_exists("include_page")){
+    function include_page(string $view, array $data=[]){
+        view_include_page($view, $data);
+    }
+}
+
 if(! function_exists("view_page")){
     function view_page(string $view, array $data=[]){
         $YROS = &Yros::get_instance();
         $YROS->view_page($view, $data);
     }
 }
-
-if(! function_exists(""))
-
 
 
 
