@@ -44,7 +44,18 @@ if(! function_exists("get_previous_page")){
 
 if(! function_exists("my_api")){
     function my_api(string $url): string{
-        return rootpath."api/".$url;
+        $exp = explode("/", $url);
+        if(count($exp)>=3){
+            if($exp[0]=="api"||$exp[0]=="API"){
+                return rootpath.$url;
+            }
+            else{
+                return rootpath."api/".$exp[0]."/".$exp[1];
+            }
+        }
+        else{
+            return rootpath."api/".$url;
+        } 
     }
 }
 

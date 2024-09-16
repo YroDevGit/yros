@@ -12,48 +12,46 @@ if (PHP_SAPI !== 'cli') {
 $arguments = $argv;
 $route = isset($arguments[1]) ? $arguments[1] : '';
 $filename = isset($arguments[2]) ? $arguments[2] : '';
-
+$filelower = strtolower($filename);
 if($route==null ||$route ==""){
     runDev();
 }
 else{
-    if($route == "create_api" || $route == "CREATE_API" || $route=="create_controller" || $route=="CREATE_CONTROLLER"){
+    $routelower = strtolower($route);
+    if($routelower == "create_api" || $routelower == "make_api" || $routelower == "add_api" || $routelower == "create_controller" || $routelower == "make_controller" || $routelower == "add_controller"){
             if($filename==""||$filename==null){
-                echo "No file to create, please add filename";
+                echo "No file to create, please add filename";exit;
+            }
+            else if($filelower == "api" || $filelower == "controller" || $filelower == "controllers"){
+                echo "File not created, Filename '$filename' is not valid.! , try another file name.";exit;
             }
             else{
                 $cmnd = strtolower($route);
-                if($cmnd == "create_controller"|| $cmnd == "make_controller"){
+                if($cmnd == "create_controller"|| $cmnd == "make_controller" || $cmnd == "add_controller"){
                     $createcontroller = addController($filename);
                     if($createcontroller==200){
-                        echo "\nController $filename created.\nOpen @: app/controller/$filename.php\n\n";
+                        echo "\nController $filename created.\nOpen @: app/controller/$filename.php\n\n";exit;
                     }
                     elseif($createcontroller==-1){
-                        echo "Error";
+                        echo "Error";exit;
                     }
                     else{
-                        echo "File already exist";
+                        echo "ERROR:: Controller: filename is already exist.!";exit;
                     }
                 }
-                else if($cmnd == "create_api" || $cmnd == "make_api"){
+                else if($cmnd == "create_api" || $cmnd == "make_api" || $cmnd == "add_api"){
                     $createcontroller = addApi($filename);
                     if($createcontroller==200){
-                        echo "\nApi created.\nOpen @: app/api/$filename.php\n\n";
+                        echo "\nApi created.\nOpen @: app/api/$filename.php\n\n";exit;
                     }
                     elseif($createcontroller==-1){
-                        echo "Error";
+                        echo "Error";exit;
                     }
                     else{
-                        echo "File already exist";
+                        echo "ERROR:: API Filename already exist.!";exit;
                     }
                 }
             }
-    }
-    elseif($route=="controller" || $route =="CONTROLLER"){
-
-    }
-    elseif($route=="api" || $route == "API"){
-
     }
     elseif($route=="run"||$route=="RUN"){
         runDev();

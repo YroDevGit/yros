@@ -1,11 +1,17 @@
 <?php
 //Please only modify the value, not the key names.
-$api_config['enabled'] = true;  //Enable or Disable api key/ disable for public api
+
+// Header: api_key
+$api_config['api_key_enabled'] = false;  //Enable or Disable api key/ disable for public api
 $api_config['api_key'] = ["yros"]; //Api keys for authentication, you can add more
 
+// Header: yros_key
+$api_config['yros_key_enabled'] = false;  //Enable or Disable api key/ disable for public api
+$api_config['yros_key'] = ["yros"]; //Api keys for authentication, you can add more
 
-//api header default name is api_key, you can change it below(optional).
-$api_config['api_key_header_name'] = "api_key"; // name of api header. Ex: Header: api_key:
+
+
+
 
 
 ?>

@@ -7,11 +7,16 @@
             $YROS = &Yros::get_instance();
             //This is a API file, where we can share our data across sites.
         }
+        
 
         public function test(){
             $data = ["code"=>200, "status"=>"success", "message"=>"Yros PHP framework"];
             json_response($data);
         }
+
+
+
+
 
     }
 ?>
