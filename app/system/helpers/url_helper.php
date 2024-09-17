@@ -11,14 +11,14 @@ if(! function_exists("redirect_to")){
 }
 
 if(! function_exists("redirect")){
-    function redirect(string $controller, bool $oldvalues = false, int $delay=0){
+    function redirect(string $controller, bool $input_values = false, int $delay=0){
         $YROS = &Yros::get_instance();
         foreach($_SESSION as $key=>$val){
             if(string_contains($key, $YROS->old_input_value_mask_yros)){
                 unset($_SESSION[$key]);
             }
         }
-        if($oldvalues==true){
+        if($input_values==true){
             save_input_values();
         }
         header("refresh:$delay;url=".rootpath.$controller);
