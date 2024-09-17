@@ -201,6 +201,15 @@ if(! function_exists("saved_value")){
     }
 }
 
+if(! function_exists("input_value")){
+    function input_value(string $input){
+        // same with saved_value($input);
+        return old_value($input);
+    }
+}
+
+
+
 
 
 ?>

@@ -3,34 +3,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 if(! function_exists("redirect_to")){
     function redirect_to(string $controller, int $delay=0){
+        /** Void
+         * Don't includes input old values.
+         */
+        redirect($controller, false, $delay);
+    }
+}
+
+if(! function_exists("redirect")){
+    function redirect(string $controller, bool $oldvalues = false, int $delay=0){
         $YROS = &Yros::get_instance();
         foreach($_SESSION as $key=>$val){
             if(string_contains($key, $YROS->old_input_value_mask_yros)){
                 unset($_SESSION[$key]);
             }
         }
-        $newpost = post_data();
-        foreach($newpost as $key=>$value){
-            $_SESSION[$YROS->old_input_value_mask_yros.$key] = $value; 
+        if($oldvalues==true){
+            save_input_values();
         }
         header("refresh:$delay;url=".rootpath.$controller);
         exit;
     }
 }
 
-if(! function_exists("redirect")){
-    function redirect(string $controller, int $delay=0){
-        redirect_to($controller, $delay);
+if(! function_exists("save_input_values")){
+    function save_input_values(){
+        $YROS = &Yros::get_instance();
+        $newpost = post_data();
+        foreach($newpost as $key=>$value){
+            $_SESSION[$YROS->old_input_value_mask_yros.$key] = $value; 
+        }
+    }
+}
+
+if(! function_exists("redirect_with_input_values")){
+    function redirect_with_input_values(string $controller, int $delay=0){
+        redirect($controller, true, $delay);
     }
 }
 
 if(! function_exists("back_to_previous_page")){
-    function back_to_previous_page(int $delay = 0){
-        $YROS = &Yros::get_instance();
-        $rootpage = get_root_page();
-        $previous = $YROS->get_previous_page();
-        $controller = string_remove($previous, $rootpage);
-        redirect_to($controller,$delay);
+    function back_to_previous_page(bool $input_values=false, int $delay = 0){
+        $controller = get_last_controller();
+        if($input_values==true){
+            redirect_with_input_values($controller, $delay);
+        }
+        else{
+            redirect_to($controller,$delay);
+        } 
     }
 }
 
@@ -39,6 +59,16 @@ if(! function_exists("get_previous_page")){
         $YROS = &Yros::get_instance();
         $previous = $YROS->get_previous_page();
         return $previous;
+    }
+}
+
+if(! function_exists("get_last_controller")){
+    function get_last_controller(){
+        $YROS = &Yros::get_instance();
+        $rootpage = get_root_page();
+        $previous = $YROS->get_previous_page();
+        $controller = string_remove($previous, $rootpage);
+        return $controller;
     }
 }
 

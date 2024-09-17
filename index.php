@@ -81,24 +81,24 @@ if(! defined("rootpath")){
 }
 
 if(! defined("assets")){
-    define("assets", getProjectRoot()."public/assets/");
+    define("assets", "public/assets/");
 }
 
 if(! defined("src")){
-    define("src", getProjectRoot()."public/src/");
+    define("src", "public/src/");
 }
 if(! defined("uploads")){
-    define("uploads", getProjectRoot()."public/uploads/");
+    define("uploads", "public/uploads/");
 }
 
 if(! defined("img")){
-    define("img", getProjectRoot()."public/img/");
+    define("img", "public/img/");
 }
 if(! defined("img")){
-    define("img", getProjectRoot()."public/img/");
+    define("img", "public/img/");
 }
 if(! defined("home")){
-    define("home", getProjectRoot()."public/home/");
+    define("home", "public/home/");
 }
 
 

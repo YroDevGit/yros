@@ -8,7 +8,7 @@ class File_lib{
     public function upload(string $inputname, string $rename = "", string $uploads_folder=""){
         $filename = "";
         if($uploads_folder != "" && $uploads_folder != null){
-            $uploads_folder."/";
+            $filename = $uploads_folder."/";
         }
         switch(strtoupper($rename)){
             case null:
