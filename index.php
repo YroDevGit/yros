@@ -81,14 +81,14 @@ if(! defined("rootpath")){
 }
 
 if(! defined("assets")){
-    define("assets", getProjectRoot()."ui/public/assets/");
+    define("assets", getProjectRoot()."public/assets/");
 }
 
 if(! defined("src")){
-    define("src", getProjectRoot()."ui/public/src/");
+    define("src", getProjectRoot()."public/src/");
 }
 if(! defined("uploads")){
-    define("uploads", getProjectRoot()."ui/public/uploads/");
+    define("uploads", getProjectRoot()."public/uploads/");
 }
 
 if(! defined("img")){

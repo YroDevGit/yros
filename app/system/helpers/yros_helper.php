@@ -9,9 +9,16 @@ if(! function_exists("homepage")){
 }
 
 if(! function_exists("upload_file")){
-    function upload_file(string $inputname, string $rename){
+    function upload_file(string $inputname, string $rename, string $upload_folder = ""){
         $YROS = &Yros::get_instance();
-        return $YROS->filelib->upload($inputname, $rename);
+        return $YROS->filelib->upload($inputname, $rename, $upload_folder);
+    }
+}
+
+if(! function_exists("download_file")){
+    function download_file(string $path, bool $uploads_folder=true){
+        $YROS = &Yros::get_instance();
+        $YROS->filelib->download($path, $uploads_folder);
     }
 }
 

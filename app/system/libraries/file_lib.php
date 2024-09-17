@@ -5,8 +5,11 @@ class File_lib{
 		
 	}
 
-    public function upload(string $inputname, string $rename = ""){
+    public function upload(string $inputname, string $rename = "", string $uploads_folder=""){
         $filename = "";
+        if($uploads_folder != "" && $uploads_folder != null){
+            $uploads_folder."/";
+        }
         switch(strtoupper($rename)){
             case null:
             case "": $filename = basename($_FILES[$inputname]["name"]);break;
@@ -14,11 +17,11 @@ class File_lib{
             default: $filename = $rename.".".$this->getFileType($inputname);break;
         }
         $ret = [];
-        if(file_exists(uploads().$filename)){
+        if(file_exists(uploads($uploads_folder).$filename)){
             $ret = ['code' => '1062', 'message'=>'File already exist', 'filename' => $_FILES[$inputname]["name"], 'filesize' => $_FILES[$inputname]["size"]];
         }
         else{
-            if (move_uploaded_file($_FILES[$inputname]["tmp_name"], uploads().$filename)) {
+            if (move_uploaded_file($_FILES[$inputname]["tmp_name"], uploads($uploads_folder).$filename)) {
                 $ret = ['code' => '200', 'message'=>'File uploaded suuccessfully', 'original_filename' => $_FILES[$inputname]["name"], 'filesize' => $_FILES[$inputname]["size"], 'filename'=>$filename];
             } else {
                 $ret = ['code' => '-1', 'message'=>'Failed to upload file', 'original_filename' => $_FILES[$inputname]["name"], 'filesize' => $_FILES[$inputname]["size"], 'filename'=>$filename];
@@ -65,6 +68,30 @@ class File_lib{
     public function delete(string $filepath){
         return unlink($filepath);
     }
+
+    public function download(string $path, bool $uploads_folder = true)
+    {
+        $file = $path;
+        if($uploads_folder==true){
+            $file = "public/uploads/".$path;
+        }
+
+        if (file_exists($file)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            ob_clean();
+            flush();
+            readfile($file);
+        } else {
+            return true;
+        }
+    }
+
 
    
 
