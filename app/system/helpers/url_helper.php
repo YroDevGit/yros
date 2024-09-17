@@ -59,6 +59,12 @@ if(! function_exists("my_api")){
     }
 }
 
+if(! function_exists("my_url")){
+    function my_url(string $url=""){
+        return rootpath.$url;
+    }
+}
+
 if(! function_exists("global_redirect")){
     function global_redirect(string $path, int $delay=0){
         header("refresh:$delay;url=".$path);

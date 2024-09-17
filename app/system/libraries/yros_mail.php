@@ -70,8 +70,8 @@ class Yros_mail{
         }
         
     }
-
 }
+
 
 
 ?>

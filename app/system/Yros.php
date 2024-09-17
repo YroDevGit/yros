@@ -22,6 +22,8 @@ class Yros {
 
     public $yrosmail;
 
+    public $yrossecure;
+
     private $old_post_data;
     public $POST;
     private static $instance;
@@ -51,6 +53,9 @@ class Yros {
 
         require_once "app/system/libraries/yros_mail.php";
         $this->yrosmail = new Yros_mail();
+
+        require_once "app/system/libraries/secure_lib.php";
+        $this->yrossecure = new Secure_lib();
         
         require_once "app/system/helpers/db_helper.php";
         require_once "app/system/helpers/api_helper.php";

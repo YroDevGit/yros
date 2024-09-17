@@ -143,6 +143,22 @@ if(! function_exists("has_internet_connection")){
     }
 }
 
+if(! function_exists("encrypt")){
+    function encrypt(string|float|int $data){
+        $YROS = &Yros::get_instance();
+        return $YROS->yrossecure->encrypt($data);
+    }
+}
+
+
+if(! function_exists("decrypt")){
+    function decrypt(string|float|int $data){
+        $YROS = &Yros::get_instance();
+        return $YROS->yrossecure->decrypt($data);
+    }
+}
+
+
 
 
 
