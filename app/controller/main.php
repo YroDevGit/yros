@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Main extends Yros{
 
     public function __construct() {
-        parent::__construct(); //main class
+        parent::__construct(); 
         $YROS = &Yros::get_instance();
     }
 
@@ -23,6 +23,8 @@ class Main extends Yros{
     function arr(){
         echo get_root_page();
     }
+
+    
 
     
 

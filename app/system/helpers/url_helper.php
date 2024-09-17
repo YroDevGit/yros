@@ -4,27 +4,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 if(! function_exists("redirect_to")){
     function redirect_to(string $controller, int $delay=0){
         /** Void
-         * Don't includes input old values.
+         * Don't save input values.
          */
         redirect($controller, false, $delay);
     }
 }
 
 if(! function_exists("redirect")){
-    function redirect(string $controller, bool $input_values = false, int $delay=0){
-        $YROS = &Yros::get_instance();
-        foreach($_SESSION as $key=>$val){
-            if(string_contains($key, $YROS->old_input_value_mask_yros)){
-                unset($_SESSION[$key]);
-            }
-        }
-        if($input_values==true){
+    function redirect(string $controller, bool $save_input_values = false, int $delay=0){
+        remove_saved_values();
+        if($save_input_values==true){
             save_input_values();
         }
         header("refresh:$delay;url=".rootpath.$controller);
         exit;
     }
 }
+
+if(! function_exists("remove_input_values")){
+    function remove_saved_values(){
+        $YROS = &Yros::get_instance();
+        foreach($_SESSION as $key=>$val){
+            if(string_contains($key, $YROS->old_input_value_mask_yros)){
+                unset($_SESSION[$key]);
+            }
+        }
+    }
+}
+
 
 if(! function_exists("save_input_values")){
     function save_input_values(){
@@ -43,9 +50,13 @@ if(! function_exists("redirect_with_input_values")){
 }
 
 if(! function_exists("back_to_previous_page")){
-    function back_to_previous_page(bool $input_values=false, int $delay = 0){
+    /** @param bool $input_values -> save the value of the submitted form inputs. call:: saved_input() or old_value()
+    *                             
+    * 
+    */
+    function back_to_previous_page(bool $save_input_values=false, int $delay = 0){
         $controller = get_last_controller();
-        if($input_values==true){
+        if($save_input_values==true){
             redirect_with_input_values($controller, $delay);
         }
         else{
