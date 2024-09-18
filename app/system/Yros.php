@@ -9,9 +9,7 @@ if(! defined("yros_input_old_value_1005_yro")){
     define("yros_input_old_value_1005_yro","yros_input_old_value_1005_yro_");
 }
 class Yros {
-    public $db;
-    public $dblib;
-    public $old_input_value_mask_yros = yros_input_old_value_1005_yro;
+    // Please do not modify anything, if you want to add, Go to:: app/autorun.php
     public $apilib;
     public $filelib;
     public $sessionlib;
@@ -26,6 +24,12 @@ class Yros {
 
     private $old_post_data;
     public $POST;
+    public $removeinputvalues = true;
+    public $inputvaluesstorage = [];
+    public $db;
+    public $dblib;
+    public $old_input_value_mask_yros = yros_input_old_value_1005_yro;
+    public $yros_input_validation_errors = [];
     private static $instance;
     public function __construct() {
         self::$instance =& $this;
@@ -66,6 +70,8 @@ class Yros {
         require_once "app/system/helpers/session_helper.php";
         require_once "app/system/helpers/email_helper.php";
         $this->old_post_data = post_data();
+        $this->store_input_errors_storage_yros();
+        $this->store_input_values_storage_yros();
 
         require_once "app/autorun.php";
     }
@@ -125,6 +131,24 @@ class Yros {
         }
         else{
             include  $name;
+        }
+    }
+
+    private function store_input_values_storage_yros(){
+        foreach($_SESSION as $key=>$value){
+            if(string_contains($key, $this->old_input_value_mask_yros)){
+                $this->inputvaluesstorage[$key] = $value;
+                unset($_SESSION[$key]);
+            }
+        }
+    }
+
+    private function store_input_errors_storage_yros(){
+        foreach($_SESSION  as $key=>$value){
+            if(string_contains($key, $this->validationlib->validation_temp_error)){
+                $this->yros_input_validation_errors[$key] = $value;
+                unset($_SESSION[$key]);
+            }
         }
     }
 }

@@ -7,6 +7,8 @@ class Main extends Yros{
         $YROS = &Yros::get_instance();
     }
 
+    // Main controller is YROS index controller, you can add functions but don't delete any (might cause system errors).
+
 
     function welcome_page(){
         view_page("welcome.php");
@@ -23,6 +25,11 @@ class Main extends Yros{
     function arr(){
         echo get_root_page();
     }
+
+    function students(){
+        view_page("student.php");
+    }
+
 
     
 

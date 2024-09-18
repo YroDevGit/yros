@@ -6,7 +6,7 @@ class Validation_lib{
     public $validation_temp_error = "yros_1005_temp_codeyro_";
     public function __construct()
 	{
-		
+
 	}
 
 
@@ -78,41 +78,37 @@ class Validation_lib{
     
         if (!empty($errors)) {
             $this->validation_errors = $errors;
-            set_flash_data($this->validation_temp_error.$inputname, $errors[$inputname]);
+            $_SESSION[$this->validation_temp_error.$inputname] = $errors[$inputname];
         }
     }
 
 
     public function set_input_error(string $input, string $message){
-        set_flash_data($this->validation_session_error.$input, $message);
+        $_SESSION[$this->validation_temp_error.$input] = $message;
     }
 
     public function get_input_error(string $inputname):string{
-        $val = get_flash_data($this->validation_session_error.$inputname);
-        if($val==""||$val==null){
-            return "";
+        //$val = get_flash_data($this->validation_session_error.$inputname);
+        $YROS = &Yros::get_instance();
+        if(array_key_exists($this->validation_temp_error.$inputname, $YROS->yros_input_validation_errors)){
+            $val = $YROS->yros_input_validation_errors[$this->validation_temp_error.$inputname];
+            if($val==""||$val==null){
+                return "";
+            }
+            else{
+                return $val;
+            }
         }
         else{
-            return $val;
+            return "";
         }
+        
     }
 
 
 
     public function validation_failed(){
         if(! empty($this->validation_errors)){
-            foreach($_SESSION as $key=>$val){
-                if(string_contains($key, $this->validation_session_error)){
-                    unset($_SESSION[$key]);
-                }
-            }
-            foreach($_SESSION as $key=>$val){
-                if(string_contains($key, $this->validation_temp_error)){
-                    $newname = string_replace($key,$this->validation_temp_error, $this->validation_session_error);
-                    $_SESSION[$newname] = $val;
-                    unset($_SESSION[$key]);
-                }
-            }
             return true;
         }
         else{

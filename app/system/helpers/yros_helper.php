@@ -165,6 +165,19 @@ if(! function_exists("decrypt")){
     }
 }
 
+if(! function_exists('function_is_called')){
+    function function_is_called(string $functionName) {
+        $backtrace = debug_backtrace();
+        
+        foreach ($backtrace as $trace) {
+            if (isset($trace['function']) && $trace['function'] === $functionName) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 
 
 

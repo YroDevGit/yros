@@ -12,7 +12,13 @@ if(! function_exists("redirect_to")){
 
 if(! function_exists("redirect")){
     function redirect(string $controller, bool $save_input_values = false, int $delay=0){
-        remove_saved_values();
+        $YROS =  &Yros::get_instance();
+        if($YROS->removeinputvalues == true){
+            remove_saved_values();
+        }
+        else{
+            $YROS->removeinputvalues = true;
+        }
         if($save_input_values==true){
             save_input_values();
         }
@@ -40,6 +46,7 @@ if(! function_exists("save_input_values")){
         foreach($newpost as $key=>$value){
             $_SESSION[$YROS->old_input_value_mask_yros.$key] = $value; 
         }
+        $YROS->removeinputvalues = false;
     }
 }
 

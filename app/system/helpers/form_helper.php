@@ -183,9 +183,10 @@ if(! function_exists("old_value")){
     function old_value(string $input){
         $YROS = &Yros::get_instance();
         $mask = $YROS->old_input_value_mask_yros;
-        if(isset($_SESSION[$mask.$input])){
-            $var = $_SESSION[$mask.$input];
-            unset($_SESSION[$mask.$input]);
+        $inputstorage = $YROS->inputvaluesstorage;
+        if(isset($inputstorage[$mask.$input])){
+            $var = $inputstorage[$mask.$input];
+            unset($inputstorage[$mask.$input]);
             return $var;
         }
         else{
