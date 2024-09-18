@@ -9,7 +9,7 @@ if(! defined("yros_input_old_value_1005_yro")){
     define("yros_input_old_value_1005_yro","yros_input_old_value_1005_yro_");
 }
 class Yros {
-    // Please do not modify anything, if you want to add, Go to:: app/autorun.php
+    // Please do not modify anything, if you want something to add, Go to:: app/autorun.php
     public $apilib;
     public $filelib;
     public $sessionlib;
@@ -37,42 +37,36 @@ class Yros {
             session_start();
         }
 
-        require_once "app/config/database.php";
+        include_once "app/config/database.php";
         $this->db = new Database($dbConfig);
-        require_once "app/system/libraries/db_lib.php";
+        $this->load_library("db_lib");
         $this->dblib = new Db_lib();
         require_once "app/system/functions/FunctionPair.php";
-        require_once "app/system/libraries/api_lib.php";
+        $this->load_library("api_lib");
         $this->apilib = new Api_lib();
-        require_once "app/system/libraries/file_lib.php";
+        $this->load_library("file_lib");
         $this->filelib = new File_lib();
-        require_once "app/system/libraries/session_lib.php";
+        $this->load_library("session_lib");
         $this->sessionlib = new Session_lib();
-
-        require_once "app/system/libraries/array_lib.php";
+        $this->load_library("array_lib");
         $this->arraylib = new Array_lib();
-
-        require_once "app/system/libraries/validation_lib.php";
+        $this->load_library("validation_lib");
         $this->validationlib = new Validation_lib();
-
-        require_once "app/system/libraries/yros_mail.php";
+        $this->load_library("yros_mail");
         $this->yrosmail = new Yros_mail();
-
-        require_once "app/system/libraries/secure_lib.php";
+        $this->load_library("secure_lib");
         $this->yrossecure = new Secure_lib();
-        
-        require_once "app/system/helpers/db_helper.php";
-        require_once "app/system/helpers/api_helper.php";
-        require_once "app/system/helpers/array_helper.php";
-        require_once "app/system/helpers/form_helper.php";
-        require_once "app/system/helpers/url_helper.php";
-        require_once "app/system/helpers/yros_helper.php";
-        require_once "app/system/helpers/session_helper.php";
-        require_once "app/system/helpers/email_helper.php";
+        $this->load_helper("db_helper");
+        $this->load_helper("api_helper");
+        $this->load_helper("array_helper");
+        $this->load_helper("form_helper");
+        $this->load_helper("url_helper");
+        $this->load_helper("yros_helper");
+        $this->load_helper("session_helper");
+        $this->load_helper("email_helper");
         $this->old_post_data = post_data();
         $this->store_input_errors_storage_yros();
         $this->store_input_values_storage_yros();
-
         require_once "app/autorun.php";
     }
 
@@ -131,6 +125,54 @@ class Yros {
         }
         else{
             include  $name;
+        }
+    }
+
+    public function load_helper(string $helper, bool $once=true){
+        $path = "";
+        if(substr($helper, -4)==".php"){
+            $path = $helper;
+        }
+        else{
+            $path = $helper.".php";
+        }
+        if($once==true){
+            include_once "app/system/helpers/".$path;
+        }
+        else{
+            include "app/system/helpers/".$path;
+        }
+    }
+
+    public function load_config(string $config, bool $once=true){
+        $path = "";
+        if(substr($config, -4)==".php"){
+            $path = $config;
+        }
+        else{
+            $path = $config.".php";
+        }
+        if($once==true){
+            include_once "app/config/".$path;
+        }
+        else{
+            include "app/config/".$path;
+        }
+    }
+
+    public function load_library(string $library, bool $once=true){
+        $path = "";
+        if(substr($library, -4)==".php"){
+            $path = $library;
+        }
+        else{
+            $path = $library.".php";
+        }
+        if($once==true){
+            include_once "app/system/libraries/".$path;
+        }
+        else{
+            include "app/system/libraries/".$path;
         }
     }
 
