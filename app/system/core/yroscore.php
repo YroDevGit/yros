@@ -1,7 +1,5 @@
 <?php
 
-
-require_once "app/config/settings.php";
 function customErrorHandler($errno, $errstr, $errfile, $errline) {
     $logMessage = "[" . date("Y-m-d H:i:s") . "] Error: [$errno] $errstr - $errfile:$errline\n";
     $filename = date("Y-M-d")."_yros.log";
@@ -12,7 +10,8 @@ if($app_settings['error_log']){
 }
 
 require_once "app/system/Yros.php";
-require_once "app/system/Api.php";
+
+require_once "app/system/Model.php";
 require_once "app/system/extras/database.php";
 require_once "app/config/routes.php";
 
@@ -166,5 +165,6 @@ if(! isset($routes['default'])){
     else{
         routing_controller($_urls);
     }
+
 
 ?>

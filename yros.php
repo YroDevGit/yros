@@ -18,7 +18,7 @@ if($route==null ||$route ==""){
 }
 else{
     $routelower = strtolower($route);
-    if($routelower == "create_api" || $routelower == "make_api" || $routelower == "add_api" || $routelower == "create_controller" || $routelower == "make_controller" || $routelower == "add_controller"){
+    if($routelower == "create_api" || $routelower == "make_api" || $routelower == "add_api" || $routelower == "create_controller" || $routelower == "make_controller" || $routelower == "add_controller" || $routelower == "create_model" || $routelower == "make_model" || $routelower == "add_model"){
             if($filename==""||$filename==null){
                 echo "No file to create, please add filename";exit;
             }
@@ -37,6 +37,18 @@ else{
                     }
                     else{
                         echo "ERROR:: Controller: filename is already exist.!";exit;
+                    }
+                }
+                else if($cmnd == "create_model"|| $cmnd == "make_model" || $cmnd == "add_model"){
+                    $createcontroller = addModel($filename);
+                    if($createcontroller==200){
+                        echo "\nModel $filename created.\nOpen @: app/model/$filename.php\n\n";exit;
+                    }
+                    elseif($createcontroller==-1){
+                        echo "Error";exit;
+                    }
+                    else{
+                        echo "ERROR:: Model: filename is already exist.!";exit;
                     }
                 }
                 else if($cmnd == "create_api" || $cmnd == "make_api" || $cmnd == "add_api"){

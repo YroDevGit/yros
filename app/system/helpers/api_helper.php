@@ -46,9 +46,17 @@ if(! function_exists("fetch_api")){
 
 if(! function_exists("my_post_api")){
     function my_post_api(string $apiurl,$data=[], $type="php"){
-        include_once "app/config/api_config.php";
+        include "app/config/api_config.php";
         $headers = ["api_key:".$api_config['api_key'][0], "yros_key:".$api_config['yros_key'][0]];
-        return post_api(my_api($apiurl), $headers, $data, $type);
+        $apilink = isset($api_config['local_api_link']) ? $api_config['local_api_link'] : "";
+        if($apilink=="" || $apilink==null){
+            return post_api(get_root_page()."api/".$apiurl, $headers, $data, $type);
+        }
+        else{
+            return post_api($api_config['local_api_link'].$apiurl, $headers, $data, $type);
+        }
+        
+        //return post_api($api_config['local_api_link'].$apiurl, $headers, $data, $type);
     }
 }
 

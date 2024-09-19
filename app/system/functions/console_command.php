@@ -35,6 +35,44 @@ function addController($name){
     }
 }
 
+
+function addModel($name){
+
+    $newname = ucfirst($name);
+    $phpFile = "app/models/".ucfirst($newname).".php"; // Name of the PHP file to be created
+
+    $phpContent = <<<EOT
+    <?php
+        defined('BASEPATH') OR exit('No direct script access allowed');
+        class $newname extends Model{
+
+            public function __construct() {
+                parent::__construct();
+                \$YROS = &Yros::get_instance();
+            }
+
+            // Model:: stores global functions that can be called accross controllers.
+
+            function test(){
+                echo 'Hello Yros user. This is $newname controller';
+            }
+
+            
+        }
+    ?>
+    EOT;
+    
+    if (file_exists($phpFile)) {
+        return -2;
+    } else {
+        if (file_put_contents($phpFile, $phpContent) !== false) {
+            return 200;
+        } else {
+            return -1;
+        }
+    }
+}
+
 function addApi($name){
 
     $newname = ucfirst($name);
@@ -71,8 +109,8 @@ function addApi($name){
 }
 
 function runDev(){
-    $php_command = 'php -S localhost:5105';
-    echo "\nWelcome to Yros framework\nServer run at: http://localhost:5105\n\n";
+    $php_command = 'php -S localhost:9507';
+    echo "\nWelcome to Yros framework\nServer run at: http://localhost:9507\n\n";
     passthru($php_command); 
 }
 

@@ -67,6 +67,7 @@ class Yros {
         $this->old_post_data = post_data();
         $this->store_input_errors_storage_yros();
         $this->store_input_values_storage_yros();
+        //$this->load_all_models();
         require_once "app/autorun.php";
     }
 
@@ -191,6 +192,13 @@ class Yros {
                 $this->yros_input_validation_errors[$key] = $value;
                 unset($_SESSION[$key]);
             }
+        }
+    }
+
+    private function load_all_models(){
+        $allModels = "app/models/";
+        foreach (glob($allModels . '*.php') as $mod){
+            require_once $mod;
         }
     }
 }

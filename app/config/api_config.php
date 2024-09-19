@@ -10,6 +10,9 @@ $api_config['yros_key_enabled'] = false;  //Enable or Disable api key/ disable f
 $api_config['yros_key'] = ["yros"]; //Api keys for authentication, you can add more
 
 
+$api_config['local_api_link'] = "http://localhost/php_raw/api/";
+
+
 
 
 

@@ -23,9 +23,15 @@ if(! function_exists("download_file")){
 }
 
 
+if(! function_exists("auto_rename")){
+    function auto_rename(){
+        $YROS = &Yros::get_instance();
+        return $YROS->filelib->auto_rename_method();
+    }
+}
+
 if(! defined("auto_rename")){
-    $YROS = &Yros::get_instance();
-    define("auto_rename", $YROS->filelib->auto_rename_method());
+    define("auto_rename", auto_rename());
 }
 
 if(! function_exists("delete_file")){
@@ -176,6 +182,30 @@ if(! function_exists('function_is_called')){
         }
         return false;
     }
+}
+
+if(! function_exists("model")){
+    function model(string $model_function, array $send_data=[]) {
+        $modelarr = explode("/", $model_function);
+        $class = $modelarr[0];
+
+        $model_path = "app/models/$class.php";
+        
+        include $model_path;
+
+        $func = $modelarr[1];
+        $classname = new $class();
+        
+            if(!empty($send_data)){
+                foreach($send_data as $d=>$value){
+                    $_GET[$d] = $value;
+                }
+            }
+
+            $result = $classname->$func(); 
+            return $result;          
+    }
+    
 }
 
 

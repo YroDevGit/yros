@@ -6,6 +6,7 @@ function routing_controller($urls){
     $url = rtrim($url, '/');
     $url = explode('/', $url);
     if($url[0]=="API"||$url[0]=="api"||$url[0]=="Api"){
+        include "app/system/Api.php";
         if(! isset($url[1])){
             echo  json_encode(["code"=>404, "status"=>"API Not specified", "message"=>"API:: API not specified.!"]);exit;
         }

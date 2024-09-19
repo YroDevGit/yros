@@ -7,10 +7,9 @@
  * 
  */
 
-    require_once "app/system/core/yroscore.php";
-    function yros_php_framework_json_config(){
-        return ["code"=>200, "status"=>"success", "message"=>"YROS PHP FRAMEWORK"];
-    }
+ require_once "app/config/settings.php";
+ require_once "app/system/core/yroscore.php";
+   
 
 ?>
 
