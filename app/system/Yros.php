@@ -21,7 +21,7 @@ class Yros {
     public $yrosmail;
 
     public $yrossecure;
-
+    public $modellib;
     private $old_post_data;
     public $POST;
     public $removeinputvalues = true;
@@ -56,6 +56,8 @@ class Yros {
         $this->yrosmail = new Yros_mail();
         $this->load_library("secure_lib");
         $this->yrossecure = new Secure_lib();
+        $this->load_library("model_lib");
+        $this->modellib = new Model_lib();
         $this->load_helper("db_helper");
         $this->load_helper("api_helper");
         $this->load_helper("array_helper");
