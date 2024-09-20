@@ -10,7 +10,7 @@
         // Model:: stores global functions that can be called accross controllers.
 
         public function test(){
-            return "this a test model";
+            return "this is a test model.!";
         }
 
         

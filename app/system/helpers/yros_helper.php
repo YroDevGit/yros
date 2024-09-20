@@ -184,13 +184,7 @@ if(! function_exists('function_is_called')){
     }
 }
 
-if(! function_exists("model")){
-    function model(string $model_function, array $send_data=[]) {
-        $YROS = &Yros::get_instance();
-        return $YROS->modellib->model($model_function, $send_data);
-    }
-    
-}
+
 
 
 

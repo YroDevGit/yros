@@ -66,6 +66,7 @@ class Yros {
         $this->load_helper("yros_helper");
         $this->load_helper("session_helper");
         $this->load_helper("email_helper");
+        $this->load_helper("controller_model");
         $this->old_post_data = post_data();
         $this->store_input_errors_storage_yros();
         $this->store_input_values_storage_yros();

@@ -14,7 +14,7 @@ class Main extends Yros{
 
 
     function welcome_page(){
-        view_page("welcome"); 
+        view_page("welcome");
     }
 
     function page_not_found(){
