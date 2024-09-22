@@ -22,7 +22,7 @@ class Session_lib{
         unset($_SESSION[$key]);
     }
 
-    public function set_flash_data($key, $data){
+    public function set_flash_data(string $key, string|float|int $data){
         $_SESSION["flash_data_".$key] = $data;
     }
 

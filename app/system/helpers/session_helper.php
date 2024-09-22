@@ -23,7 +23,7 @@ if(! function_exists("remove_session_data")){
 }
 
 if(! function_exists("set_flash_data")){
-    function set_flash_data(string $key, $data){
+    function set_flash_data(string $key, string|float|int $data){
         $YROS = &Yros::get_instance();
         $YROS->sessionlib->set_flash_data($key, $data);
     }
