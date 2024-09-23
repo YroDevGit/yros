@@ -34,7 +34,7 @@ class Model_lib{
         try{
             $data = [];
             if($send_string != "" && $send_string != null){
-                $exp = preg_split('/(\|\||&)/', $send_string);
+                $exp = preg_split('/[&|]/', $send_string);
                 foreach($exp as $ex){
                     $keyvalue = explode("=", $ex);               
                         $key = $keyvalue[0];

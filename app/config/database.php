@@ -4,7 +4,7 @@
 
 $hostname = "localhost"; //hostname
 
-$dbname = "school"; //database name
+$dbname = ""; //database name
 $username = "root"; //username
 $password = ""; //password
 

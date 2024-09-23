@@ -18,16 +18,45 @@ if(! function_exists("db_set_query")){
 
 
 if(! function_exists("db_insert")){
-    function db_insert(string $table, array $data){
+    function db_insert(string $table, string|array $data){
         $YROS = &Yros::get_instance();
-        return $YROS->dblib->insert($table, $data);
+        if(is_array($data)){
+            return $YROS->dblib->insert($table, $data);
+        }
+        else{
+            $arr = preg_split('/[&|]/', $data);
+            $dt = array();
+            foreach($arr as $key){
+                $k = $key;
+                $kv = explode("=", $k);
+                $kk = $kv[0];
+                $vv = $kv[1];
+                $dt[$kk] = $vv;
+            }
+            return $YROS->dblib->insert($table, $dt);
+        }
+        
     }
 }
 
 if(! function_exists("db_delete")){
-    function db_delete(string $table, array $conditions){
+    function db_delete(string $table, array|string $conditions){
         $YROS = &Yros::get_instance();
-        return $YROS->dblib->deleteQuery($table, $conditions);
+        if(is_array($conditions)){
+            return $YROS->dblib->deleteQuery($table, $conditions);
+        }
+        else{
+            $arr = preg_split('/[&|]/', $conditions);
+            $dt = array();
+            foreach($arr as $key){
+                $k = $key;
+                $kv = explode("=", $k);
+                $kk = $kv[0];
+                $vv = $kv[1];
+                $dt[$kk] = $vv;
+            }
+            return $YROS->dblib->deleteQuery($table, $dt);
+        }
     }
 }
 

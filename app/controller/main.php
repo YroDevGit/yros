@@ -19,6 +19,7 @@ class Main extends Yros{
 
     function page_not_found(){
         view_error("page_not_found.php");
+        
     }
 
     function error_page(){
