@@ -1,6 +1,5 @@
 <?php
 
-use function PHPSTORM_META\map;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Main extends Yros{
@@ -19,21 +18,11 @@ class Main extends Yros{
 
     function page_not_found(){
         view_error("page_not_found.php");
-        
     }
 
     function error_page(){
         view_error("error_page.php");
     }
-
-    function arr(){
-        echo get_root_page();
-    }
-
-    function students(){
-        view_page("student.php");
-    }
-
 
     
 

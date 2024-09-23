@@ -111,6 +111,12 @@ if(! function_exists("form_open")){
     }
 }
 
+if(! function_exists("set_favicon")){
+    function set_favicon(string $path){
+        return '<link rel="shortcut icon" href="'.$path.'" type="image/x-icon">';
+    }
+}
+
 if(! function_exists("form_close")){
     function form_close(){
         return "</form>";
