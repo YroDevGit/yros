@@ -71,7 +71,8 @@ class Yros {
         $this->store_input_errors_storage_yros();
         $this->store_input_values_storage_yros();
         //$this->load_all_models();
-        require_once "app/autorun.php";
+        require_once "app/yros_custom/autorun.php";
+        require_once "app/yros_custom/components.php";
     }
 
     public static function &get_instance()
