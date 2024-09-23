@@ -109,8 +109,10 @@ function addApi($name){
 }
 
 function runDev(){
-    $php_command = 'php -S localhost:9507';
-    echo "\nWelcome to Yros framework\nServer run at: http://localhost:9507\n\n";
+    include "app/config/settings.php";
+    $port = $app_settings['port'];
+    $php_command = 'php -S localhost:'.$port;
+    echo "\nWelcome to Yros, PHP framework (Made by: Tyrone Limen Malocon)\nServer run at: http://localhost:$port\n\n";
     passthru($php_command); 
 }
 
