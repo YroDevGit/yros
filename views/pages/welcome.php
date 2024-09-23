@@ -22,7 +22,7 @@
     </div>
     <footer style="display:block;">
         <section>
-            Developed by Tyrone Limen Malocon
+            Developed by Tyrone Limen Malocon.
         </section>
 </footer>
     
