@@ -69,6 +69,9 @@ else{
     elseif($route=="run"||$route=="RUN"){
         runDev();
     }
+    else if($routelower=="test_routes"){
+        yrosTestRoutes();  
+    }
     else{
         echo "❌ Invalid command";
     }

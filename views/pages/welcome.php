@@ -22,7 +22,7 @@
     </div>
     <footer style="display:block;">
         <section>
-            Developed by Tyrone Limen Malocon.
+            <a href="https://www.facebook.com/Crush.mo05/" target="_blank" class="anchored-link">Developed by Tyrone Limen Malocon.</a>
         </section>
 </footer>
     
@@ -88,6 +88,14 @@ p {
 
 .get-started:hover {
     background-color: rgba(254, 197, 19, 1);
+}
+.anchored-link{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+.anchored-link:hover{
+    color:blue;
 }
 
 </style>

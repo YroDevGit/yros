@@ -116,4 +116,13 @@ function runDev(){
     passthru($php_command); 
 }
 
+function yrosTestRoutes(){
+    include_once "app/config/routes.php";
+    include_once "app/system/test/routes_test.php";
+    include_once "app/system/Yros.php";
+    define("BASEPATH", "d");
+    $rtest = new RouteTest($routes);
+    $rtest->testRoutes();
+}
+
 ?>
