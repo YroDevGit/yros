@@ -35,7 +35,7 @@ class RouteTest
                 $failed++;
                 continue;
             }
-            else if(strtolower($route)=="public" || strtolower($route)=="api" || strtolower($route)=="controller" || strtolower($route)=="app" || strtolower($route)=="models"){
+            else if(strtolower($route)=="public" || strtolower($route)=="api" || strtolower($route)=="controller" || strtolower($route)=="app" || strtolower($route)=="models" || strtolower($route)=="views"){
                 $loweroute = strtolower($route);
                 echo "❌ Route: '$loweroute', $loweroute is a case sensitive name, might cause errors.\n";
                 $failed++;

@@ -29,6 +29,9 @@ else{
             else{
                 $cmnd = strtolower($route);
                 if($cmnd == "make_controller"|| $cmnd == "+controller" || $cmnd == "m_c"){
+                    if(strtolower($filename)=="public" || strtolower($filename)=="app" || strtolower($filename)=="api" || strtolower($filename)=="controller" || strtolower($filename)=="models" || strtolower($filename)=="views"){
+                        echo "❌ ERROR:: Controller name '$filename' is a case sensitive name.";exit;
+                    }
                     $createcontroller = addController($filename);
                     if($createcontroller==200){
                         echo "\n✅ Controller $filename created.\nOpen @: app/controller/$filename.php\n\n";exit;
