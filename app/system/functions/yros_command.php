@@ -23,13 +23,13 @@ else{
             if($filename==""||$filename==null){
                 echo "No file to create, please add filename";exit;
             }
-            else if($filelower == "api" || $filelower == "controller" || $filelower == "controllers" || $filelower == "public" || $filelower == "views"){
+            else if($filelower == "api" || $filelower == "public" || $filelower == "views"){
                 echo "❌ File not created, Filename '$filename' is not valid.! , try another file name.";exit;
             }
             else{
                 $cmnd = strtolower($route);
                 if($cmnd == "make_controller"|| $cmnd == "+controller" || $cmnd == "m_c"){
-                    if(strtolower($filename)=="public" || strtolower($filename)=="app" || strtolower($filename)=="api" || strtolower($filename)=="controller" || strtolower($filename)=="models" || strtolower($filename)=="views"){
+                    if(strtolower($filename)=="public" || strtolower($filename)=="app" || strtolower($filename)=="api" || strtolower($filename)=="views"){
                         echo "❌ ERROR:: Controller name '$filename' is a case sensitive name.";exit;
                     }
                     $createcontroller = addController($filename);
