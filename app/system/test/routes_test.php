@@ -14,6 +14,14 @@ class RouteTest
         $count = 0;
         $success = 0;
         $failed = 0;
+
+        $directory = 'app/controller/*.php'; 
+
+        $files = glob($directory);
+        $filenames = [];
+        foreach ($files as $file) {
+            $filenames[]=substr(basename($file), 0, -4);
+        }
         foreach ($this->routes as $route => $controllerMethod) {
             $count++;
             $exp = explode('/', $controllerMethod);
@@ -21,8 +29,13 @@ class RouteTest
             $method = isset($exp[1]) ? $exp[1] : "index";
 
             $controllerClass = ucfirst($controller); 
-
-            if(! file_exists("app/controller/".$controllerClass.".php")){
+            
+            if(in_array(ucfirst($route), $filenames)){
+                echo "❌ Route name '$controller' conflicts with Controller name '$controllerClass' .\n";
+                $failed++;
+                continue;
+            }
+            else if(! file_exists("app/controller/".$controllerClass.".php")){
                 echo "❌ Controller $controllerClass for route '$route' :: '$controllerMethod' does not exist.\n";
                 $failed++;
                 continue;
