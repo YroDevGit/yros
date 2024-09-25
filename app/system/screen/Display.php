@@ -33,7 +33,7 @@ class Display{
             $cl = isset($classfunction[0])? $classfunction[0] : "";
             $func = isset($classfunction[1]) && $classfunction[1] !="" ? $classfunction[1] : "index";
             $ucfirst = ucfirst($cl);
-            return "Route: \$route['default'], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
+            return "Route: [<span style='color:#009d80;'>default</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
         }
         else{
             //echo ($sliced[1]!=null||$sliced[1]!="") ? "good" : "bad";
@@ -45,7 +45,7 @@ class Display{
                     $cl = isset($exp[0])? $exp[0] : "";
                     $func = isset($exp[1]) && $exp[1] !="" ? $exp[1] : "index";
                     $ucfirst = ucfirst($cl);
-                    return "Route: \$route['$onevalue'], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
+                    return "Route: [<span style='color:#009d80;'>$onevalue</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
                 }
                 else{
                     $exp = explode("/", $sliced[1]);
@@ -62,7 +62,7 @@ class Display{
                     $cl = isset($exp[0])? $exp[0] : "";
                     $func = isset($exp[1]) && $exp[1] !="" ? $exp[1] : "index";
                     $ucfirst = ucfirst($cl);
-                    return "Route: \$route['$onevalue'], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
+                    return "Route: [<span style='color:#009d80;'>$onevalue</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
                 }
                 else{
                     $exp = explode("/", $sliced[0]);
@@ -88,7 +88,7 @@ class Display{
                     return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$funcplain</span>]";
                 }
                 else{
-                    return "Route: Not called \$route['$hasRoute'], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$funcplain</span>]";
+                    return "Route: Not called [<span style='color:#009d80;'>$hasRoute</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$funcplain</span>]";
                 }
                 
            }
