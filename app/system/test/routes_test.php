@@ -35,6 +35,12 @@ class RouteTest
                 $failed++;
                 continue;
             }
+            else if(strtolower($route)=="public" || strtolower($route)=="api" || strtolower($route)=="controller" || strtolower($route)=="app" || strtolower($route)=="models"){
+                $loweroute = strtolower($route);
+                echo "❌ Route: '$loweroute', $loweroute is a case sensitive name, might cause errors.\n";
+                $failed++;
+                continue;
+            }
             else if(! file_exists("app/controller/".$controllerClass.".php")){
                 echo "❌ Controller $controllerClass for route '$route' :: '$controllerMethod' does not exist.\n";
                 $failed++;
