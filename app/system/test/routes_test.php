@@ -16,7 +16,9 @@ class RouteTest
         $failed = 0;
         foreach ($this->routes as $route => $controllerMethod) {
             $count++;
-            list($controller, $method) = explode('/', $controllerMethod);
+            $exp = explode('/', $controllerMethod);
+            $controller = $exp[0];
+            $method = isset($exp[1]) ? $exp[1] : "index";
 
             $controllerClass = ucfirst($controller); 
 
