@@ -9,7 +9,7 @@ if(! defined("yros_input_old_value_1005_yro")){
     define("yros_input_old_value_1005_yro","yros_input_old_value_1005_yro_");
 }
 class Yros {
-    // Please do not modify anything, if you want something to add, Go to:: app/autorun.php
+    // Please do not modify anything, if you want something to add, Go to:: app/yros_custom/autorun.php
     public $apilib;
     public $filelib;
     public $sessionlib;
@@ -73,6 +73,9 @@ class Yros {
         //$this->load_all_models();
         require_once "app/yros_custom/autorun.php";
         require_once "app/yros_custom/components.php";
+        require_once "app/system/screen/Display.php";
+        $disp = new Display();
+        $disp->display_route();
     }
 
     public static function &get_instance()
