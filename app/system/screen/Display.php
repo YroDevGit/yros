@@ -33,7 +33,7 @@ class Display{
             $cl = isset($classfunction[0])? $classfunction[0] : "";
             $func = isset($classfunction[1]) && $classfunction[1] !="" ? $classfunction[1] : "index";
             $ucfirst = ucfirst($cl);
-            return "Route: \$route['default'], [Controller: $ucfirst.php] [class: ".$ucfirst."] [function: ".$func."]";
+            return "Route: \$route['default'], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
         }
         else{
             //echo ($sliced[1]!=null||$sliced[1]!="") ? "good" : "bad";
@@ -45,13 +45,13 @@ class Display{
                     $cl = isset($exp[0])? $exp[0] : "";
                     $func = isset($exp[1]) && $exp[1] !="" ? $exp[1] : "index";
                     $ucfirst = ucfirst($cl);
-                    return "Route: \$route['$onevalue'], [Controller: $ucfirst.php] [class: ".$ucfirst."] [function: ".$func."]";
+                    return "Route: \$route['$onevalue'], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
                 }
                 else{
                     $exp = explode("/", $sliced[1]);
                     $class = isset($exp[0]) ? $exp[0] : "";
                     $ucfirst = ucfirst($class);
-                    return "Route: Not set, [Controller: $ucfirst.php] [class: ".$ucfirst."] [function: index]";
+                    return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
                 }
            }
            else if(($sliced[1]==null||$sliced[1]=="") && ($sliced[0]!=null||$sliced[0]!="")){
@@ -62,32 +62,33 @@ class Display{
                     $cl = isset($exp[0])? $exp[0] : "";
                     $func = isset($exp[1]) && $exp[1] !="" ? $exp[1] : "index";
                     $ucfirst = ucfirst($cl);
-                    return "Route: \$route['$onevalue'], [Controller: $ucfirst.php] [class: ".$ucfirst."] [function: ".$func."]";
+                    return "Route: \$route['$onevalue'], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
                 }
                 else{
                     $exp = explode("/", $sliced[0]);
                     $class = isset($exp[0]) ? $exp[0] : "";
                     $ucfirst = ucfirst($class);
-                    return "Route: Not set, [Controller: $ucfirst.php] [class: ".$ucfirst."] [function: index]";
+                    return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
                 }
             }
            else if(($sliced[0]!=null||$sliced[0]!="") && ($sliced[1]!=null||$sliced[1]!="")){
                 $class = $sliced[0];
                 $func = $sliced[1];
+                $funcplain = explode("?", $func)[0];
                 $ucfirst = ucfirst($class);
                 $hasRoute = "";
                 foreach($routes as $rts=>$r){
                     $getr =  $routes[$rts];
-                    if($getr == $class."/".$func || $getr == $class."/".$func."/"){
+                    if($getr == $class."/".$funcplain || $getr == $class."/".$funcplain."/"){
                         $hasRoute =  $rts;
                     }
                     
                 }
                 if($hasRoute==""){
-                    return "Route: Not set, [Controller: $ucfirst.php] [class: ".$ucfirst."] [function: ".$func."]";
+                    return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$funcplain</span>]";
                 }
                 else{
-                    return "Route: Not called \$route['$hasRoute'], [Controller: $ucfirst.php] [class: ".$ucfirst."] [function: ".$func."]";
+                    return "Route: Not called \$route['$hasRoute'], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$funcplain</span>]";
                 }
                 
            }
@@ -100,14 +101,50 @@ class Display{
         //return $sliced;
     }
 
+    public function getAllPost(){
+        if(!empty($_POST)){
+            $postdata = [];
+            foreach($_POST as $post=>$value){
+                $postdata[] = "[".$post."]";
+            }
+            $imp = implode(" ", $postdata);
+            return "POST/INPUT: ".$imp;
+        }
+        else{
+            return "POST/INPUT: No post data";
+        }
+    }
+
     public function display_route(){
         include "app/config/settings.php";
         if($app_settings['page_guide']){
         ?>
         <div class="yros-screen-routes-display" align="center">
-            <div>
+            <div class="yros-screen-text-wrapped" style="color:black;">
                 <?=$this->getRouteURL()?>
             </div>
+            <?php if(! empty($_POST)): ?>
+                <div class="yros-screen-text-wrapped">
+                    <span style="color:blue;cursor:pointer;" onclick="yros_screen_see_more_dd(this)">see more</span>
+                </div>
+                <div class="yros-screen-text-wrapped" style="display: none;" id="yros_screen_see_more">
+                    <div style="color:#fc3154;">
+                        <?=$this->getAllPost()?>
+                    </div>
+                </div>
+                <script>
+                    function yros_screen_see_more_dd($myself){
+                        if(document.getElementById('yros_screen_see_more').style.display == 'none'){
+                            document.getElementById('yros_screen_see_more').style.display = '';
+                            $myself.innerHTML = "hide post";
+                        }
+                        else{
+                            document.getElementById('yros_screen_see_more').style.display = 'none';
+                            $myself.innerHTML = "see more";
+                        }
+                    }
+                </script>
+            <?php endif; ?>
         </div>
         
         <style>
@@ -123,12 +160,17 @@ class Display{
                 text-align: center;
                 justify-content: center;
                 justify-self: center;
-                cursor: pointer;
                 background-color: white;
                 left: 50%;
                 right: 50%;
                 font-family: monospace;
                 font-size: 12px;
+            }
+
+            .yros-screen-text-wrapped{
+                width: 100%;
+                padding: 2px 3px 2px 3px;
+                text-wrap: wordwrap;
             }
             
 
