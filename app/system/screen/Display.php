@@ -51,7 +51,20 @@ class Display{
                     $exp = explode("/", $sliced[1]);
                     $class = isset($exp[0]) ? $exp[0] : "";
                     $ucfirst = ucfirst($class);
-                    return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
+                    $hasRoute = "";
+                    foreach($routes as $rts=>$rtv){
+                        $getr = $routes[$rts];
+                        if(strtolower($getr)==strtolower($class) || strtolower($getr)==strtolower($class)."/" || strtolower($getr)==strtolower($class)."/index"){
+                            $hasRoute = $rts;
+                        }
+                    }
+                    if($rts==""){
+                        return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
+                    }
+                    else{
+                        return "Route: Not called [<span style='color:#009d80;'>$rts</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
+                    }
+                    
                 }
            }
            else if(($sliced[1]==null||$sliced[1]=="") && ($sliced[0]!=null||$sliced[0]!="")){
@@ -68,7 +81,19 @@ class Display{
                     $exp = explode("/", $sliced[0]);
                     $class = isset($exp[0]) ? $exp[0] : "";
                     $ucfirst = ucfirst($class);
-                    return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
+                    $hasRoute = "";
+                    foreach($routes as $rts=>$rtv){
+                        $getr = $routes[$rts];
+                        if(strtolower($getr)==strtolower($class) || strtolower($getr)==strtolower($class)."/" || strtolower($getr)==strtolower($class)."/index"){
+                            $hasRoute = $rts;
+                        }
+                    }
+                    if($rts==""){
+                        return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
+                    }
+                    else{
+                        return "Route: Not called [<span style='color:#009d80;'>$rts</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
+                    }
                 }
             }
            else if(($sliced[0]!=null||$sliced[0]!="") && ($sliced[1]!=null||$sliced[1]!="")){
@@ -77,13 +102,23 @@ class Display{
                 $funcplain = explode("?", $func)[0];
                 $ucfirst = ucfirst($class);
                 $hasRoute = "";
-                foreach($routes as $rts=>$r){
-                    $getr =  $routes[$rts];
-                    if($getr == $class."/".$funcplain || $getr == $class."/".$funcplain."/"){
-                        $hasRoute =  $rts;
+                if(strtolower($funcplain)== "index"){
+                    foreach($routes as $rts=>$r){
+                        $getr =  $routes[$rts];
+                        if($getr == $class."/".$funcplain || $getr == $class."/".$funcplain."/" || $getr == $class || $getr == $class."/"){
+                            $hasRoute =  $rts;
+                        }
                     }
-                    
                 }
+                else{
+                    foreach($routes as $rts=>$r){
+                        $getr =  $routes[$rts];
+                        if($getr == $class."/".$funcplain || $getr == $class."/".$funcplain."/"){
+                            $hasRoute =  $rts;
+                        }
+                    }
+                }
+                
                 if($hasRoute==""){
                     return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$funcplain</span>]";
                 }
