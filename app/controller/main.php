@@ -16,10 +16,6 @@ class Main extends Yros{
         view_page("welcome.php");
     }
 
-    function customize(){
-        echo "hello world";
-    }
-
    
     function page_not_found(){
         view_error("page_not_found.php");
