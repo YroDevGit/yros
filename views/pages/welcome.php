@@ -16,13 +16,14 @@
                 <img src="<?=img('giphy.gif')?>" alt="Yros Logo">
             </div>
             <h1>Welcome to Yros Framework</h1>
+            
             <p><small style="font-family:monospace;font-size:16px;">Yros is a light-weight PHP framework but can create high quality web applications</small></p>
             <a href="#" class="get-started">Get Started</a>
         </div>
     </div>
     <footer style="display:block;">
-        <section>
-            <a href="https://www.facebook.com/Crush.mo05/" target="_blank" class="anchored-link">Developed by Tyrone Limen Malocon.</a>
+        <section align='center'>
+            <a href="https://www.facebook.com/Crush.mo05/" target="_blank" class="anchored-link dev-mono">Developed by Tyrone Limen Malocon.</a>
         </section>
     </footer>
 
@@ -49,6 +50,11 @@
         background: linear-gradient(to right, rgba(254, 197, 19, 0.8), rgba(255, 255, 255, 0.9));
     }
 
+    .dev-mono{
+        font-family: monospace;
+        font-size: 15px;
+    }
+
     .body {
         margin: 0;
         padding: 0;
@@ -56,7 +62,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 90vh;
+        height: 80vh;
     }
 
     .container {
