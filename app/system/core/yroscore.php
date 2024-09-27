@@ -13,7 +13,7 @@ require_once "app/system/Yros.php";
 
 require_once "app/system/Model.php";
 require_once "app/system/extras/database.php";
-require_once "app/config/routes.php";
+require_once "app/system/functions/myroutes.php";
 
 
 if(! function_exists("define_value")){
@@ -105,7 +105,7 @@ function getRoute(string $router, callable $func){
     }
 }
 
-require_once "app/config/routes.php";
+require_once "app/system/functions/myroutes.php";
 
 if(empty($routes)){
     die("Route data not found.!");

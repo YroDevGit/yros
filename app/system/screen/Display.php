@@ -23,7 +23,7 @@ class Display{
     }
 
     public function getRouteURL(){
-        include "app/config/routes.php";
+        include "app/system/functions/myroutes.php";
         $uri = $this->getRequestURI();
         $arr = explode("/", $uri);
         $sliced = array_slice($arr,-2);

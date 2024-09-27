@@ -1,7 +1,7 @@
 <?php
 
 function routing_controller($urls){
-    include "app/config/routes.php";
+    include "app/system/functions/myroutes.php";
     $url = isset($urls) ? $urls :$routes['default'];
     $url = rtrim($url, '/');
     $url = explode('/', $url);
