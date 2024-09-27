@@ -24,6 +24,7 @@ class Routes
     public static function set_default_route(string $path){
         self::set(["default"=>$path]);
     }
+
 }
 
 ?>
