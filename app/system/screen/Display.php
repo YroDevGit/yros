@@ -58,7 +58,7 @@ class Display{
                             $hasRoute = $rts;
                         }
                     }
-                    if($rts==""){
+                    if($hasRoute==""){
                         return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
                     }
                     else{
@@ -88,7 +88,7 @@ class Display{
                             $hasRoute = $rts;
                         }
                     }
-                    if($rts==""){
+                    if($hasRoute==""){
                         return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
                     }
                     else{
