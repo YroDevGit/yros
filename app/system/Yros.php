@@ -36,9 +36,7 @@ class Yros {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if(! defined('save_input_values')){define("save_input_values", true);}
-        if(! defined('yes')){define("yes", true);}
-        if(! defined('no')){define("no", true);}
+        $this->load_app("system/code/definitions");
         include_once "app/config/database.php";
         $this->db = new Database($dbConfig);
         $this->load_library("db_lib");
@@ -185,6 +183,22 @@ class Yros {
         }
         else{
             include "app/system/libraries/".$path;
+        }
+    }
+
+    public function load_app(string $file, bool $once=true){
+        $path = "";
+        if(substr($file, -4)==".php"){
+            $path = $file;
+        }
+        else{
+            $path = $file.".php";
+        }
+        if($once==true){
+            include_once "app/".$path;
+        }
+        else{
+            include "app/".$path;
         }
     }
 
