@@ -30,6 +30,18 @@ if(! function_exists('post_data')){
     }
 }
 
+if(! function_exists("post_exist")){
+    function post_exist(string $postname){
+        $pdata = post_data();
+        if(array_key_exists($postname, $pdata)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
 if(! function_exists("post")){
     function post(string $inputname){
         /**
