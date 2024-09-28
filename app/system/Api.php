@@ -16,7 +16,7 @@ class Api {
     public $POST;
     private static $instance;
     public function __construct() {
-        new Yros();
+        new Yros(true);
         self::$instance =& $this;
         if (session_status() == PHP_SESSION_NONE) {
             session_start();

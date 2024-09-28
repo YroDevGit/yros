@@ -31,7 +31,7 @@ class Yros {
     public $old_input_value_mask_yros = yros_input_old_value_1005_yro;
     public $yros_input_validation_errors = [];
     private static $instance;
-    public function __construct() {
+    public function __construct($isYrosApiOrModel=false) {
         self::$instance =& $this;
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -73,9 +73,11 @@ class Yros {
         //$this->load_all_models();
         require_once "app/yros_custom/autorun.php";
         require_once "app/yros_custom/components.php";
-        require_once "app/system/screen/Display.php";
-        $disp = new Display();
-        $disp->display_route();
+        if($isYrosApiOrModel==false){
+            require_once "app/system/screen/Display.php";
+            $disp = new Display();
+            $disp->display_route();
+        }
     }
 
     public static function &get_instance()
