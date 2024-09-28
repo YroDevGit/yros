@@ -36,7 +36,7 @@ class Yros {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-
+        if(! defined('save_input_values')){define("save_input_values", true);}
         include_once "app/config/database.php";
         $this->db = new Database($dbConfig);
         $this->load_library("db_lib");
