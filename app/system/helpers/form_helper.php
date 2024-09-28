@@ -176,6 +176,12 @@ if(! function_exists("get_input_error")){
     }
 }
 
+if(! function_exists("input_error")){
+    function input_error(string $input){
+        return get_input_error($input);
+    }
+}
+
 if(! function_exists("get_all_input_error")){
     function get_all_input_error():array{
         $YROS = &Yros::get_instance();
