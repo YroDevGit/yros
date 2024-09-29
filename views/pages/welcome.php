@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Yros</title>
 
-    <link rel="shortcut icon" href="<?=img('yros.png')?>" type="image/x-icon" height="100%" >
+    <link rel="shortcut icon" href="<?=img('yros.ico')?>" type="image/x-icon" height="100%" >
 </head>
 <body>
     <div class="body">
