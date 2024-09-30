@@ -35,7 +35,11 @@ class Db_lib{
             $results = $YROS->db->resultSet();
             
             if (stripos(trim($command), 'select') === 0) {
-                return ["code"=>SUCCESS, "status"=>"success", "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$results[0]];
+                $frow = [];
+                if(!empty($results)){
+                    $frow = isset($results[0]) ? $results[0] : [];
+                }
+                return ["code"=>SUCCESS, "status"=>"success", "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$frow];
             }
             else if(stripos(trim($sql), 'insert') === 0){
                 return ["code"=>SUCCESS, "status"=>"success", "message" => "Data inserted successfully", "insert_id"=>$YROS->db->lastInsertId(), "parameters"=>$param];
