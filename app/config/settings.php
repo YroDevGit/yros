@@ -13,6 +13,8 @@ $app_settings['encryption_key'] = "yros"; //set up unique encryption key for sec
 
 $app_settings['port'] = "5010"; // app server port: example 5010 in http://localhost:5010
 
+$app_settings['enable_curly_template'] = false; //Enable {{}} in views files
+
 
 
 //$app_settings['project_root_url'] is the root url of the app. Ex: http://localhost:5010

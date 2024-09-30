@@ -95,15 +95,29 @@ class Yros {
     }
 
     public function view(string $view, array $data = array()){
+        include "app/config/settings.php";
         if(! empty($data)){
             extract($data);
         }
-        if(substr($view, -4)==".php"){
-            include_once "views/".$view;
+        if($app_settings['enable_curly_template']==true){
+            $viewPath = (substr($view, -4) == ".php") ? "views/" . $view : "views/" . $view . ".php";
+                $content = file_get_contents($viewPath);
+                $content = preg_replace('/\{\{\s*(.+?)\s*\}\}/', '<?= htmlspecialchars($1) ?>', $content);
+                $tempFile = 'app/system/cache/' . md5($viewPath) . '.php';
+                file_put_contents($tempFile, $content);
+                include $tempFile;
+                unlink($tempFile);
         }
         else{
-            include_once "views/".$view.".php";
+            if(substr($view, -4)==".php"){
+                include_once "views/".$view;
+            }
+            else{
+                include_once "views/".$view.".php";
+            }
         }
+        
+        
     }
 
     public function view_content(string $view, array $data = array()){

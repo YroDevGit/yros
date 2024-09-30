@@ -16,7 +16,6 @@
                 <img src="<?=img('giphy.gif')?>" alt="Yros Logo">
             </div>
             <h1>Welcome to Yros Framework</h1>
-            
             <p><small style="font-family:monospace;font-size:16px;">Yros is a light-weight PHP framework but can create high quality web applications</small></p>
             <a href="#" class="get-started">Get Started</a>
         </div>

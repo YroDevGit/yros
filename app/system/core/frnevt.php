@@ -1,5 +1,6 @@
 <?php
 
+/*
 function view(string $view, array $data = array()){
     if(! empty($data)){
         extract($data);
@@ -31,5 +32,6 @@ function view(string $view, array $data = array()){
  function view_partial(string $view, array $data = array()){
     view("partials/".$view, $data);
 }
+    */
 
 ?>
