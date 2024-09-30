@@ -28,6 +28,7 @@ class Yros {
     public $inputvaluesstorage = [];
     public $db;
     public $dblib;
+    public $auth;
     public $old_input_value_mask_yros = yros_input_old_value_1005_yro;
     public $yros_input_validation_errors = [];
     private static $instance;
@@ -58,6 +59,9 @@ class Yros {
         $this->yrossecure = new Secure_lib();
         $this->load_library("model_lib");
         $this->modellib = new Model_lib();
+        $this->load_library("auth_lib");
+        $this->auth = new Auth_lib();
+        $this->load_helper("auth_helper");
         $this->load_helper("db_helper");
         $this->load_helper("api_helper");
         $this->load_helper("array_helper");

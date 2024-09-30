@@ -44,7 +44,7 @@ if(! function_exists("remove_flash_data")){
 }
 
 if(! function_exists("set_cookie_value")){
-    function set_cookie_value(string $key, $value, $time = null){
+    function set_cookie_value(string $key, string|int|bool|float $value, $time = null){
         $YROS = &Yros::get_instance();
         if ($time === null) {
             $time = time() + (86400 * 30);
