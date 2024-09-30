@@ -36,10 +36,12 @@ class Db_lib{
             
             if (stripos(trim($command), 'select') === 0) {
                 $frow = [];
+                $has_data = false;
                 if(!empty($results)){
                     $frow = isset($results[0]) ? $results[0] : [];
+                    $has_data = true;
                 }
-                return ["code"=>SUCCESS, "status"=>"success", "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$frow];
+                return ["code"=>SUCCESS, "status"=>"success", "has_data"=>$has_data, "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$frow];
             }
             else if(stripos(trim($sql), 'insert') === 0){
                 return ["code"=>SUCCESS, "status"=>"success", "message" => "Data inserted successfully", "insert_id"=>$YROS->db->lastInsertId(), "parameters"=>$param];
@@ -62,7 +64,7 @@ class Db_lib{
             $result = $YROS->db->delete($table, $conditions);
             if(isset($result)){
                 if($result == 0||$result=="0"){
-                    return ["code"=>200, "status"=>"success", "message"=>"Data deleted successfully", "affected_rows"=>$result, "conditions"=>$conditions];
+                    return ["code"=>200, "status"=>"success", "message"=>"Success, but no Data has been deleted.", "affected_rows"=>$result, "conditions"=>$conditions];
                 }
                 else{
                     return ["code"=>200, "status"=>"success", "message"=>"Data deleted successfully","affected_rows"=>$result, "conditions"=>$conditions];
@@ -86,7 +88,7 @@ class Db_lib{
             $result = $YROS->db->update($table, $data, $conditions);
             if(isset($result)){
                 if($result == 0||$result=="0"){
-                    return ["code"=>200, "status"=>"success", "message"=>"Data updated successfully", "affected_rows"=>$result, "conditions"=>$conditions];
+                    return ["code"=>200, "status"=>"success", "message"=>"Success, but no data has been deleted", "affected_rows"=>$result, "conditions"=>$conditions];
                 }
                 else{
                     return ["code"=>200, "status"=>"success", "message"=>"Data updated successfully", "affected_rows"=>$result, "conditions"=>$conditions];
