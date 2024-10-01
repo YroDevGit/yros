@@ -41,9 +41,25 @@ function routing_controller($urls, $inRoute = false){
         $className = ucfirst($url[0]);
         $methodName = isset($url[1]) ? $url[1] : 'index';
         $is_set = false;
-        if($app_settings['single_route'] && $inRoute == false){
-            foreach($routes as $key=>$value){
-                if(strtolower($key)!="default"){
+        $mainroute = isset($routes['default']) ? $routes['default'] : ""; 
+
+        $noMainRoute = false;
+        if($methodName=="index"){
+            if(strtolower($mainroute)!=strtolower($className)){
+                $noMainRoute = true;
+            }
+            if(strtolower($mainroute)!=strtolower($className."/")){
+                $noMainRoute = true;
+            }
+            if(strtolower($mainroute)!=strtolower($className."/index")){
+                $noMainRoute = true;
+            }
+        }else{
+            $noMainRoute = strtolower($mainroute) != strtolower($className."/".$methodName);
+        }
+
+        if($app_settings['single_route'] && $inRoute == false && $noMainRoute){
+            foreach($routes as $key=>$value){ 
                     if($methodName=="index"){
                         $val = strtolower($value);
                         $r1 = strtolower($className);
@@ -60,9 +76,9 @@ function routing_controller($urls, $inRoute = false){
                             }
                         }
                     }
-                }
             }
             if($is_set==true && $inRoute == false){
+               
                 header("refresh:0;url=".getProjectRoot()."page_not_found"."?err=method&class=$className&method=$methodName&routeisset=1");exit;
             }
         }
