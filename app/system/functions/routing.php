@@ -64,7 +64,7 @@ function routing_controller($urls){
             }
         }
         if($is_set==true){
-            header("refresh:0;url=".getProjectRoot().$routes["page_not_found"]."?err=method&class=$className&method=$methodName&routeisset=1");
+            header("refresh:0;url=".getProjectRoot().$routes["page_not_found"]."?err=method&class=$className&method=$methodName&routeisset=1");exit;
         }
         $classFile = 'app/controller/' . $className . '.php';
 
