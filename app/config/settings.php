@@ -5,8 +5,6 @@
 
 $app_settings['page_guide'] = true; // display route and path details below.
 
-$app_settings['single_route'] = true; // if page route has set, you can't navigate using controller name/function.
-
 $app_settings['error_log'] = false; //Log all php errors // find logs @ app/system/logs/error_logs
 
 $app_settings['save_db_logs'] = false; // log all db activities // find logs @ app/system/logs/sql_logs
@@ -16,6 +14,8 @@ $app_settings['encryption_key'] = "yros"; //set up unique encryption key for sec
 $app_settings['port'] = "5010"; // app server port: example 5010 in http://localhost:5010
 
 $app_settings['enable_curly_template'] = false; //Enable {{}} in views files
+
+$app_settings['single_route'] = true; // if page route has set, you can't navigate using controller name/function.
 
 
 
