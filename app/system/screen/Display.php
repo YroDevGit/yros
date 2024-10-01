@@ -41,6 +41,7 @@ class Display{
             //echo ($sliced[1]!=null||$sliced[1]!="") ? "good" : "bad";
            if(($sliced[0]==null||$sliced[0]=="") && ($sliced[1]!=null||$sliced[1]!="")){
                 $onevalue = $sliced[1];
+                $onevalue = $this->noParam($onevalue);
                 if(array_key_exists($onevalue, $routes)){
                     $val = $routes[$onevalue];
                     $exp = explode("/", $val);
@@ -56,6 +57,7 @@ class Display{
                     $class = isset($exp[0]) ? $exp[0] : "";
                     $ucfirst = ucfirst($class);
                     $hasRoute = "";
+                    $class = $this->noParam($class);
                     $ucfirst = $this->noParam($ucfirst);
                     foreach($routes as $rts=>$rtv){
                         $getr = $routes[$rts];
@@ -74,6 +76,7 @@ class Display{
            }
            else if(($sliced[1]==null||$sliced[1]=="") && ($sliced[0]!=null||$sliced[0]!="")){
                 $onevalue = $sliced[0];
+                $onevalue = $this->noParam($onevalue);
                 if(array_key_exists($onevalue, $routes)){
                     $val = $routes[$onevalue];
                     $exp = explode("/", $val);
@@ -89,6 +92,7 @@ class Display{
                     $class = isset($exp[0]) ? $exp[0] : "";
                     $ucfirst = ucfirst($class);
                     $hasRoute = "";
+                    $class = $this->noParam($class);
                     $ucfirst = $this->noParam($ucfirst);
                     foreach($routes as $rts=>$rtv){
                         $getr = $routes[$rts];
@@ -110,6 +114,7 @@ class Display{
                 $funcplain = $this->noParam($func);//explode("?", $func)[0];
                 $ucfirst = ucfirst($class);
                 $hasRoute = "";
+                $class = $this->noParam($class);
                 $ucfirst = $this->noParam($ucfirst);
                 if(strtolower($funcplain)== "index"){
                     foreach($routes as $rts=>$r){
