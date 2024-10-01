@@ -13,7 +13,9 @@ function addController($name){
             public function __construct() {
                 parent::__construct();
                 \$YROS = &Yros::get_instance();
+                //Add initial codes here...
             }
+
 
             function index(){
                 echo 'Hello Yros user. This is $newname controller';
@@ -49,6 +51,7 @@ function addModel($name){
             public function __construct() {
                 parent::__construct();
                 \$YROS = &Yros::get_instance();
+                //Add initial codes here...
             }
 
             // Model:: stores global functions that can be called accross controllers.
