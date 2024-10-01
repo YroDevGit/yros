@@ -37,9 +37,33 @@ function routing_controller($urls){
         }
     }
     else{
+        include "app/config/settings.php";
         $className = ucfirst($url[0]);
         $methodName = isset($url[1]) ? $url[1] : 'index';
-
+        $is_set = false;
+        if($app_settings['single_route']){
+            foreach($routes as $key=>$value){
+                if($methodName=="index"){
+                    $val = strtolower($value);
+                    $r1 = strtolower($className);
+                    $r2 = strtolower($className."/");
+                    $r3 = strtolower($className."/index");
+                    if($val == $r1 || $val == $r2 || $val == $r3){
+                        $is_set = true;
+                    }
+                }
+                else{
+                    foreach($routes as $key=>$value){
+                        if(strtolower($value) == strtolower($className."/".$methodName)){
+                            $is_set =true;
+                        }
+                    }
+                }
+            }
+        }
+        if($is_set==true){
+            header("refresh:0;url=".getProjectRoot().$routes["page_not_found"]."?err=method&class=$className&method=$methodName&routeisset=1");
+        }
         $classFile = 'app/controller/' . $className . '.php';
 
         if (file_exists($classFile)) {
