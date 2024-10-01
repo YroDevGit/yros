@@ -160,10 +160,10 @@ if(! isset($routes['default'])){
    
     if(array_key_exists($_urls, $routes)){
         $val = $routes[$_urls];
-        routing_controller($val);
+        routing_controller($val, true);
     }
     else{
-        routing_controller($_urls);
+        routing_controller($_urls, false);
     }
 
 

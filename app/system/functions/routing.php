@@ -1,6 +1,6 @@
 <?php
 
-function routing_controller($urls){
+function routing_controller($urls, $inRoute = false){
     include "app/system/functions/myroutes.php";
     $url = isset($urls) ? $urls :$routes['default'];
     $url = rtrim($url, '/');
@@ -41,7 +41,7 @@ function routing_controller($urls){
         $className = ucfirst($url[0]);
         $methodName = isset($url[1]) ? $url[1] : 'index';
         $is_set = false;
-        if($app_settings['single_route']){
+        if($app_settings['single_route'] && $inRoute == false){
             foreach($routes as $key=>$value){
                 if(strtolower($key)!="default"){
                     if($methodName=="index"){
@@ -64,7 +64,7 @@ function routing_controller($urls){
             }
         }
         if($is_set==true){
-            header("refresh:0;url=".getProjectRoot().$routes["page_not_found"]."?err=method&class=$className&method=$methodName&routeisset=1");exit;
+            header("refresh:0;url=".getProjectRoot()."page_not_found"."?err=method&class=$className&method=$methodName&routeisset=1");exit;
         }
         $classFile = 'app/controller/' . $className . '.php';
 
@@ -77,13 +77,13 @@ function routing_controller($urls){
                 if (method_exists($classInstance, $methodName)) {
                     $classInstance->$methodName();
                 } else {
-                    header("refresh:0;url=".getProjectRoot().$routes["page_not_found"]."?err=method&class=$className&method=$methodName");
+                    header("refresh:0;url=".getProjectRoot()."page_not_found"."?err=method&class=$className&method=$methodName");
                 }
             } else {
-                header("refresh:0; url=".getProjectRoot().$routes["page_not_found"]."?err=class&class=$className&method=$methodName");
+                header("refresh:0; url=".getProjectRoot()."page_not_found"."?err=class&class=$className&method=$methodName");
             }
         } else {
-            header("refresh:0;url=".getProjectRoot().$routes["page_not_found"]."?err=class&class=$className&method=$methodName");
+            header("refresh:0;url=".getProjectRoot()."page_not_found"."?err=class&class=$className&method=$methodName");
         }
     }
 }
