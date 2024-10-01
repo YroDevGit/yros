@@ -41,7 +41,7 @@ class Db_lib{
                     $frow = isset($results[0]) ? $results[0] : [];
                     $has_data = true;
                 }
-                return ["code"=>SUCCESS, "status"=>"success", "has_data"=>$has_data, "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$frow];
+                return ["code"=>SUCCESS, "status"=>"success", "has_data"=>$has_data, "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$frow, "single" => $frow];
             }
             else if(stripos(trim($sql), 'insert') === 0){
                 return ["code"=>SUCCESS, "status"=>"success", "message" => "Data inserted successfully", "insert_id"=>$YROS->db->lastInsertId(), "parameters"=>$param];
