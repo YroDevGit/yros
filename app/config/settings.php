@@ -15,7 +15,7 @@ $app_settings['port'] = "5010"; // app server port: example 5010 in http://local
 
 $app_settings['enable_curly_template'] = false; //Enable {{}} in views files
 
-$app_settings['single_route'] = true; // if page route has set, you can't navigate using controller name/function.
+$app_settings['single_route'] = false; // if page route has set, you can't navigate using controller name/function.
 
 
 

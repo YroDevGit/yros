@@ -43,23 +43,23 @@ function routing_controller($urls, $inRoute = false){
         $is_set = false;
         $mainroute = isset($routes['default']) ? $routes['default'] : ""; 
 
-        $noMainRoute = false;
-        if($methodName=="index"){
-            if(strtolower($mainroute)!=strtolower($className)){
-                $noMainRoute = true;
+        if($app_settings['single_route'] && $inRoute == false){
+            $noMainRoute = false;
+            if($methodName=="index"){
+                if(strtolower($mainroute)!=strtolower($className)){
+                    $noMainRoute = true;
+                }
+                if(strtolower($mainroute)!=strtolower($className."/")){
+                    $noMainRoute = true;
+                }
+                if(strtolower($mainroute)!=strtolower($className."/index")){
+                    $noMainRoute = true;
+                }
+            }else{
+                $noMainRoute = strtolower($mainroute) != strtolower($className."/".$methodName);
             }
-            if(strtolower($mainroute)!=strtolower($className."/")){
-                $noMainRoute = true;
-            }
-            if(strtolower($mainroute)!=strtolower($className."/index")){
-                $noMainRoute = true;
-            }
-        }else{
-            $noMainRoute = strtolower($mainroute) != strtolower($className."/".$methodName);
-        }
-
-        if($app_settings['single_route'] && $inRoute == false && $noMainRoute){
-            foreach($routes as $key=>$value){ 
+            if($noMainRoute){
+                foreach($routes as $key=>$value){ 
                     if($methodName=="index"){
                         $val = strtolower($value);
                         $r1 = strtolower($className);
@@ -76,10 +76,10 @@ function routing_controller($urls, $inRoute = false){
                             }
                         }
                     }
-            }
-            if($is_set==true && $inRoute == false){
-               
-                header("refresh:0;url=".getProjectRoot()."page_not_found"."?err=method&class=$className&method=$methodName&routeisset=1");exit;
+                }
+                if($is_set==true && $inRoute == false){
+                    header("refresh:0;url=".getProjectRoot()."page_not_found"."?err=method&class=$className&method=$methodName&routeisset=1");exit;
+                }
             }
         }
         
