@@ -43,7 +43,7 @@ function routing_controller($urls){
         $is_set = false;
         if($app_settings['single_route']){
             foreach($routes as $key=>$value){
-                if(strtolower($ey)!="default"){
+                if(strtolower($key)!="default"){
                     if($methodName=="index"){
                         $val = strtolower($value);
                         $r1 = strtolower($className);
