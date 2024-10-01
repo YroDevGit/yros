@@ -33,6 +33,8 @@ class Display{
             $cl = isset($classfunction[0])? $classfunction[0] : "";
             $func = isset($classfunction[1]) && $classfunction[1] !="" ? $classfunction[1] : "index";
             $ucfirst = ucfirst($cl);
+            $ucfirst = $this->noParam($ucfirst);
+            $func = $this->noParam($func);
             return "Route: [<span style='color:#009d80;'>default</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
         }
         else{
@@ -45,6 +47,8 @@ class Display{
                     $cl = isset($exp[0])? $exp[0] : "";
                     $func = isset($exp[1]) && $exp[1] !="" ? $exp[1] : "index";
                     $ucfirst = ucfirst($cl);
+                    $ucfirst = $this->noParam($ucfirst);
+                    $func = $this->noParam($func);
                     return "Route: [<span style='color:#009d80;'>$onevalue</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
                 }
                 else{
@@ -52,6 +56,7 @@ class Display{
                     $class = isset($exp[0]) ? $exp[0] : "";
                     $ucfirst = ucfirst($class);
                     $hasRoute = "";
+                    $ucfirst = $this->noParam($ucfirst);
                     foreach($routes as $rts=>$rtv){
                         $getr = $routes[$rts];
                         if(strtolower($getr)==strtolower($class) || strtolower($getr)==strtolower($class)."/" || strtolower($getr)==strtolower($class)."/index"){
@@ -75,6 +80,8 @@ class Display{
                     $cl = isset($exp[0])? $exp[0] : "";
                     $func = isset($exp[1]) && $exp[1] !="" ? $exp[1] : "index";
                     $ucfirst = ucfirst($cl);
+                    $ucfirst = $this->noParam($ucfirst);
+                    $func = $this->noParam($func);
                     return "Route: [<span style='color:#009d80;'>$onevalue</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
                 }
                 else{
@@ -82,6 +89,7 @@ class Display{
                     $class = isset($exp[0]) ? $exp[0] : "";
                     $ucfirst = ucfirst($class);
                     $hasRoute = "";
+                    $ucfirst = $this->noParam($ucfirst);
                     foreach($routes as $rts=>$rtv){
                         $getr = $routes[$rts];
                         if(strtolower($getr)==strtolower($class) || strtolower($getr)==strtolower($class)."/" || strtolower($getr)==strtolower($class)."/index"){
@@ -99,9 +107,10 @@ class Display{
            else if(($sliced[0]!=null||$sliced[0]!="") && ($sliced[1]!=null||$sliced[1]!="")){
                 $class = $sliced[0];
                 $func = $sliced[1];
-                $funcplain = explode("?", $func)[0];
+                $funcplain = $this->noParam($func);//explode("?", $func)[0];
                 $ucfirst = ucfirst($class);
                 $hasRoute = "";
+                $ucfirst = $this->noParam($ucfirst);
                 if(strtolower($funcplain)== "index"){
                     foreach($routes as $rts=>$r){
                         $getr =  $routes[$rts];
@@ -212,6 +221,12 @@ class Display{
         </style>
         <?php
         }
+    }
+
+    public function noParam($text, $str = "?"){
+        $expl = explode($str, $text);
+        $data = isset($expl[0]) ? $expl[0] : "";
+        return $data;
     }
 
 }

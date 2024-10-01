@@ -62,10 +62,11 @@ function routing_controller($urls, $inRoute = false){
                     }
                 }
             }
+            if($is_set==true && $inRoute == false){
+                header("refresh:0;url=".getProjectRoot()."page_not_found"."?err=method&class=$className&method=$methodName&routeisset=1");exit;
+            }
         }
-        if($is_set==true){
-            header("refresh:0;url=".getProjectRoot()."page_not_found"."?err=method&class=$className&method=$methodName&routeisset=1");exit;
-        }
+        
         $classFile = 'app/controller/' . $className . '.php';
 
         if (file_exists($classFile)) {
