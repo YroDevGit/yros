@@ -78,9 +78,7 @@ class Yros {
         require_once "app/yros_custom/autorun.php";
         require_once "app/yros_custom/components.php";
         if($isYrosApiOrModel==false){
-            require_once "app/system/screen/Display.php";
-            $disp = new Display();
-            $disp->display_route();
+            //add custom command
         }
     }
 

@@ -93,6 +93,11 @@ function routing_controller($urls, $inRoute = false){
 
                 if (method_exists($classInstance, $methodName)) {
                     $classInstance->$methodName();
+                    if($app_settings['page_guide']){
+                        include "app/system/screen/Display.php";
+                        $disp = new Display();
+                        $disp->display_route();
+                    }
                 } else {
                     header("refresh:0;url=".getProjectRoot()."page_not_found"."?err=method&class=$className&method=$methodName");
                 }

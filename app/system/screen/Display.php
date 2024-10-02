@@ -165,8 +165,6 @@ class Display{
     }
 
     public function display_route(){
-        include "app/config/settings.php";
-        if($app_settings['page_guide']){
         ?>
         <div class="yros-screen-routes-display" align="center">
             <div class="yros-screen-text-wrapped" style="color:black;">
@@ -221,11 +219,9 @@ class Display{
                 padding: 2px 3px 2px 3px;
                 text-wrap: wordwrap;
             }
-            
-
         </style>
         <?php
-        }
+        
     }
 
     public function noParam($text, $str = "?"){
