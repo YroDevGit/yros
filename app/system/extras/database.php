@@ -12,7 +12,14 @@ class Database
 
     public function __construct($dbConfig)
     {
-        $dsn = "mysql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'] . ";charset=" . $dbConfig['charset'];
+        $dsn  = "";
+        if($dbConfig['driver'] == "mysqli" || $dbConfig['driver'] == "mysql" || $dbConfig['driver'] == "pdo"){
+            $dsn = "mysql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'] . ";charset=" . $dbConfig['charset'];
+        }
+        elseif($dbConfig['driver']=="PostgreSQL" || $dbConfig['driver']=="pgsql"){
+            $dsn = "pgsql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'];
+        }
+        
 
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
