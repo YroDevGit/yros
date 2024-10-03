@@ -16,7 +16,7 @@ class Database
         if($dbConfig['driver'] == "mysqli" || $dbConfig['driver'] == "mysql" || $dbConfig['driver'] == "pdo"){
             $dsn = "mysql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'] . ";charset=" . $dbConfig['charset'];
         }
-        elseif($dbConfig['driver']=="PostgreSQL" || $dbConfig['driver']=="pgsql"){
+        elseif($dbConfig['driver']==strtolower("PostgreSQL") || $dbConfig['driver']=="pgsql" || $dbConfig['driver']=="postgres"){
             $dsn = "pgsql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'];
         }
         
