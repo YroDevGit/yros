@@ -9,7 +9,7 @@ $username = "root"; //username
 $password = ""; //password
 
 
-$db_driver = "pdo"; // We support Mysql and PostgreSQL
+$db_driver = "pdo"; // We support Mysql, PDO and PostgreSQL
 /**
  * mysql = for mysql
  * mysqli = for mysql
