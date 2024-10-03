@@ -191,25 +191,25 @@ if(! function_exists('function_is_called')){
 }
 
 if(! function_exists("string_value")){
-    function string_value(string &$string, string $default=""):string{
+    function string_value(&$string, string $default=""):string{
         return isset($string) ? $string : $default;
     }
 }
 
 if(! function_exists("int_value")){
-    function int_value(int &$int, int $default = 0):int{
+    function int_value(&$int, int $default = 0):int{
         return isset($int) ? $int : $default;
     }
 }
 
 if(! function_exists("float_value")){
-    function float_value(float &$float, float $default = 0):float{
+    function float_value(&$float, float $default = 0):float{
         return isset($float) ? $float : $default;
     }
 }
 
 if(! function_exists("array_value")){
-    function array_value(array &$array, array $default):array{
+    function array_value(&$array, array $default):array{
         return isset($array) ? $array : $default;
     }
 }
