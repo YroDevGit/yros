@@ -214,6 +214,11 @@ if(! function_exists("array_value")){
     }
 }
 
+if(! function_exists("object_value")){
+    function object_value(&$object, $default=null){
+        return isset($object) ? $object : $default;
+    }
+}
 
 
 
