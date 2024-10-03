@@ -190,6 +190,30 @@ if(! function_exists('function_is_called')){
     }
 }
 
+if(! function_exists("string_value")){
+    function string_value(string &$string, string $default=""){
+        return isset($string) ? $string : $default;
+    }
+}
+
+if(! function_exists("int_value")){
+    function int_value(int &$int, int $default = 0){
+        return isset($int) ? $int : $default;
+    }
+}
+
+if(! function_exists("float_value")){
+    function float_value(float &$float, float $default = 0){
+        return isset($float) ? $float : $default;
+    }
+}
+
+if(! function_exists("array_value")){
+    function array_value(array &$array, array $default){
+        return isset($array) ? $array : $default;
+    }
+}
+
 
 
 
