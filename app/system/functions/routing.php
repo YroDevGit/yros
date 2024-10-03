@@ -90,7 +90,6 @@ function routing_controller($urls, $inRoute = false){
 
             if (class_exists($className)) {
                 $classInstance = new $className();
-
                 if (method_exists($classInstance, $methodName)) {
                     $classInstance->$methodName();
                     if($app_settings['page_guide']){

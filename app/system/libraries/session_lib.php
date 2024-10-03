@@ -1,5 +1,7 @@
 <?php
 class Session_lib{
+
+    public $flash_mask = "flash_1005_data_yros1005_";
     public function __construct()
 	{
 		
@@ -23,23 +25,17 @@ class Session_lib{
     }
 
     public function set_flash_data(string $key, string|float|int $data){
-        $_SESSION["flash_data_".$key] = $data;
+        $_SESSION[$this->flash_mask.$key] = $data;
     }
 
     public function get_flash_data($key){
-        $flsh ="flash_data_";
-        if(isset($_SESSION[$flsh.$key])){
-            $val = $_SESSION[$flsh.$key];
-            unset($_SESSION[$flsh.$key]);
-            return $val;
-        }
-        else{
-            return null;
-        }
+        $YROS = &Yros::get_instance();
+        $rarr = $YROS->yros_back_up_flash_data1005;
+        return isset($rarr[$this->flash_mask.$key]) ? $rarr[$this->flash_mask.$key] : "";
     }
 
     public function remove_flash_data(string $key){
-        unset($_SESSION["flash_data_".$key]);
+        unset($_SESSION[$this->flash_mask.$key]);
     }
 
 

@@ -36,12 +36,12 @@ if(! function_exists("get_flash_data")){
     }
 }
 
-if(! function_exists("remove_flash_data")){
-    function remove_flash_data(string $key){
-        $YROS = &Yros::get_instance();
-        $YROS->sessionlib->remove_flash_data($key);
+if(! function_exists("flash_data")){
+    function flash_data(string $key){
+        return get_flash_data($key);
     }
 }
+
 
 if(! function_exists("set_cookie_value")){
     function set_cookie_value(string $key, string|int|bool|float $value, $time = null){
@@ -57,6 +57,12 @@ if(! function_exists("get_cookie_value")){
     function get_cookie_value(string $key){
         $YROS = &Yros::get_instance();
         return $YROS->sessionlib->get_cookie_value($key);
+    }
+}
+
+if(! function_exists("cookie_value")){
+    function cookie_value(string $key){
+        return cookie_value($key);
     }
 }
 
@@ -81,6 +87,12 @@ if(! function_exists("get_cookie_data")){
     function get_cookie_data(string $key, string $subkey=""){
         $YROS = &Yros::get_instance();
         return $YROS->sessionlib->get_cookie_data($key, $subkey);
+    }
+}
+
+if(! function_exists("cookie_data")){
+    function cookie_data(string $key, string $subkey=""){
+        return get_cookie_data($key, $subkey);
     }
 }
 

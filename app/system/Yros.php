@@ -31,6 +31,7 @@ class Yros {
     public $auth;
     public $old_input_value_mask_yros = yros_input_old_value_1005_yro;
     public $yros_input_validation_errors = [];
+    public $yros_back_up_flash_data1005 = [];
     private static $instance;
     public function __construct($isYrosApiOrModel=false) {
         self::$instance =& $this;
@@ -74,6 +75,7 @@ class Yros {
         $this->old_post_data = post_data();
         $this->store_input_errors_storage_yros();
         $this->store_input_values_storage_yros();
+        $this->store_back_up_flash_data1005();
         //$this->load_all_models();
         require_once "app/yros_custom/autorun.php";
         require_once "app/yros_custom/components.php";
@@ -231,6 +233,15 @@ class Yros {
         foreach($_SESSION  as $key=>$value){
             if(string_contains($key, $this->validationlib->validation_temp_error)){
                 $this->yros_input_validation_errors[$key] = $value;
+                unset($_SESSION[$key]);
+            }
+        }
+    }
+
+    private function store_back_up_flash_data1005(){
+        foreach($_SESSION as $key=>$value){
+            if(string_contains($key, $this->sessionlib->flash_mask)){
+                $this->yros_back_up_flash_data1005[$key] = $value;
                 unset($_SESSION[$key]);
             }
         }

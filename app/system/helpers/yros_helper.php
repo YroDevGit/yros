@@ -220,6 +220,18 @@ if(! function_exists("object_value")){
     }
 }
 
+if(! function_exists("get_previous_path")){
+    function get_previous_path(){
+        return isset($_SESSION['previous_yros_page_1005_yrosframework']) ? $_SESSION['previous_yros_page_1005_yrosframework'] : "";
+    }
+}
+
+if(! function_exists("get_current_path")){
+    function get_current_path(){
+        return isset($_SESSION['current_yros_page_1005_yrosframework']) ? $_SESSION['current_yros_page_1005_yrosframework'] : "";
+    }
+}
+
 
 
 
