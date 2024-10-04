@@ -69,7 +69,7 @@ class Yros {
         $this->load_helper("email_helper");
         $this->load_helper("controller_model");
         $this->old_post_data = post_data();
-        $this->$old_input_value_mask_yros = $this->sessionlib->input_mask;
+        $this->old_input_value_mask_yros = $this->sessionlib->input_mask;
         $this->store_input_errors_storage_yros();
         $this->store_input_values_storage_yros();
         $this->store_back_up_flash_data1005();
