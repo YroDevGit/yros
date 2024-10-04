@@ -45,6 +45,8 @@ class Validation_lib{
                     break;
 
                 case "length":
+                case "characters":
+                case "character":
                 case "size":
                     if (strlen($inputData) != (int)$ruleParam) {
                         $errors[$inputname] = "{$label} should have {$ruleParam} characters.";
