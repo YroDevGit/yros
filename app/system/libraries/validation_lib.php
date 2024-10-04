@@ -14,9 +14,9 @@ class Validation_lib{
         $rules = explode('|', $validation);
     
         $inputData = $_POST[$inputname] ?? '';
-    
+
         $errors = [];
-    
+        $rules = array_reverse($rules);
         foreach ($rules as $rule) {
             $parts = explode(':', $rule);
             $ruleName = $parts[0];
