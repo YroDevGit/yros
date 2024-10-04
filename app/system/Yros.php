@@ -1,13 +1,10 @@
 <?php
-if(! defined("SUCCESS")){
-    define("SUCCESS", 200);
-}
-if(! defined("SUCCESS_CODE")){
-    define("SUCCESS_CODE", 200);
-}
-if(! defined("yros_input_old_value_1005_yro")){
-    define("yros_input_old_value_1005_yro","yros_input_old_value_1005_yro_");
-}
+/**
+ * YROS - PHP framework.
+ * Tyrone Limen Malocon
+ * 
+ */
+
 class Yros {
     // Please do not modify anything, if you want something to add, Go to:: app/yros_custom/autorun.php
     public $apilib;
@@ -17,19 +14,17 @@ class Yros {
     public $data_yros;
     public $yrosdb;
     public $validationlib;
-
     public $yrosmail;
-
     public $yrossecure;
     public $modellib;
     private $old_post_data;
     public $POST;
     public $removeinputvalues = true;
     public $inputvaluesstorage = [];
-    public $db;
+    public $db; 
     public $dblib;
     public $auth;
-    public $old_input_value_mask_yros = yros_input_old_value_1005_yro;
+    public $old_input_value_mask_yros;
     public $yros_input_validation_errors = [];
     public $yros_back_up_flash_data1005 = [];
     private static $instance;
@@ -38,6 +33,7 @@ class Yros {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $this->set_status_definitions();
         $this->load_app("system/code/definitions");
         include_once "app/config/database.php";
         $this->db = new Database($dbConfig);
@@ -73,10 +69,12 @@ class Yros {
         $this->load_helper("email_helper");
         $this->load_helper("controller_model");
         $this->old_post_data = post_data();
+        $this->$old_input_value_mask_yros = $this->sessionlib->input_mask;
         $this->store_input_errors_storage_yros();
         $this->store_input_values_storage_yros();
         $this->store_back_up_flash_data1005();
         //$this->load_all_models();
+
         require_once "app/yros_custom/autorun.php";
         require_once "app/yros_custom/components.php";
         if($isYrosApiOrModel==false){
@@ -251,6 +249,15 @@ class Yros {
         $allModels = "app/models/";
         foreach (glob($allModels . '*.php') as $mod){
             require_once $mod;
+        }
+    }
+
+    private function set_status_definitions(){
+        if(! defined("SUCCESS")){
+            define("SUCCESS", 200);
+        }
+        if(! defined("SUCCESS_CODE")){
+            define("SUCCESS_CODE", 200);
         }
     }
 }

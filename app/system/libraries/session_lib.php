@@ -2,6 +2,12 @@
 class Session_lib{
 
     public $flash_mask = "flash_1005_data_yros1005_";
+    public $input_mask = "yros_input_old_value_1005_yro_";
+
+    public $input_storage = [];
+    public $error_storage = [];
+    public $fash_storage = [];
+    
     public function __construct()
 	{
 		
