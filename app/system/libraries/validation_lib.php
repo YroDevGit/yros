@@ -74,6 +74,11 @@ class Validation_lib{
                         $errors[$inputname] = "{$label} should have a symbols";
                     }
                     break;
+                case "email":
+                    if(! filter_var($inputData, FILTER_VALIDATE_EMAIL)){
+                        $errors[$inputname] = "{$label} should be a valid email.";
+                    }
+                    break;
                 case "modern-password":
                     $arr = [];
                     if(preg_match('/^[a-zA-Z0-9\s]*$/', $inputData)){
