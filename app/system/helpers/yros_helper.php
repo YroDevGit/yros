@@ -232,6 +232,12 @@ if(! function_exists("get_current_path")){
     }
 }
 
+if(! function_exists("encrypt_password")){
+    function encrypt_password($password){
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+}
+
 
 
 
