@@ -77,13 +77,13 @@ class Validation_lib{
                 case "modern-password":
                     $arr = [];
                     if(preg_match('/^[a-zA-Z0-9\s]*$/', $inputData)){
-                        $arr[] = "Symbol";
+                        $arr[] = "Symbol(s)";
                     }
                     if(! preg_match('/[a-zA-Z]/', $inputData)){
-                        $arr[] = "Letters";
+                        $arr[] = "Letter(s)";
                     }
                     if(! preg_match('/\d/', $inputData)){
-                        $arr[] = "Numbers";
+                        $arr[] = "Number(s)";
                     }
                     if($ruleParam != null && $ruleParam != ""){
                         if(strlen($inputData) < intval($ruleParam)){
