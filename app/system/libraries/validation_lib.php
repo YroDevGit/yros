@@ -73,6 +73,26 @@ class Validation_lib{
                     if(preg_match('/^[a-zA-Z0-9\s]*$/', $inputData)){
                         $errors[$inputname] = "{$label} should have a symbols";
                     }
+                    break;
+                case "modern-password":
+                    $arr = [];
+                    if(preg_match('/^[a-zA-Z0-9\s]*$/', $inputData)){
+                        $arr[] = "Symbol";
+                    }
+                    if(! preg_match('/[a-zA-Z]/', $inputData)){
+                        $arr[] = "Letters";
+                    }
+                    if(! preg_match('/\d/', $inputData)){
+                        $arr[] = "Numbers";
+                    }
+                    if($ruleParam != null && $ruleParam != ""){
+                        if(strlen($inputData) < intval($ruleParam)){
+                            $arr[] = "$ruleParam or more characters";
+                        }
+                    }
+                    $errs = implode(", ", $arr);
+                    $errors[$inputname] = "{$label} should have ".$errs;
+                    break;
                 default:
                     $errors[$inputname] = "Unknown validation rule: {$ruleName}";
             }
