@@ -91,7 +91,7 @@ class Validation_lib{
                         }
                     }
                     $errs = implode(", ", $arr);
-                    $errors[$inputname] = "{$label} should have ".$errs;
+                    $errors[$inputname] = "{$label} should have ".$errs.".";
                     break;
                 default:
                     $errors[$inputname] = "Unknown validation rule: {$ruleName}";
