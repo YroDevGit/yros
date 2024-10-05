@@ -128,19 +128,19 @@ if(! function_exists("get_root_page")){
 }
 
 if(! function_exists("get_project_root_url")){
-    function get_project_root_url(){
+    function get_project_root_url():string{
         return get_root_page();
     }
 }
 
 if(! function_exists("get_main_page_url")){
-    function get_main_page_url(){
+    function get_main_page_url():string{
         return get_root_page();
     }
 }
 
 if(! function_exists("path")){
-    function path(string $path){
+    function path(string $path):string{
         return rootpath.$path;
     }
 }
@@ -153,7 +153,7 @@ if(! function_exists("controller")){
 }
 
 if(! function_exists('controller_name')){
-    function controller_name(string $controller, string $function=""){
+    function controller_name(string $controller, string $function=""):string{
         $YROS = &Yros::get_instance();
         $class = "";
         if(substr($controller, -4)==".php"){
@@ -167,7 +167,7 @@ if(! function_exists('controller_name')){
 }
 
 if(! function_exists("public_path")){
-    function public_path(string $path = ""){
+    function public_path(string $path = ""):string{
         if($path==""||$path==null){
             return rootpath."public/";
         }
@@ -178,14 +178,14 @@ if(! function_exists("public_path")){
 }
 
 if(! function_exists("route")){
-    function route(string $route_name){
+    function route(string $route_name, bool $show_controller = false):string{
         $YROS = &Yros::get_instance();
-        return $YROS->routelib->getRoute($route_name);
+        return $YROS->routelib->getRoute($route_name, $show_controller);
     }
 }
 
 if(! function_exists("img")){
-    function img(string $img=""){
+    function img(string $img=""):string{
         if($img=="" || $img==null){
             return img;
         }
@@ -196,7 +196,7 @@ if(! function_exists("img")){
 }
 
 if(! function_exists("src")){
-    function src(string $src=""){
+    function src(string $src=""):string{
         if($src=="" || $src==null){
             return src;
         }
@@ -207,7 +207,7 @@ if(! function_exists("src")){
 }
 
 if(! function_exists("assets")){
-    function assets(string $assets=""){
+    function assets(string $assets=""):string{
         if($assets=="" || $assets==null){
             return assets;
         }
@@ -218,7 +218,7 @@ if(! function_exists("assets")){
 }
 
 if(! function_exists("uploads")){
-    function uploads(string $uploads=""){
+    function uploads(string $uploads=""):string{
         if($uploads=="" || $uploads==null){
             return uploads;
         }

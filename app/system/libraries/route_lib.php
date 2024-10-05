@@ -7,10 +7,16 @@ class Route_lib{
 	}
 
 
-    public function getRoute(string $route){
+    public function getRoute(string $route, bool $showController = false){
         include "app/system/functions/myroutes.php";
         if(array_key_exists($route, $routes)){
-            return controller($route);
+            if($showController == true){
+                $cont = $routes[$route];
+                return rootpath.$cont;
+            }
+            else{
+                return rootpath.$route;
+            }
         }
         else{
             $YROS = &Yros::get_instance();
