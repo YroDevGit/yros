@@ -7,15 +7,22 @@ class Route_lib{
 	}
 
 
-    public function getRoute(string $route, bool $showController = false){
+    public function getRoute(string $route, array $param=[], bool $showController = false){
         include "app/system/functions/myroutes.php";
+        $exp = explode("?", $route);
+        $route = isset($exp[0]) ? $exp[0] : "";
+        $parameters = "";
+        if(! empty($param)){
+            $implode = implode("&", $param);
+            $parameters = "?".$implode;
+        }
         if(array_key_exists($route, $routes)){
             if($showController == true){
                 $cont = $routes[$route];
-                return rootpath.$cont;
+                return rootpath.$cont.$parameters;
             }
             else{
-                return rootpath.$route;
+                return rootpath.$route.$parameters;
             }
         }
         else{
@@ -26,16 +33,22 @@ class Route_lib{
 
     }
 
-    public function getControllerURL(string $path){
+    public function getControllerURL(string $path, array $param=[]){
         $arr = explode("/", $path);
-        $className = isset($arr[0]) ? $arr[0] : "?";
+        $className = isset($arr[0]) ? $arr[0] : "";
         $functionName = isset($arr[1]) ? $arr[1] : "index";
         $className = ucfirst($className);
         $file = "app/controller/".$className.".php";
 
+        $parameters = "";
+        if(!empty($param)){
+            $imp = implode("&", $param);
+            $parameters = "?".$imp;
+        }
+
         if(file_exists($file)){
             if(method_exists($className, $functionName)){
-                return rootpath.$path;
+                return rootpath.$path.$parameters;
             }
             else{
                 return rootpath.$className."/".$functionName;
