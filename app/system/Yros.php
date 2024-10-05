@@ -18,6 +18,7 @@ class Yros {
     public $yrossecure;
     public $modellib;
     private $old_post_data;
+    public $routelib;
     public $POST;
     public $removeinputvalues = true;
     public $inputvaluesstorage = [];
@@ -57,6 +58,8 @@ class Yros {
         $this->load_library("model_lib");
         $this->modellib = new Model_lib();
         $this->load_library("auth_lib");
+        $this->load_library("route_lib");
+        $this->routelib = new Route_lib();
         $this->auth = new Auth_lib();
         $this->load_helper("auth_helper");
         $this->load_helper("db_helper");

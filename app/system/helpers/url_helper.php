@@ -139,9 +139,30 @@ if(! function_exists("get_main_page_url")){
     }
 }
 
+if(! function_exists("path")){
+    function path(string $path){
+        return rootpath.$path;
+    }
+}
+
 if(! function_exists("controller")){
-    function controller(string $controller){
-        return rootpath.$controller;
+    function controller(string $controller):string{
+        $YROS = &Yros::get_instance();
+        return $YROS->routelib->getControllerURL($controller);
+    }
+}
+
+if(! function_exists('controller_name')){
+    function controller_name(string $controller, string $function=""){
+        $YROS = &Yros::get_instance();
+        $class = "";
+        if(substr($controller, -4)==".php"){
+            $class = substr($controller, 0, -4);
+        }
+        else{
+            $class = $controller;
+        }
+        return $YROS->routelib->getControllerURL($class."/".$function);
     }
 }
 

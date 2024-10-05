@@ -13,7 +13,7 @@ class Main extends Yros{
 
 
     function welcome_page(){
-        view_page("welcome.php"); 
+        view_page("welcome.php");
     }
 
    
