@@ -179,9 +179,8 @@ if(! function_exists("public_path")){
 
 if(! function_exists("route")){
     function route(string $route_name){
-        include "app/system/libraries/route_lib.php";
-        $rlib = new Route_lib();
-        return $rlib->getRoute($route_name);
+        $YROS = &Yros::get_instance();
+        return $YROS->routelib->getRoute($route_name);
     }
 }
 

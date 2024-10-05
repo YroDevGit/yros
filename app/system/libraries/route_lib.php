@@ -13,7 +13,9 @@ class Route_lib{
             return controller($route);
         }
         else{
-            trigger_error(display_error("Route name: '$route' not found.!"));
+            $YROS = &Yros::get_instance();
+            $code = $YROS->get_random_codes();
+            return rootpath."pageNotFound`$route`_`$code`_page_not_found_10052773522_mode/`$route`_pageNotFound_YrosPage10053_error_route_`$route`_not_found";
         }
 
     }
