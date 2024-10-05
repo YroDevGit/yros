@@ -113,8 +113,23 @@ function addApi($name){
 
 function runDev(){
     include "app/config/settings.php";
+    include "app/config/console.php";
     $port = $app_settings['port'];
-    $php_command = 'php -S localhost:'.$port;
+    $php_command = "";
+    $php_path = $console['php_path'];
+    if($php_path=="" || $php_path==null){
+        $php_command = 'php -S localhost:'.$port;
+    }
+    else{
+        if(substr($php_path, -1)=="/" || substr($php_path, -1)=="\\"){
+            $php_command = $console['php_path'].'php.exe -S localhost:'.$port;
+        }
+        else{
+            $php_command = $console['php_path'].'/php.exe -S localhost:'.$port;
+        }
+        
+    }
+    
     echo "\nWelcome to Yros, PHP framework (Made by: Tyrone Limen Malocon)\nServer run at: http://localhost:$port\n\n";
     passthru($php_command); 
 }
