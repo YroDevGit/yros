@@ -124,7 +124,10 @@ class Yros {
 
         if($app_settings['views_log']==true){
             $contfunc = $_SESSION['yros_p4ge_contr0ll3r_1005055_v13w5'];
-            write_view_logs($contfunc, $view);
+            $exp = explode("/", $contfunc);
+            $cc = isset($exp[0]) ? $exp[0] : "";
+            $ff = isset($exp[1]) ? $exp[1] : "";
+            $this->record_view_in_json_file($view, $cc, $ff);
         }
         
         
@@ -280,4 +283,30 @@ class Yros {
 
         return $randomCode;
     }
+
+    public function record_view_in_json_file(string $viewName, string $controllerName, string $functionName) {
+        $filePath = "public/views.json";
+         
+        if (!file_exists($filePath)) {
+            file_put_contents($filePath, json_encode(new stdClass()));
+        }
+    
+        $jsonData = file_get_contents($filePath);
+        $records = json_decode($jsonData, true); 
+        $contf = $controllerName."/".$functionName;
+        if (!isset($records[$contf][$controllerName]) && !isset($records[$contf][$functionName])) {
+            $records[$contf] = [
+                'view' => $viewName,
+                'controller' => $controllerName,
+                'function' => $functionName,
+                'description' => "Last access to this view, if view controller is changed, we can't track it."
+            ];
+    
+            file_put_contents($filePath, json_encode($records, JSON_PRETTY_PRINT| JSON_UNESCAPED_SLASHES));
+        }
+    }
+    
+
+
+    
 }
