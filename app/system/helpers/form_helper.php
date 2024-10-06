@@ -42,6 +42,24 @@ if(! function_exists("post_exist")){
     }
 }
 
+if(! function_exists("form_input_exist")){
+    function form_input_exist(string $inputname){
+        return post_exist($inputname);
+    }
+}
+
+if(! function_exists("form_checkbox_checked")){
+    function form_checkbox_checked(string $cboxName){
+        return post_exist($cboxName);
+    }
+}
+
+if(! function_exists("form_radioBTN_selected")){
+    function form_radioBTN_selected(string $radioName){
+        return post_exist($radioName);
+    }
+}
+
 if(! function_exists("post")){
     function post(string $inputname){
         /**
