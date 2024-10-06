@@ -186,6 +186,28 @@ if(! function_exists("decrypt")){
     }
 }
 
+if(! function_exists("string_has_symbols")){
+    function string_has_symbols(string $string){
+        if(! preg_match('/^[a-zA-Z0-9\s]*$/', $string)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
+if(! function_exists("string_has_no_symbols")){
+    function string_has_no_symbols(string $string){
+        if(preg_match('/^[a-zA-Z0-9\s]*$/', $string)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
 if(! function_exists('function_is_called')){
     function function_is_called(string $functionName) {
         $backtrace = debug_backtrace();
