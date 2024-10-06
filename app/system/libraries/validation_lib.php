@@ -118,8 +118,10 @@ class Validation_lib{
     }
 
 
-    public function set_input_error(string $input, string $message){
+    public function set_input_error(string $input, string $message){ 
         $_SESSION[$this->validation_temp_error.$input] = $message;
+        $errors[$input] = $message;
+        $this->validation_errors = $errors;
     }
 
     public function get_input_error(string $inputname):string{
