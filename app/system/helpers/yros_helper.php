@@ -188,6 +188,7 @@ if(! function_exists("decrypt")){
 
 if(! function_exists("string_has_symbols")){
     function string_has_symbols(string $string){
+        /**Check if string has symbols */
         if(! preg_match('/^[a-zA-Z0-9\s]*$/', $string)){
             return true;
         }
@@ -199,6 +200,7 @@ if(! function_exists("string_has_symbols")){
 
 if(! function_exists("string_has_no_symbols")){
     function string_has_no_symbols(string $string){
+        /**Check if string has no symbols */
         if(preg_match('/^[a-zA-Z0-9\s]*$/', $string)){
             return true;
         }
