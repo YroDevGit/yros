@@ -113,7 +113,6 @@ function addApi($name){
 
 function runDev(){
     include "app/config/settings.php";
-    include "app/config/console.php";
     $port = $app_settings['port'];
     $php_command = "";
     $php_path = $console['php_path'];
