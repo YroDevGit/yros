@@ -31,7 +31,7 @@ if(! function_exists('post_data')){
 }
 
 if(! function_exists("post_exist")){
-    function post_exist(string $postname){
+    function post_exist(string $postname):bool{
         $pdata = post_data();
         if(array_key_exists($postname, $pdata)){
             return true;
@@ -42,20 +42,36 @@ if(! function_exists("post_exist")){
     }
 }
 
+if(! function_exists("has_post_data")){
+    function has_post_data():bool{
+        /** Bool: check if there is a form/post submitted */
+        $data = post_data();
+        if(empty($data)){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+}
+
 if(! function_exists("form_input_exist")){
-    function form_input_exist(string $inputname){
+    function form_input_exist(string $inputname):bool{
+        /** Bool: check if the form input exist */
         return post_exist($inputname);
     }
 }
 
 if(! function_exists("form_checkbox_checked")){
-    function form_checkbox_checked(string $cboxName){
+    function form_checkbox_checked(string $cboxName):bool{
+        /** Bool: check if the form checkbox is checked/selected */
         return post_exist($cboxName);
     }
 }
 
 if(! function_exists("form_radioBTN_selected")){
-    function form_radioBTN_selected(string $radioName){
+    function form_radio_selected(string $radioName):bool{
+        /** Bool: check if the form radio button is checked/selected */
         return post_exist($radioName);
     }
 }
