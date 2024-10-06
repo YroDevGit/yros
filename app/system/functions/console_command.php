@@ -129,4 +129,23 @@ function yrosTestRoutes(){
     $rtest->testRoutes();
 }
 
+function deleteAllViewsLogs(){
+    $folderPath = "app/system/logs/view_logs";
+    if (is_dir($folderPath)) {
+        $logFiles = glob($folderPath . '/*.log');
+        $count = 0;
+        foreach ($logFiles as $file) {
+            if (is_file($file)) {
+                unlink($file);
+                $count +=1;
+            }
+        }
+        if (empty($logFiles)) {
+            echo "❌ No logs found.!\n";
+        } else {
+            echo "✅ All ($count) view logs have been deleted.\n";
+        }
+    }
+}
+
 ?>

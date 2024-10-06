@@ -75,6 +75,9 @@ else{
     else if($routelower=="test_routes"){
         yrosTestRoutes();  
     }
+    else if($routelower=="clear_viewlogs" || $routelower=="del_viewlogs" || $routelower=="-viewlogs"){
+        deleteAllViewsLogs(); 
+    }
     else{
         echo "❌ Invalid command";
     }

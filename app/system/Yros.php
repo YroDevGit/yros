@@ -110,16 +110,21 @@ class Yros {
                 $content = preg_replace('/\{\{\s*(.+?)\s*\}\}/', '<?= htmlspecialchars($1) ?>', $content);
                 $tempFile = 'app/system/cache/' . md5($viewPath) . '.php';
                 file_put_contents($tempFile, $content);
-                include $tempFile;
+                require $tempFile;
                 unlink($tempFile);
         }
         else{
             if(substr($view, -4)==".php"){
-                include_once "views/".$view;
+                require "views/".$view;
             }
             else{
-                include_once "views/".$view.".php";
+                require "views/".$view.".php";
             }
+        }
+
+        if($app_settings['views_log']==true){
+            $contfunc = $_SESSION['yros_p4ge_contr0ll3r_1005055_v13w5'];
+            write_view_logs($contfunc, $view);
         }
         
         

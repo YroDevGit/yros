@@ -144,6 +144,15 @@ if(! function_exists("write_sql_log")){
     }
 }
 
+if(! function_exists("write_view_logs")){
+    function write_view_logs(string $path, string $view){
+        $filename = "sql_".date("Y-M-d")."_y.log";
+        $logfile = "app/system/logs/view_logs/".$filename;
+        $message = "".date('Y-m-d H:i:s').": View: [".$view."] called @ Controller: [".$path."] ". PHP_EOL;
+        file_put_contents($logfile, $message, FILE_APPEND);
+    }
+}
+
 if(! function_exists("has_internet_connection")){
     function has_internet_connection($url = "http://www.google.com") {
         $ch = curl_init($url);
