@@ -1,5 +1,4 @@
 <?php
-
 //Main routes.
 Routes::set_default_route("main/welcome_page"); // default route or main page
 
