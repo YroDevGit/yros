@@ -31,7 +31,8 @@ class RouteTest
             $controllerClass = ucfirst($controller); 
             
             if(in_array(ucfirst($route), $filenames)){
-                echo "❌ Route name '$controller' conflicts with Controller name '$controllerClass' .\n";
+                $uc = ucfirst($route);
+                echo "❌ Route name '$route' conflicts with Controller name '$uc' .\n";
                 $failed++;
                 continue;
             }
