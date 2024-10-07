@@ -186,10 +186,27 @@ if(! function_exists("decrypt")){
     }
 }
 
-if(! function_exists("view_tracked_logs")){
-    function view_tracked_logs(string $contains=""){
+if(! function_exists("views_tracked_logs")){
+    function views_tracked_logs(string $contains=""):array{
         $YROS = &Yros::get_instance();
         return $YROS->get_view_logs_inside_json($contains);
+    }
+}
+
+if(! function_exists("display_views_tracked_logs")){
+    function display_views_tracked_logs(string $contains="", string $seperator = "<br>"):void{
+        $arr = views_tracked_logs($contains);
+        if(empty($arr)){
+            echo "<b style='color:red;'>No views tracked.!</b>";
+        }
+        else{
+            foreach($arr as $key => $value){
+                $vw = $value['view'];
+                $cnt = $value['controller'];
+                $pth = $value['path'];
+                echo $key." :: view:[$vw], controller:[$cnt], path:[$pth]".$seperator;
+            }
+        }
     }
 }
 
