@@ -32,6 +32,8 @@ class Validation_lib{
                 
                 case "number":
                 case "numeric":
+                case "int":
+                case "integer":
                     if(! is_numeric($inputData)){
                         $errors[$inputname] = "{$label} should be a number.";
                     }
