@@ -294,8 +294,9 @@ class Yros {
         $jsonData = file_get_contents($filePath);
         $records = json_decode($jsonData, true); 
         $contf = $controllerName."/".$functionName;
-        if (!isset($records[$viewName][$controllerName]) && !isset($records[$viewName][$functionName])) {
-            $records[$viewName] = [
+        $keyname = $viewName."@".$contf;
+        if (!isset($records[$keyname][$controllerName]) && !isset($records[$keyname][$functionName])) {
+            $records[$keyname] = [
                 'view' => $viewName,
                 'controller' => $controllerName,
                 'function' => $functionName,
