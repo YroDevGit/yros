@@ -189,7 +189,7 @@ if(! function_exists("decrypt")){
 if(! function_exists("view_tracked_logs")){
     function view_tracked_logs(string $contains=""){
         $YROS = &Yros::get_instance();
-        $YROS->get_view_logs_inside_json($contains);
+        return $YROS->get_view_logs_inside_json($contains);
     }
 }
 
