@@ -290,7 +290,6 @@ class Yros {
         if (!file_exists($filePath)) {
             file_put_contents($filePath, json_encode(new stdClass()));
         }
-    
         $jsonData = file_get_contents($filePath);
         $records = json_decode($jsonData, true); 
         $contf = $controllerName."/".$functionName;
