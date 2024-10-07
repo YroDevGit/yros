@@ -306,6 +306,29 @@ class Yros {
             file_put_contents($filePath, json_encode($records, JSON_PRETTY_PRINT| JSON_UNESCAPED_SLASHES));
         }
     }
+
+    public function get_view_logs_inside_json(string $keyContains=""):array{
+        $jsonFilePath = "public/views.json";
+        $jsonData = file_get_contents($jsonFilePath);
+        $dataArray = json_decode($jsonData, true);
+
+        if ($dataArray === null && json_last_error() !== JSON_ERROR_NONE) {
+            return [];
+        } else {
+            if($keyContains=="" || $keyContains == null){
+                return $dataArray;
+            }
+            else{
+                $arr = [];
+                foreach($dataArray as $key=>$value){
+                    if(string_contains($key, $keyContains)){
+                        $arr[$key] = $value;
+                    }
+                }
+                return $arr;
+            }
+        }
+    }
     
 
 

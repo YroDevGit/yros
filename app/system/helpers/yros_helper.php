@@ -186,6 +186,13 @@ if(! function_exists("decrypt")){
     }
 }
 
+if(! function_exists("view_tracked_logs")){
+    function view_tracked_logs(string $contains){
+        $YROS = &Yros::get_instance();
+        $YROS->get_view_logs_inside_json($contains);
+    }
+}
+
 if(! function_exists("string_has_symbols")){
     function string_has_symbols(string $string){
         /**Check if string has symbols */
