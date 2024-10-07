@@ -204,7 +204,7 @@ if(! function_exists("display_views_tracked_logs")){
                 $vw = $value['view'];
                 $cnt = $value['controller'];
                 $pth = $value['path'];
-                echo $key." :: view:[$vw], controller:[$cnt], path:[$pth]".$seperator;
+                echo  "view:[$vw], controller:[$cnt], path:[$pth]".$seperator;
             }
         }
     }
