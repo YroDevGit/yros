@@ -294,11 +294,12 @@ class Yros {
         $jsonData = file_get_contents($filePath);
         $records = json_decode($jsonData, true); 
         $contf = $controllerName."/".$functionName;
-        if (!isset($records[$contf][$controllerName]) && !isset($records[$contf][$functionName])) {
-            $records[$contf] = [
+        if (!isset($records[$viewName][$controllerName]) && !isset($records[$viewName][$functionName])) {
+            $records[$viewName] = [
                 'view' => $viewName,
                 'controller' => $controllerName,
                 'function' => $functionName,
+                'path' => $contf,
                 'description' => "Last access to this view, if view controller is changed, we can't track it."
             ];
     
