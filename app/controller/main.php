@@ -26,6 +26,10 @@ class Main extends Yros{
         view_error("error_page.php");
     }
 
+    function sample_page(){
+        echo "Hello, this is a sample page";
+    }
+
     
 
     
