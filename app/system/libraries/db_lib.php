@@ -28,7 +28,9 @@ class Db_lib{
         else{
             $id = strval($unique);
         }
-        return $this->storage[$id];
+        $ret = $this->storage[$id];
+        $this->storage[$id] = [];
+        return $ret;
     }
 
     public function insert($table, $data){
