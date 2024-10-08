@@ -33,6 +33,10 @@ class Db_lib{
         return $ret;
     }
 
+    public function clear_db_data(){
+        $this->storage = [];
+    }
+
     public function insert($table, $data){
         $YROS = &Yros::get_instance();
         try{
