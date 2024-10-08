@@ -1,9 +1,35 @@
 <?php
 class Db_lib{
+    public $storage = [];
     public function __construct()
 	{
 
 	}
+
+
+    public function set_db_data(int|string $unique, array $data):void{
+
+        $id = "";
+        if(is_string($unique)){
+            $id = $unique;
+        }
+        else{
+            $id = strval($unique);
+        }
+        $key = array_key_first($data);
+        $this->storage[$id][$key] = $data[$key];
+    }
+
+    public function get_db_data(int|string $unique):array{
+        $id = "";
+        if(is_string($unique)){
+            $id = $unique;
+        }
+        else{
+            $id = strval($unique);
+        }
+        return $this->storage[$id];
+    }
 
     public function insert($table, $data){
         $YROS = &Yros::get_instance();

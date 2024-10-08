@@ -60,6 +60,20 @@ if(! function_exists("db_delete")){
     }
 }
 
+if(! function_exists("db_setData")){
+    function db_setData(string|int $group, array $data){
+        $YROS = &Yros::get_instance();
+        $YROS->dblib->set_db_data($group, $data);
+    }
+}
+
+if(! function_exists("dbData")){
+    function dbData(string|int $group){
+        $YROS = &Yros::get_instance();
+        return $YROS->dblib->get_db_data($group);
+    }
+}
+
 if(! function_exists("db_update")){
     function db_update(string $table, array $data, array $conditions){
         $YROS = &Yros::get_instance();
