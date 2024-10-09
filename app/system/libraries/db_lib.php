@@ -7,7 +7,7 @@ class Db_lib{
 	}
 
 
-    public function set_db_data(int|string $unique, array $data):void{
+    public function set_db_data(int $unique, array $data):void{
 
         $id = "";
         if(is_string($unique)){
@@ -20,7 +20,7 @@ class Db_lib{
         $this->storage[$id][$key] = $data[$key];
     }
 
-    public function get_db_data(int|string $unique):array{
+    public function get_db_data(int $unique):array{
         $id = "";
         if(is_string($unique)){
             $id = $unique;

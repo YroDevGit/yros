@@ -18,12 +18,12 @@ if(! function_exists("db_set_query")){
 
 
 if(! function_exists("db_insert")){
-    function db_insert(string $table, string|array $data){
+    function db_insert(string $table, string|array|int $data){
         $YROS = &Yros::get_instance();
         if(is_array($data)){
             return $YROS->dblib->insert($table, $data);
         }
-        else{
+        elseif(is_string($data)){
             $arr = preg_split('/[&|]/', $data);
             $dt = array();
             foreach($arr as $key){
@@ -35,17 +35,20 @@ if(! function_exists("db_insert")){
             }
             return $YROS->dblib->insert($table, $dt);
         }
+        else{
+            return $YROS->dblib->get_db_data($data);
+        }
         
     }
 }
 
 if(! function_exists("db_delete")){
-    function db_delete(string $table, array|string $conditions){
+    function db_delete(string $table, array|string|int $conditions){
         $YROS = &Yros::get_instance();
         if(is_array($conditions)){
             return $YROS->dblib->deleteQuery($table, $conditions);
         }
-        else{
+        elseif(is_string($conditions)){
             $arr = preg_split('/[&|]/', $conditions);
             $dt = array();
             foreach($arr as $key){
@@ -55,29 +58,43 @@ if(! function_exists("db_delete")){
                 $vv = $kv[1];
                 $dt[$kk] = $vv;
             }
-            return $YROS->dblib->deleteQuery($table, $dt);
+            return $YROS->dblib->deleteQuery($table, $dt); 
+        }
+        else{
+            return $YROS->dblib->get_db_data($conditions);
         }
     }
 }
 
 if(! function_exists("db_setData")){
-    function db_setData(string|int $group, array $data){
+    function db_setData(int $group, array $data){
         $YROS = &Yros::get_instance();
         $YROS->dblib->set_db_data($group, $data);
     }
 }
 
 if(! function_exists("dbData")){
-    function dbData(string|int $group){
+    function dbData(int $group){
         $YROS = &Yros::get_instance();
         return $YROS->dblib->get_db_data($group);
     }
 }
 
 if(! function_exists("db_update")){
-    function db_update(string $table, array $data, array $conditions){
+    function db_update(string $table, array|int $data, array|int $conditions){
         $YROS = &Yros::get_instance();
-        return $YROS->dblib->updateQuery($table, $data, $conditions);
+        if(is_array($data) && is_array($conditions)){
+            return $YROS->dblib->updateQuery($table, $data, $conditions);
+        }
+        elseif(! is_array($data) && is_array($conditions)){
+            return $YROS->dblib->updateQuery($table, $YROS->dblib->get_db_data($data), $conditions);
+        }
+        elseif(is_array($data) && ! is_array($conditions)){
+            return $YROS->dblib->updateQuery($table, $data, $YROS->dblib->get_db_data($conditions));
+        }
+        else{
+            return $YROS->dblib->updateQuery($table,$YROS->dblib->get_db_data($data), $YROS->dblib->get_db_data($conditions));
+        }
     }
 }
 
