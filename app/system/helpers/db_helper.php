@@ -47,7 +47,7 @@ if(! function_exists("db_insert")){
 }
 
 if(! function_exists("db_select")){
-    function db_select(string $table, array|string $columns =["*"], string $conditions, array $parameters =[] ){
+    function db_select(string $table, array|string $columns =["*"], string $conditions="", array $parameters =[] ){
         $YROS = &Yros::get_instance();
         return $YROS->dblib->db_select($table, $columns, $conditions, $parameters);
     }
