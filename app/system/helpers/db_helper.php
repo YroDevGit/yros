@@ -18,10 +18,12 @@ if(! function_exists("db_set_query")){
 
 
 if(! function_exists("db_insert")){
-    function db_insert(string $table, string|array|int $data){
+    function db_insert(string $table, string|array|int &$data, bool $array_data_remain = false){
         $YROS = &Yros::get_instance();
         if(is_array($data)){
-            return $YROS->dblib->insert($table, $data);
+            $ins = $data;
+            if($array_data_remain == false){$data = [];}
+            return $YROS->dblib->insert($table, $ins);
         }
         elseif(is_string($data)){
             $arr = preg_split('/[&|]/', $data);
@@ -33,7 +35,8 @@ if(! function_exists("db_insert")){
                 $vv = $kv[1];
                 $dt[$kk] = $vv;
             }
-            return $YROS->dblib->insert($table, $dt);
+            $dtt = $dt;
+            return $YROS->dblib->insert($table, $dtt);
         }
         else{
             $dta = $YROS->dblib->get_db_data($data);
@@ -44,10 +47,12 @@ if(! function_exists("db_insert")){
 }
 
 if(! function_exists("db_delete")){
-    function db_delete(string $table, array|string|int $conditions){
+    function db_delete(string $table, array|string|int $conditions, bool $array_data_remain = false){
         $YROS = &Yros::get_instance();
         if(is_array($conditions)){
-            return $YROS->dblib->deleteQuery($table, $conditions);
+            $ins = $conditions;
+            if($array_data_remain == false){$conditions = [];}
+            return $YROS->dblib->deleteQuery($table, $ins);
         }
         elseif(is_string($conditions)){
             $arr = preg_split('/[&|]/', $conditions);
@@ -83,16 +88,23 @@ if(! function_exists("dbData")){
 }
 
 if(! function_exists("db_update")){
-    function db_update(string $table, array|int $data, array|int $conditions){
+    function db_update(string $table, array|int &$data, array|int &$conditions, bool $array_data_remain = false){
         $YROS = &Yros::get_instance();
         if(is_array($data) && is_array($conditions)){
-            return $YROS->dblib->updateQuery($table, $data, $conditions);
+            $dt = $data;
+            $cond = $conditions;
+            if($array_data_remain==false){$data=[]; $conditions = [];}
+            return $YROS->dblib->updateQuery($table, $dt, $cond);
         }
         elseif(! is_array($data) && is_array($conditions)){
-            return $YROS->dblib->updateQuery($table, $YROS->dblib->get_db_data($data), $conditions);
+            $cond = $conditions;
+            if($array_data_remain==false){$conditions=[];}
+            return $YROS->dblib->updateQuery($table, $YROS->dblib->get_db_data($data), $cond);
         }
         elseif(is_array($data) && ! is_array($conditions)){
-            return $YROS->dblib->updateQuery($table, $data, $YROS->dblib->get_db_data($conditions));
+            $dt = $data;
+            if($array_data_remain==false){$data=[];}
+            return $YROS->dblib->updateQuery($table, $dt, $YROS->dblib->get_db_data($conditions));
         }
         else{
             return $YROS->dblib->updateQuery($table,$YROS->dblib->get_db_data($data), $YROS->dblib->get_db_data($conditions));

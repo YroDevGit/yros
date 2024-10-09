@@ -147,6 +147,23 @@ if(! function_exists("get")){
     }
 }
 
+if(! function_exists("reset_value")){
+    function reset_value(array|int|string|float &$data){
+        if(is_array($data)){
+            $data = [];
+        }
+        if(is_string($data)){
+            $data = "";
+        }
+        if(is_integer($data)){
+            $data = 0;
+        }
+        if(is_float($data)){
+            $data = 0;
+        }
+    }
+}
+
 
 if(! function_exists("value_in_array")){
     function value_in_array($val, $arr){
