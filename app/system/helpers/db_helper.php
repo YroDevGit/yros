@@ -36,7 +36,8 @@ if(! function_exists("db_insert")){
             return $YROS->dblib->insert($table, $dt);
         }
         else{
-            return $YROS->dblib->get_db_data($data);
+            $dta = $YROS->dblib->get_db_data($data);
+            return $YROS->dblib->insert($table, $dta);
         }
         
     }
@@ -61,7 +62,8 @@ if(! function_exists("db_delete")){
             return $YROS->dblib->deleteQuery($table, $dt); 
         }
         else{
-            return $YROS->dblib->get_db_data($conditions);
+            $dta = $YROS->dblib->get_db_data($conditions);
+            return $YROS->dblib->deleteQuery($table, $dta);
         }
     }
 }
