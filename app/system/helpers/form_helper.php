@@ -110,6 +110,12 @@ if(! function_exists("display_error")){
     }
 }
 
+if(! function_exists("show_error")){
+    function show_error(string $error){
+        trigger_error(display_error($error));
+    }
+}
+
 if(! function_exists("input")){
     function input(string $inputname){
         /**
