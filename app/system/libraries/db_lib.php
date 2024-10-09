@@ -37,6 +37,29 @@ class Db_lib{
         $this->storage = [];
     }
 
+    public function db_select(string $table, array|string $columns = ['*'], string $conditions = '', array $parameters = []) {
+        $str = "";
+        if(is_string($columns)){
+            if($columns=="" || $columns==null){
+                $str = "*";
+            }
+            else{
+                $str = $columns;
+            }
+        }
+        if(is_array($columns)){
+            if(empty($columns)){
+                $str = "*";
+            }
+            else{
+                $dt = implode(', ', $columns);
+                $str = $dt;
+            }
+        }
+        $query= 'SELECT ' . $str . ' FROM ' . $table . ' ' . $conditions;
+        return $this->setQuery($query, $parameters);
+    }
+
     public function insert($table, $data){
         $YROS = &Yros::get_instance();
         try{
