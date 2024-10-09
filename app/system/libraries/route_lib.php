@@ -13,6 +13,13 @@ class Route_lib{
         $route = isset($exp[0]) ? $exp[0] : "";
         $parameters = "";
         if(! empty($param)){
+            if(array_has_keys($param)){
+                $dtt = [];
+                foreach($param as $key=>$value){
+                    $dtt[] = $key."=".$value;
+                }
+                $param = $dtt;
+            }
             $implode = implode("&", $param);
             $parameters = "?".$implode;
         }
@@ -42,6 +49,13 @@ class Route_lib{
 
         $parameters = "";
         if(!empty($param)){
+            if(array_has_keys($param)){
+                $dtt = [];
+                foreach($param as $key=>$value){
+                    $dtt[] = $key."=".$value;
+                }
+                $param = $dtt;
+            }
             $imp = implode("&", $param);
             $parameters = "?".$imp;
         }

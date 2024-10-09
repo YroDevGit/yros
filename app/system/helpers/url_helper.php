@@ -143,6 +143,13 @@ if(! function_exists("path")){
     function path(string $path, array $parameters = []):string{
         $par = "";
         if(! empty($parameters)){
+            if(array_has_keys($parameters)){
+                $dtt = [];
+                foreach($parameters as $key=>$value){
+                    $dtt[] = $key."=".$value;
+                }
+                $parameters = $dtt;
+            }
             $imp = implode("&", $parameters);
             $par = "?".$imp;
             return rootpath.$path.$par;
