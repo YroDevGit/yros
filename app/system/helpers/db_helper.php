@@ -47,7 +47,7 @@ if(! function_exists("db_insert")){
 }
 
 if(! function_exists("db_delete")){
-    function db_delete(string $table, array|string|int $conditions, bool $array_data_remain = false){
+    function db_delete(string $table, array|string|int &$conditions, bool $array_data_remain = false){
         $YROS = &Yros::get_instance();
         if(is_array($conditions)){
             $ins = $conditions;
