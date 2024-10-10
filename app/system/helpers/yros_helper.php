@@ -137,7 +137,7 @@ if(! function_exists("write_sql_log")){
             $setting = $app_settings['save_db_logs'];
             if($setting==true){
                 $filename = "sql_".date("Y-M-d")."_yros.log";
-                $logfile =  "app/system/logs/sql_logs/". $filename;
+                $logfile =  "public/logs/sql_logs/". $filename;
                 $formatted_message = "[" . date('Y-m-d H:i:s') . "] " . $message . PHP_EOL;
                 file_put_contents($logfile, $formatted_message, FILE_APPEND);
             }  
@@ -147,7 +147,7 @@ if(! function_exists("write_sql_log")){
 if(! function_exists("write_view_logs")){
     function write_view_logs(string $path, string $view){
         $filename = "sql_".date("Y-M-d")."_y.log";
-        $logfile = "app/system/logs/view_logs/".$filename;
+        $logfile = "public/logs/view_logs/".$filename;
         $message = "".date('Y-m-d H:i:s').": View: [".$view."] called @ Controller: [".$path."] ". PHP_EOL;
         file_put_contents($logfile, $message, FILE_APPEND);
     }

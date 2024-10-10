@@ -3,7 +3,7 @@
 function customErrorHandler($errno, $errstr, $errfile, $errline) {
     $logMessage = "[" . date("Y-m-d H:i:s") . "] Error: [$errno] $errstr - $errfile:$errline\n";
     $filename = date("Y-M-d")."_yros.log";
-    error_log($logMessage, 3,"app/system/logs/error_logs/".$filename); // Log errors to a specific file
+    error_log($logMessage, 3,"public/logs/error_logs/".$filename); // Log errors to a specific file
 }
 if($app_settings['error_log']){
     set_error_handler("customErrorHandler");
