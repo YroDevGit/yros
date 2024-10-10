@@ -6,12 +6,11 @@ VS code shortcut...
 5. paste this code insode HTML.json
 
 
-
 {
 	"Print data": {
 	"prefix": "@display_data",
 	"body": [
-	"<?php display('${1:data}') ?>$0"
+	"<?php display('${1:data}'); ?>$0"
 	 	],
 	 	"description": "Log output to console"
 	},
@@ -56,6 +55,16 @@ VS code shortcut...
 	"<?php foreach(${1:extract}): ?>$0",
 	"  //to do...",
 	"<?php endforeach; ?>"
+	 	],
+	 	"description": "Log output to console"
+	},
+
+	"while curly": {
+	"prefix": "@while",
+	"body": [
+	"<?php while(${1:extract}): ?>$0",
+	"  //to do...",
+	"<?php endwhile; ?>"
 	 	],
 	 	"description": "Log output to console"
 	},

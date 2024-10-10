@@ -16,8 +16,14 @@
                 <img src="<?=img('giphy.gif')?>" alt="Yros Logo">
             </div>
             <h1>Welcome to Yros Framework</h1>
+            <div>
+                <p><small>version <b>1.7</b> (Updated: Oct 10 2024)</small></p>
+            </div>
             <p><small style="font-family:monospace;font-size:16px;">Yros is a light-weight PHP framework but can create high quality web applications</small></p>
-            <a href="#" class="get-started">Get Started</a>
+            <div class="row">
+                <small>Download updated version <a href="https://yrosframework.blogspot.com/p/blog-page.html" target="_blank">@Yros website</a></small>
+            </div>
+            <a href="https://www.youtube.com/@YROS-z4y/videos" target="_blank" class="get-started">Get Started</a>
         </div>
     </div>
     <footer style="display:block;">
@@ -49,6 +55,10 @@
         background: linear-gradient(to right, rgba(254, 197, 19, 0.8), rgba(255, 255, 255, 0.9));
     }
 
+
+    .row{
+        padding: 5px 0px 15px 0px;
+    }
     .dev-mono{
         font-family: monospace;
         font-size: 15px;
