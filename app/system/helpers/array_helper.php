@@ -52,4 +52,11 @@ if(! function_exists("array_contains")){
     }
 }
 
+if(! function_exists("fetch_array")){
+    function fetch_array(array &$array){
+        $YROS = &Yros::get_instance();
+        return $YROS->arraylib->fetch_array($array) ;
+    }
+}
+
 ?>
