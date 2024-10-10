@@ -18,7 +18,7 @@ class Display{
     }
 
     public function getRequestURI(){
-        $requestUri = $_SERVER['REQUEST_URI']; 
+        $requestUri = $_SERVER['REQUEST_URI'];
         return $requestUri;
     }
 
@@ -26,6 +26,40 @@ class Display{
         include "app/system/functions/myroutes.php";
         $uri = $this->getRequestURI();
         $arr = explode("/", $uri);
+        $def = isset($routes['default']) ? $routes['default'] : "";
+        $curr = $_SESSION['yros_p4ge_contr0ll3r_1005055_v13w5'];
+        if(strtolower($def) == strtolower($curr)){
+            $xpl = explode("/", $curr);
+            $ucfirst = isset($xpl[0]) ? $xpl[0] : "";
+            $ucfirst = ucfirst($ucfirst);
+            $func = isset($xpl[1]) ? $xpl[1] : "index";
+            $func = ucfirst($func);
+            return "Route: [<span style='color:#009d80;'>default</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
+        }
+        else{
+            $xpl = explode("/", $curr);
+            $cc = isset($xpl[0]) ? $xpl[0] : "";
+            $ff = isset($xpl[1]) ? $xpl[1] : "index";
+            $has_route = false;
+            $the_key = "";
+            foreach($routes as $key=>$value){
+                $plode = explode("/", $value);
+                $r_cc = isset($plode[0]) ? $plode[0] : "";
+                $r_ff = isset($plode[1]) ? $plode[1] : "index";
+                if(strtolower($cc) == strtolower($r_cc) && strtolower($ff) == strtolower($r_ff)){
+                    $has_route = true;
+                    $the_key = $key;
+                }
+            }
+            $cc = ucfirst($cc);
+
+            if($has_route){
+                return "Route: [<span style='color:#009d80;'>$the_key</span>], [Controller: <span style='color:#d204d2;'>$cc.php</span>] [Class: <span style='color:#e64d0a;'>$cc</span>] [Function: <span style='color:#339a00'>$ff</span>]";
+            }
+            else{
+                return "Route: Not set, [Controller: <span style='color:#d204d2;'>$cc.php</span>] [Class: <span style='color:#e64d0a;'>$cc</span>] [Function: <span style='color:#339a00'>$ff</span>]";
+            }
+        }
         $sliced = array_slice($arr,-2);
         if(($sliced[0]==null||$sliced[0]=="") && ($sliced[1]==null||$sliced[1]=="")){
             $rootController = isset($routes['default']) ? $routes['default'] : "?";
@@ -37,117 +71,7 @@ class Display{
             $func = $this->noParam($func);
             return "Route: [<span style='color:#009d80;'>default</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
         }
-        else{
-            //echo ($sliced[1]!=null||$sliced[1]!="") ? "good" : "bad";
-           if(($sliced[0]==null||$sliced[0]=="") && ($sliced[1]!=null||$sliced[1]!="")){
-                $onevalue = $sliced[1];
-                $onevalue = $this->noParam($onevalue);
-                if(array_key_exists($onevalue, $routes)){
-                    $val = $routes[$onevalue];
-                    $exp = explode("/", $val);
-                    $cl = isset($exp[0])? $exp[0] : "";
-                    $func = isset($exp[1]) && $exp[1] !="" ? $exp[1] : "index";
-                    $ucfirst = ucfirst($cl);
-                    $ucfirst = $this->noParam($ucfirst);
-                    $func = $this->noParam($func);
-                    return "Route: [<span style='color:#009d80;'>$onevalue</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
-                }
-                else{
-                    $exp = explode("/", $sliced[1]);
-                    $class = isset($exp[0]) ? $exp[0] : "";
-                    $ucfirst = ucfirst($class);
-                    $hasRoute = "";
-                    $class = $this->noParam($class);
-                    $ucfirst = $this->noParam($ucfirst);
-                    foreach($routes as $rts=>$rtv){
-                        $getr = $routes[$rts];
-                        if(strtolower($getr)==strtolower($class) || strtolower($getr)==strtolower($class)."/" || strtolower($getr)==strtolower($class)."/index"){
-                            $hasRoute = $rts;
-                        }
-                    }
-                    if($hasRoute==""){
-                        return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
-                    }
-                    else{
-                        return "Route: Not called [<span style='color:#009d80;'>$rts</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
-                    }
-                    
-                }
-           }
-           else if(($sliced[1]==null||$sliced[1]=="") && ($sliced[0]!=null||$sliced[0]!="")){
-                $onevalue = $sliced[0];
-                $onevalue = $this->noParam($onevalue);
-                if(array_key_exists($onevalue, $routes)){
-                    $val = $routes[$onevalue];
-                    $exp = explode("/", $val);
-                    $cl = isset($exp[0])? $exp[0] : "";
-                    $func = isset($exp[1]) && $exp[1] !="" ? $exp[1] : "index";
-                    $ucfirst = ucfirst($cl);
-                    $ucfirst = $this->noParam($ucfirst);
-                    $func = $this->noParam($func);
-                    return "Route: [<span style='color:#009d80;'>$onevalue</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$func</span>]";
-                }
-                else{
-                    $exp = explode("/", $sliced[0]);
-                    $class = isset($exp[0]) ? $exp[0] : "";
-                    $ucfirst = ucfirst($class);
-                    $hasRoute = "";
-                    $class = $this->noParam($class);
-                    $ucfirst = $this->noParam($ucfirst);
-                    foreach($routes as $rts=>$rtv){
-                        $getr = $routes[$rts];
-                        if(strtolower($getr)==strtolower($class) || strtolower($getr)==strtolower($class)."/" || strtolower($getr)==strtolower($class)."/index"){
-                            $hasRoute = $rts;
-                        }
-                    }
-                    if($hasRoute==""){
-                        return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
-                    }
-                    else{
-                        return "Route: Not called [<span style='color:#009d80;'>$rts</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>index</span>]";
-                    }
-                }
-            }
-           else if(($sliced[0]!=null||$sliced[0]!="") && ($sliced[1]!=null||$sliced[1]!="")){
-                $class = $sliced[0];
-                $func = $sliced[1];
-                $funcplain = $this->noParam($func);//explode("?", $func)[0];
-                $ucfirst = ucfirst($class);
-                $hasRoute = "";
-                $class = $this->noParam($class);
-                $ucfirst = $this->noParam($ucfirst);
-                if(strtolower($funcplain)== "index"){
-                    foreach($routes as $rts=>$r){
-                        $getr =  $routes[$rts];
-                        if($getr == $class."/".$funcplain || $getr == $class."/".$funcplain."/" || $getr == $class || $getr == $class."/"){
-                            $hasRoute =  $rts;
-                        }
-                    }
-                }
-                else{
-                    foreach($routes as $rts=>$r){
-                        $getr =  $routes[$rts];
-                        if($getr == $class."/".$funcplain || $getr == $class."/".$funcplain."/"){
-                            $hasRoute =  $rts;
-                        }
-                    }
-                }
-                
-                if($hasRoute==""){
-                    return "Route: Not set, [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$funcplain</span>]";
-                }
-                else{
-                    return "Route: Not called [<span style='color:#009d80;'>$hasRoute</span>], [Controller: <span style='color:#d204d2;'>$ucfirst.php</span>] [Class: <span style='color:#e64d0a;'>$ucfirst</span>] [Function: <span style='color:#339a00'>$funcplain</span>]";
-                }
-                
-           }
-           else{
-            return "Error: Can't tract routes";
-           }
-        }
        
-        //print_r($sliced);
-        //return $sliced;
     }
 
     public function getAllPost(){
@@ -164,13 +88,27 @@ class Display{
         }
     }
 
+    public function getAllGet(){
+        if(!empty($_GET)){
+            $postdata = [];
+            foreach($_GET as $post=>$value){
+                $postdata[] = "[".$post."]";
+            }
+            $imp = implode(" ", $postdata);
+            return "GET/parameters: ".$imp;
+        }
+        else{
+            return "GET/parameters: No get data";
+        }
+    }
+
     public function display_route(){
         ?>
         <div class="yros-screen-routes-display" align="center">
             <div class="yros-screen-text-wrapped" style="color:black;">
                 <?=$this->getRouteURL()?>
             </div>
-            <?php if(! empty($_POST)): ?>
+            <?php if(! empty($_POST) || ! empty($_GET)): ?>
                 <div class="yros-screen-text-wrapped">
                     <span style="color:blue;cursor:pointer;" onclick="yros_screen_see_more_dd(this)">see more</span>
                 </div>
@@ -178,12 +116,15 @@ class Display{
                     <div style="color:#fc3154;">
                         <?=$this->getAllPost()?>
                     </div>
+                    <div style="color:orange;">
+                        <?=$this->getAllGet()?>
+                    </div>
                 </div>
                 <script>
                     function yros_screen_see_more_dd($myself){
                         if(document.getElementById('yros_screen_see_more').style.display == 'none'){
                             document.getElementById('yros_screen_see_more').style.display = '';
-                            $myself.innerHTML = "hide post";
+                            $myself.innerHTML = "hide post/get";
                         }
                         else{
                             document.getElementById('yros_screen_see_more').style.display = 'none';
