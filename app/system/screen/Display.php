@@ -110,25 +110,29 @@ class Display{
             </div>
             <?php if(! empty($_POST) || ! empty($_GET)): ?>
                 <div class="yros-screen-text-wrapped">
-                    <span style="color:blue;cursor:pointer;" onclick="yros_screen_see_more_dd(this)">see more</span>
+                    <span style="color:blue;cursor:pointer;" onclick="yros_screen_see_more_dd(this)"><<== see more ==>></span>
                 </div>
                 <div class="yros-screen-text-wrapped" style="display: none;" id="yros_screen_see_more">
-                    <div style="color:#fc3154;">
-                        <?=$this->getAllPost()?>
-                    </div>
-                    <div style="color:orange;">
-                        <?=$this->getAllGet()?>
-                    </div>
+                    <?php if(! empty($_POST)): ?>
+                        <div style="color:#fc3154;">
+                            <?=$this->getAllPost()?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if(! empty($_GET)): ?>
+                        <div style="color:orange;">
+                            <?=$this->getAllGet()?>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <script>
                     function yros_screen_see_more_dd($myself){
                         if(document.getElementById('yros_screen_see_more').style.display == 'none'){
                             document.getElementById('yros_screen_see_more').style.display = '';
-                            $myself.innerHTML = "hide post/get";
+                            $myself.innerHTML = "<<== hide post/get data ==>>";
                         }
                         else{
                             document.getElementById('yros_screen_see_more').style.display = 'none';
-                            $myself.innerHTML = "see more";
+                            $myself.innerHTML = "<<== see more ==>>";
                         }
                     }
                 </script>
