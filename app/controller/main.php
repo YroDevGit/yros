@@ -30,6 +30,11 @@ class Main extends Yros{
     function sample_page(){
         echo "Hello, this is a sample page";
     }
+    
+    function index(){
+        $view = get("view");
+        view_page($view);
+    }
 
     
 
