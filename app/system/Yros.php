@@ -78,8 +78,8 @@ class Yros {
         $this->store_back_up_flash_data1005();
         //$this->load_all_models();
 
-        require_once "app/yros_custom/autorun.php";
-        require_once "app/yros_custom/components.php";
+        require_once "app/auto/autorun.php";
+        require_once "app/auto/components.php";
         if($isYrosApiOrModel==false){
             //add custom command
         }
