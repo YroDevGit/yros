@@ -137,14 +137,18 @@ if(! function_exists("input_value")){
 }
 
 if(! function_exists("get")){
-    function get(string $url){
+    function get(string $url, bool $secure = false){
         $get = $_GET;
         if(empty($get)){
             trigger_error(display_error("No GET data found.!"));exit;
         }
         else{
             if(array_key_exists($url, $get)){
-                return $_GET[$url];
+                if($secure){
+                    return decrypt($_GET[$url]);
+                }else{
+                    return $_GET[$url];
+                }
             }
             else{
                 trigger_error(display_error("No GET '$url' found.!"));exit;

@@ -140,31 +140,16 @@ if(! function_exists("get_main_page_url")){
 }
 
 if(! function_exists("path")){
-    function path(string $path, array $parameters = []):string{
-        $par = "";
-        if(! empty($parameters)){
-            if(array_has_keys($parameters)){
-                $dtt = [];
-                foreach($parameters as $key=>$value){
-                    $dtt[] = $key."=".$value;
-                }
-                $parameters = $dtt;
-            }
-            $imp = implode("&", $parameters);
-            $par = "?".$imp;
-            return rootpath.$path.$par;
-        }
-        else{
-            return rootpath.$path;
-        }
-        
+    function path(string|array $path, array $parameters = [], bool $secure = false):string{
+        $YROS = &Yros::get_instance();
+        return $YROS->routelib->getPathUrl($path, $parameters, $secure);
     }
 }
 
 if(! function_exists("controller")){
-    function controller(string $controller, array $parameters = []):string{
+    function controller(string|array $controller, array $parameters = [], bool $secure = false):string{
         $YROS = &Yros::get_instance();
-        return $YROS->routelib->getControllerURL($controller, $parameters);
+        return $YROS->routelib->getControllerURL($controller, $parameters, $secure);
     }
 }
 
@@ -194,9 +179,9 @@ if(! function_exists("public_path")){
 }
 
 if(! function_exists("route")){
-    function route(string $route_name, array $parameters = [], bool $show_controller = false):string{
+    function route(string|array $route_name, array $parameters = [], bool $secure = false, bool $show_controller = false):string{
         $YROS = &Yros::get_instance();
-        return $YROS->routelib->getRoute($route_name, $parameters, $show_controller);
+        return $YROS->routelib->getRoute($route_name, $parameters, $secure, $show_controller);
     }
 }
 
