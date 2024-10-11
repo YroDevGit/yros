@@ -85,14 +85,14 @@ if(! function_exists("post")){
         $post = post_data();
         
         if(empty($post)){
-            trigger_error(display_error("No POST data found.!"));exit;
+            return null;
         }
         else{
             if(value_in_array($inputname, $post)){
                 return $post[$inputname];
             }
             else{
-                trigger_error(display_error("undefined input post '$inputname' .!"));exit;
+                return null;
             }
         }
     }
@@ -140,7 +140,7 @@ if(! function_exists("get")){
     function get(string $url, bool $secure = false){
         $get = $_GET;
         if(empty($get)){
-            trigger_error(display_error("No GET data found.!"));exit;
+            return null;
         }
         else{
             if(array_key_exists($url, $get)){
@@ -151,7 +151,7 @@ if(! function_exists("get")){
                 }
             }
             else{
-                trigger_error(display_error("No GET '$url' found.!"));exit;
+                return null;
             }
         }
     }
