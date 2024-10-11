@@ -6,6 +6,7 @@ class Routes
     public function __construct(&$dbConfig)
     {
         self::$dbConfig = &$dbConfig;
+        self::set(["view" => "main/index"]);
     }
 
     public static function add(string $route, string $path)

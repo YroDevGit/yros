@@ -23,7 +23,7 @@ else{
             if($filename==""||$filename==null){
                 echo "No file to create, please add filename";exit;
             }
-            else if($filelower == "api" || $filelower == "public" || $filelower == "views"){
+            else if($filelower == "api" || $filelower == "public" || $filelower == "views" || $filelower == "view"){
                 echo "❌ File not created, Filename '$filename' is not valid.! , try another file name.";exit;
             }
             else{
