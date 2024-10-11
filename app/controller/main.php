@@ -32,7 +32,7 @@ class Main extends Yros{
     }
     
     function index(){
-        $view = get("view");
+        $view = get("page");
         view_page($view);
     }
 
