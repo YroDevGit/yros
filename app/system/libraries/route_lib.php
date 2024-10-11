@@ -128,12 +128,12 @@ class Route_lib{
         }
 
         if(file_exists($file)){
-            if(method_exists($className, $functionName)){
-                return rootpath.$path.$parameters;
+            if(isset($arr[1])){
+                return rootpath.$className."/".$functionName.$parameters;
             }
             else{
-                return rootpath.$className."/".$functionName;
-            }
+                return rootpath.$className.$parameters;
+            } 
         }
         else{
             return rootpath.$className."/".$functionName;
