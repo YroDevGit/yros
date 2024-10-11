@@ -172,17 +172,17 @@ if(! function_exists("has_internet_connection")){
 }
 
 if(! function_exists("encrypt")){
-    function encrypt(string|float|int $data){
+    function encrypt(string|float|int $data, string $key = null){
         $YROS = &Yros::get_instance();
-        return $YROS->yrossecure->encrypt($data);
+        return $YROS->yrossecure->encrypt($data, $key);
     }
 }
 
 
 if(! function_exists("decrypt")){
-    function decrypt(string|float|int $data){
+    function decrypt(string|float|int $data, string $key = null){
         $YROS = &Yros::get_instance();
-        return $YROS->yrossecure->decrypt($data);
+        return $YROS->yrossecure->decrypt($data, $key);
     }
 }
 
