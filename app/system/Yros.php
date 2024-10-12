@@ -133,10 +133,6 @@ class Yros {
         
     }
 
-    public function view_content(string $view, array $data = array()){
-        $this->view("contents/".$view, $data);
-    }
-
     public function view_include(string $view, array $data = array()){
         $this->view("includes/".$view, $data);
     }

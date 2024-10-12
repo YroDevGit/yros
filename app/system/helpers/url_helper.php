@@ -243,12 +243,6 @@ if(! function_exists("view_error")){
     }
 }
 
-if(! function_exists("view_content_page")){
-    function view_content_page(string $view, array $data=[]){
-        $YROS = &Yros::get_instance();
-        $YROS->view_content($view, $data);
-    }
-}
 
 if(! function_exists("view_include_page")){
     function view_include_page(string $view, array $data=[]){
