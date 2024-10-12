@@ -35,6 +35,12 @@ if(! function_exists("array_is_multidimensional")){
     }
 }
 
+if(! function_exists("array_has_rows")){
+    function array_has_rows(array $array){
+        return isset($array[0]) && is_array($array[0]);
+    }
+}
+
 if(! function_exists("array_has_keys")){
     function array_has_keys($array){
         return array_keys($array) !== range(0, count($array) - 1);

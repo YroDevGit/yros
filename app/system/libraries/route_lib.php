@@ -30,7 +30,14 @@ class Route_lib{
     public function getRoute(string|array $route, array $param=[],bool $secure = false, bool $showController = false){
         include "app/system/functions/myroutes.php";
         if(is_array($route)){
+            if(array_has_rows($route)){
+                $route = $route[0];
+            }
             $route = isset($route[0]) ? $route[0] : "default";
+        }
+
+        if(array_has_rows($param)){
+            $param = $param[0];
         }
         $exp = explode("?", $route);
         $route = isset($exp[0]) ? $exp[0] : "";
@@ -72,7 +79,13 @@ class Route_lib{
 
     public function getPathUrl(string|array $path, array $parameters = [], bool $secure = false){
         if(is_array($path)){
+            if(array_has_rows($path)){
+                $path = $path[0];
+            }
             $path = $this->convArrayToStringPath($path);
+        }
+        if(array_has_rows($parameters)){
+            $parameters = $parameters[0];
         }
         $par = "";
         if(! empty($parameters)){
@@ -98,16 +111,32 @@ class Route_lib{
         }
     }
 
+    public function getParam(array $param){
+        if(array_has_rows($param)){
+            return $param[0];
+        }
+        else{
+            return $param;
+        }
+    }
+
     public function getControllerURL(string|array $path, array $param=[], bool $secure = false){
         if(is_array($path)){
+            if(array_has_rows($path)){
+                $path = $path[0];
+            }
             $path = $this->convArrayToStringPath($path);
+        }
+
+        if(array_has_rows($param)){
+            $param = $param[0];
         }
         $arr = explode("/", $path);
         $className = isset($arr[0]) ? $arr[0] : "";
         $functionName = isset($arr[1]) ? $arr[1] : "index";
         $className = ucfirst($className);
         $file = "app/controller/".$className.".php";
-
+        $param = $this->getParam($param);
         $parameters = "";
         if(!empty($param)){
             if(array_has_keys($param)){
