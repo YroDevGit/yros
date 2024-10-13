@@ -281,7 +281,7 @@ class Yros {
     }
 
     public function record_view_in_json_file(string $viewName, string $controllerName, string $functionName) {
-        $filePath = "public/views.json";
+        $filePath = "php/views.json";
          
         if (!file_exists($filePath)) {
             file_put_contents($filePath, json_encode(new stdClass()));
@@ -304,7 +304,7 @@ class Yros {
     }
 
     public function get_view_logs_inside_json(string $keyContains=""):array{
-        $jsonFilePath = "public/views.json";
+        $jsonFilePath = "php/views.json";
         $jsonData = file_get_contents($jsonFilePath);
         $dataArray = json_decode($jsonData, true);
 
@@ -325,8 +325,22 @@ class Yros {
             }
         }
     }
-    
 
+    public function getCurrentController(){
+        return $_SESSION['yros_p4ge_contr0ll3r_1005055_v13w5'];
+    }
+
+    public function getCurrentClass(){
+        $ccff = $this->getCurrentController();
+        $xpl = explode("/", $ccff);
+        return isset($xpl[0]) ? $xpl[0] : "";
+    }
+
+    public function getCurrentFunction(){
+        $ccff = $this->getCurrentController();
+        $xpl = explode("/", $ccff);
+        return isset($xpl[1]) ? $xpl[1] : "index";
+    }
 
     
 }

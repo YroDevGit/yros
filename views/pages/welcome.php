@@ -17,7 +17,7 @@
             </div>
             <h1>Welcome to Yros Framework</h1>
             <div>
-                <p><small>version <b>2.1</b> (Updated: Oct 11 2024)</small></p>
+                <p><small>version <b>2.2</b> (Updated: Oct 14 2024)</small></p>
             </div>
             <p><small style="font-family:monospace;font-size:16px;">Yros is a light-weight PHP framework but can create high quality web applications</small></p>
             <div class="row">

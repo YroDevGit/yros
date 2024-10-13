@@ -83,7 +83,7 @@ function routing_controller($urls, $inRoute = false){
             }
         }
         
-        $classFile = 'app/controller/' . $className . '.php';
+        $classFile = 'php/controller/' . $className . '.php';
 
         if (file_exists($classFile)) {
             include $classFile;
