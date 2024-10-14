@@ -12,7 +12,6 @@ class Database
 
     public function __construct($dbConfig)
     {
-        if($dbConfig['database'] != "" && $dbConfig['database'] != null){
             $dsn  = "";
             if($dbConfig['driver'] == "mysqli" || $dbConfig['driver'] == "mysql" || $dbConfig['driver'] == "pdo"){
                 $dsn = "mysql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'] . ";charset=" . $dbConfig['charset'];
@@ -31,11 +30,11 @@ class Database
             try {
                 $this->pdo = new PDO($dsn, $dbConfig['username'], $dbConfig['password'], $options);
             } catch (PDOException $e) {
-                $this->error = $e->getMessage();
-                die("Database connection failed: " . $this->error);
+                if($dbConfig['database'] != "" && $dbConfig['database'] != null){
+                    $this->error = $e->getMessage();
+                    die("Database connection failed: " . $this->error);
+                }
             }
-        }
-        
     }
 
     public function sql_query(string $sql, $params = [])
