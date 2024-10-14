@@ -12,7 +12,7 @@ class Database
 
     public function __construct($dbConfig)
     {
-        if($dbConfig['database'] =! "" && $dbConfig['database'] != null){
+        if($dbConfig['database'] != "" && $dbConfig['database'] != null){
             $dsn  = "";
             if($dbConfig['driver'] == "mysqli" || $dbConfig['driver'] == "mysql" || $dbConfig['driver'] == "pdo"){
                 $dsn = "mysql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'] . ";charset=" . $dbConfig['charset'];
