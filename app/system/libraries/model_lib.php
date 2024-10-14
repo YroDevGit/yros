@@ -1,6 +1,7 @@
 <?php
 
 class Model_lib{
+    public $receivedData = [];
     public function __construct()
 	{}
 
@@ -14,11 +15,12 @@ class Model_lib{
             include $model_path;
 
             $func = $modelarr[1];
+            $this->receivedData = [];
             $classname = new $class();
             
                 if(!empty($send_data)){
                     foreach($send_data as $d=>$value){
-                        $_GET[$d] = $value;
+                        $this->receivedData[$d] = $value;
                     }
                 }
 
@@ -52,11 +54,12 @@ class Model_lib{
             include $model_path;
 
             $func = $modelarr[1];
+            $this->receivedData = [];
             $classname = new $class();
             
             if(!empty($send_data)){
                 foreach($send_data as $d=>$value){
-                    $_GET[$d] = $value;
+                    $this->receivedData[$d] = $value;
                 }
             }
 
