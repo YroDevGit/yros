@@ -9,9 +9,13 @@ class Database
     public $pdo_success = true;
     private $lastQuery;
     private $lastParams = [];
+    public $dbn;
 
     public function __construct($dbConfig)
     {
+        $this->dbn = null;
+        if($dbConfig['database'] != "" && $dbConfig['database'] != null){
+            $this->dbn = $dbConfig['database'];
             $dsn  = "";
             if($dbConfig['driver'] == "mysqli" || $dbConfig['driver'] == "mysql" || $dbConfig['driver'] == "pdo"){
                 $dsn = "mysql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'] . ";charset=" . $dbConfig['charset'];
@@ -30,11 +34,17 @@ class Database
             try {
                 $this->pdo = new PDO($dsn, $dbConfig['username'], $dbConfig['password'], $options);
             } catch (PDOException $e) {
-                if($dbConfig['database'] != "" && $dbConfig['database'] != null){
                     $this->error = $e->getMessage();
                     die("Database connection failed: " . $this->error);
-                }
             }
+        }
+           
+    }
+
+    public function dbChecker(){
+        if($this->dbn=="" || $this->dbn ==null){
+            die("You haven't yet set up database/dbname in your system.");
+        }
     }
 
     public function sql_query(string $sql, $params = [])
@@ -122,6 +132,7 @@ class Database
 
     public function execute()
     {
+        $this->dbChecker();
         write_sql_log($this->getLastQuery());
         return $this->stmt->execute();
     }
@@ -167,6 +178,7 @@ class Database
 
     public function beginTransaction()
     {
+        $this->dbChecker();
         write_sql_log("<<=== YROS:: db tracker started ===>>");
         $this->pdo_success = true;
         return $this->pdo->beginTransaction();
@@ -174,6 +186,7 @@ class Database
 
     public function commit()
     {
+        $this->dbChecker();
         if ($this->pdo_success == true) {
             write_sql_log("<<=== YROS:: db_tracker_success : sql queries submitted ===>>");
             return $this->pdo->commit();
@@ -184,17 +197,18 @@ class Database
     }
 
     public function rollBack()
-    {
+    {   $this->dbChecker();
         return $this->pdo->rollBack();
     }
 
     public function inTransaction()
-    {
+    {   $this->dbChecker();
         return $this->pdo->inTransaction();
     }
 
     public function getLastQuery()
     {
+        $this->dbChecker();
         $query = $this->lastQuery;
         if (!empty($this->lastParams)) {
             foreach ($this->lastParams as $param) {
