@@ -41,9 +41,12 @@ class Database
            
     }
 
-    public function dbChecker(){
+    public function myPDO(){
         if($this->dbn=="" || $this->dbn ==null){
             die("You haven't yet set up database/dbname in your system.");
+        }
+        else{
+            return $this->pdo;
         }
     }
 
@@ -52,7 +55,7 @@ class Database
         $this->lastQuery = $sql;
         $this->lastParams = $params;
 
-        $this->stmt = $this->pdo->prepare($sql);
+        $this->stmt = $this->myPDO()->prepare($sql);
         if (!empty($params)) {
             foreach ($params as $key => $value) {
                 if (is_numeric($key)) {
@@ -132,7 +135,6 @@ class Database
 
     public function execute()
     {
-        $this->dbChecker();
         write_sql_log($this->getLastQuery());
         return $this->stmt->execute();
     }
@@ -156,7 +158,7 @@ class Database
 
     public function lastInsertId()
     {
-        return $this->pdo->lastInsertId();
+        return $this->myPDO()->lastInsertId();
     }
 
     public function insert($table, $data)
@@ -170,7 +172,7 @@ class Database
         $res = $this->execute();
 
         if ($res) {
-            return $this->pdo->lastInsertId();
+            return $this->myPDO()->lastInsertId();
         } else {
             return -1;
         }
@@ -178,18 +180,16 @@ class Database
 
     public function beginTransaction()
     {
-        $this->dbChecker();
         write_sql_log("<<=== YROS:: db tracker started ===>>");
         $this->pdo_success = true;
-        return $this->pdo->beginTransaction();
+        return $this->myPDO()->beginTransaction();
     }
 
     public function commit()
     {
-        $this->dbChecker();
         if ($this->pdo_success == true) {
             write_sql_log("<<=== YROS:: db_tracker_success : sql queries submitted ===>>");
-            return $this->pdo->commit();
+            return $this->myPDO()->commit();
         } else {
             write_sql_log("<<=== YROS:: db_tracker failed : sql rollback ===>>");
             $this->rollBack();
@@ -197,22 +197,21 @@ class Database
     }
 
     public function rollBack()
-    {   $this->dbChecker();
-        return $this->pdo->rollBack();
+    {
+        return $this->myPDO()->rollBack();
     }
 
     public function inTransaction()
-    {   $this->dbChecker();
-        return $this->pdo->inTransaction();
+    {
+        return $this->myPDO()->inTransaction();
     }
 
     public function getLastQuery()
     {
-        $this->dbChecker();
         $query = $this->lastQuery;
         if (!empty($this->lastParams)) {
             foreach ($this->lastParams as $param) {
-                $quotedParam = $this->pdo->quote($param);
+                $quotedParam = $this->myPDO()->quote($param);
                 $query = preg_replace('/\?/', $quotedParam, $query, 1);
             }
         }
