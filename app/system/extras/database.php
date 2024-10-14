@@ -12,27 +12,30 @@ class Database
 
     public function __construct($dbConfig)
     {
-        $dsn  = "";
-        if($dbConfig['driver'] == "mysqli" || $dbConfig['driver'] == "mysql" || $dbConfig['driver'] == "pdo"){
-            $dsn = "mysql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'] . ";charset=" . $dbConfig['charset'];
-        }
-        elseif($dbConfig['driver']==strtolower("PostgreSQL") || $dbConfig['driver']=="pgsql" || $dbConfig['driver']=="postgres"){
-            $dsn = "pgsql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'];
+        if($dbConfig['database'] =! "" && $dbConfig['database'] != null){
+            $dsn  = "";
+            if($dbConfig['driver'] == "mysqli" || $dbConfig['driver'] == "mysql" || $dbConfig['driver'] == "pdo"){
+                $dsn = "mysql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'] . ";charset=" . $dbConfig['charset'];
+            }
+            elseif($dbConfig['driver']==strtolower("PostgreSQL") || $dbConfig['driver']=="pgsql" || $dbConfig['driver']=="postgres"){
+                $dsn = "pgsql:host=" . $dbConfig['host'] . ";dbname=" . $dbConfig['database'];
+            }
+            
+
+            $options = [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_PERSISTENT => true,
+            ];
+
+            try {
+                $this->pdo = new PDO($dsn, $dbConfig['username'], $dbConfig['password'], $options);
+            } catch (PDOException $e) {
+                $this->error = $e->getMessage();
+                die("Database connection failed: " . $this->error);
+            }
         }
         
-
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_PERSISTENT => true,
-        ];
-
-        try {
-            $this->pdo = new PDO($dsn, $dbConfig['username'], $dbConfig['password'], $options);
-        } catch (PDOException $e) {
-            $this->error = $e->getMessage();
-            die("Database connection failed: " . $this->error);
-        }
     }
 
     public function sql_query(string $sql, $params = [])
