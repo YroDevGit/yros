@@ -36,6 +36,10 @@ class Main extends Yros{
         view_page($view);
     }
 
+    function viewlogs(){
+        display_views_tracked_logs();
+    }
+
     
 
     
