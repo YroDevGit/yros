@@ -144,6 +144,17 @@ class Validation_lib{
         
     }
 
+    public function get_all_input_error(){
+        $YROS = &Yros::get_instance();
+        $all = $YROS->yros_input_validation_errors;
+        $ret = [];
+        foreach($all as $key=>$value){
+            $newkey = str_replace($this->validation_temp_error, "", $key);
+            $ret[$newkey] = $value;
+        }
+        return $ret;
+    }
+    
 
 
     public function validation_failed(){

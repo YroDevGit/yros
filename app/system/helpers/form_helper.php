@@ -246,15 +246,19 @@ if(! function_exists("input_error")){
 if(! function_exists("get_all_input_error")){
     function get_all_input_error():array{
         $YROS = &Yros::get_instance();
-        $ret = [];
-        foreach($_SESSION as $value=>$key){
-            if(string_contains($value, $YROS->validationlib->validation_session_error)){
-                $column = string_remove($value, "flash_data_".$YROS->validationlib->validation_session_error);
-                $ret[$column] = $key;
-                unset($_SESSION[$value]);
-            }
+        return $YROS->validationlib->get_all_input_error();
+    }
+}
+
+if(! function_exists("has_input_errors")){
+    function has_input_errors():bool{
+        $data = get_all_input_error();
+        if(empty($data)){
+            return false;
         }
-        return $ret;
+        else{
+            return true;
+        }
     }
 }
 
