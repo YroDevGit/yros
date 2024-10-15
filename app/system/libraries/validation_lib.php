@@ -71,7 +71,7 @@ class Validation_lib{
                                     $errors[$inputname] = "{$ruleParam} Characters only";  
                                 }
                                 if(strlen($inputData) < (int)$ruleParam){
-                                    $errors[$inputname] = "Make it {$ruleParam} Characters";  
+                                    $errors[$inputname] = "Needs {$ruleParam} Characters";  
                                 } 
                             }
                         }
