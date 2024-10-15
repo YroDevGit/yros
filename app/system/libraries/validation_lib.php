@@ -37,20 +37,24 @@ class Validation_lib{
                 case "numeric":
                 case "int":
                 case "integer":
-                    if(! is_numeric($inputData)){
-                        $errors[$inputname] = "{$label} should be a number.";
-                        if($type==2){
-                            $errors[$inputname] = "Number only";  
+                    if($inputData != "" && $inputData != null){
+                        if(! is_numeric($inputData)){
+                            $errors[$inputname] = "{$label} should be a number.";
+                            if($type==2){
+                                $errors[$inputname] = "Number only";  
+                            }
                         }
                     }
                     break;
 
                 case "string":
                 case "text":
-                    if(! is_string($inputData)){
-                        $errors[$inputname] = "{$label} should be a string/letters.";
-                        if($type==2){
-                            $errors[$inputname] = "Plain text only";  
+                    if($inputData != "" && $inputData != null){
+                        if(! is_string($inputData)){
+                            $errors[$inputname] = "{$label} should be a string/letters.";
+                            if($type==2){
+                                $errors[$inputname] = "Plain text only";  
+                            }
                         }
                     }
                     break;
@@ -59,52 +63,65 @@ class Validation_lib{
                 case "characters":
                 case "character":
                 case "size":
-                    if (strlen($inputData) != (int)$ruleParam) {
-                        $errors[$inputname] = "{$label} should have {$ruleParam} characters.";
-                        if($type==2){
-                            $errors[$inputname] = "{$ruleParam} Characters only";  
+                    if($inputData != "" && $inputData != null){
+                        if (strlen($inputData) != (int)$ruleParam) {
+                            $errors[$inputname] = "{$label} should have {$ruleParam} characters.";
+                            if($type==2){
+                                $errors[$inputname] = "{$ruleParam} Characters only";  
+                            }
                         }
+
                     }
                     break;
     
                 case 'max':
-                    if (strlen($inputData) > (int)$ruleParam) {
-                        $errors[$inputname] = "{$label} cannot be more than {$ruleParam} characters.";
-                        if($type==2){
-                            $errors[$inputname] = "Above {$ruleParam} characters";  
+                    if($inputData != "" && $inputData != null){
+                        if (strlen($inputData) > (int)$ruleParam) {
+                            $errors[$inputname] = "{$label} cannot be more than {$ruleParam} characters.";
+                            if($type==2){
+                                $errors[$inputname] = "Above {$ruleParam} characters";  
+                            }
                         }
                     }
                     break;
 
                 case 'min':
-                    if (strlen($inputData) < (int)$ruleParam) {
-                        $errors[$inputname] = "{$label} cannot be less than {$ruleParam} characters.";
-                        if($type==2){
-                            $errors[$inputname] = "below {$ruleParam} characters";  
+                    if($inputData != "" && $inputData != null){
+                        if (strlen($inputData) < (int)$ruleParam) {
+                            $errors[$inputname] = "{$label} cannot be less than {$ruleParam} characters.";
+                            if($type==2){
+                                $errors[$inputname] = "below {$ruleParam} characters";  
+                            }
                         }
                     }
                     break;
                 case "no-symbols":
-                    if(! preg_match('/^[a-zA-Z0-9\s]*$/', $inputData)){
-                        $errors[$inputname] = "{$label} should not have symbols.";
-                        if($type==2){
-                            $errors[$inputname] = "Remove symbols";  
+                    if($inputData != "" && $inputData != null){
+                        if(! preg_match('/^[a-zA-Z0-9\s]*$/', $inputData)){
+                            $errors[$inputname] = "{$label} should not have symbols.";
+                            if($type==2){
+                                $errors[$inputname] = "Remove symbols";  
+                            }
                         }
                     }
                     break;
                 case "with-symbols":
-                    if(preg_match('/^[a-zA-Z0-9\s]*$/', $inputData)){
-                        $errors[$inputname] = "{$label} should have a symbols";
-                        if($type==2){
-                            $errors[$inputname] = "Add symbols";  
+                    if($inputData != "" && $inputData != null){
+                        if(preg_match('/^[a-zA-Z0-9\s]*$/', $inputData)){
+                            $errors[$inputname] = "{$label} should have a symbols";
+                            if($type==2){
+                                $errors[$inputname] = "Add symbols";  
+                            }
                         }
                     }
                     break;
                 case "email":
-                    if(! filter_var($inputData, FILTER_VALIDATE_EMAIL)){
-                        $errors[$inputname] = "{$label} should be a valid email.";
-                        if($type==2){
-                            $errors[$inputname] = "Invalid email";  
+                    if($inputData != "" && $inputData != null){
+                        if(! filter_var($inputData, FILTER_VALIDATE_EMAIL)){
+                            $errors[$inputname] = "{$label} should be a valid email.";
+                            if($type==2){
+                                $errors[$inputname] = "Invalid email";  
+                            }
                         }
                     }
                     break;
