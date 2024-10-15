@@ -130,6 +130,16 @@ class Validation_lib{
                         }
                     }
                     break;
+                case "date":
+                    if($inputData != "" && $inputData != null){
+                        if($this->isValidDate($inputData, $ruleParam) == false){
+                            $errors[$inputname] = "{$label} should be a valid date.";
+                                if($type==2){
+                                    $errors[$inputname] = "Invalid date";  
+                            }
+                        }
+                    }
+                    break;
                 case "modern-password":
                     $arr = [];
                     $h_error = false;
@@ -213,6 +223,11 @@ class Validation_lib{
         else{
             return false;
         }
+    }
+
+    public function isValidDate($date, $format = 'Y-m-d') {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) === $date;
     }
     
 }
