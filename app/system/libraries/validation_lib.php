@@ -54,17 +54,91 @@ class Validation_lib{
                         }
                     }
                     break;
+                case "image":
+                    if($_FILES[$inputfile]['full_path']!="" && $_FILES[$inputfile]['full_path'] != null){
+                        $nm = $inputData['name'];
+                        $fileExtension = strtolower(pathinfo($nm, PATHINFO_EXTENSION));
+                        $arr = ["jpg", "jpeg", "png", "svg", "webp", "ico", "gif"];
+                        if(! in_array($fileExtension, $arr)){
+                            $errors[$inputfile] = "{$label} should be an image/picture"; 
+                            if($type == 2){
+                                $errors[$inputfile] = "Image/Picture only";
+                            }
+                        }
+                    }
+                    break;
                 
+                case "video":
+                case "movie":
+                    if($_FILES[$inputfile]['full_path']!="" && $_FILES[$inputfile]['full_path'] != null){
+                        $nm = $inputData['name'];
+                        $fileExtension = strtolower(pathinfo($nm, PATHINFO_EXTENSION));
+                        $videoArr = [
+                            "mp4", "mkv", "avi", "mov", "wmv", "flv", 
+                            "webm", "mpeg", "mpg", "3gp"
+                        ];
+                    
+                        if (!in_array($fileExtension, $videoArr)) {
+                            $errors[$inputfile] = "{$label} should be a video";
+                    
+                            if ($type == 2) {
+                                $errors[$inputfile] = "Videos only";
+                            }
+                        }
+                    }
+                    break;
+                case "document":
+                case "file":
+                    if($_FILES[$inputfile]['full_path']!="" && $_FILES[$inputfile]['full_path'] != null){
+                        $nm = $inputData['name'];
+                        $fileExtension = strtolower(pathinfo($nm, PATHINFO_EXTENSION));
+                        $arr = [
+                            "pdf", "doc", "docx", "txt", "rtf", "odt", "xml", 
+                            "wps", "xls", "xlsx", "ppt", "pptx", 
+                            "pdf", "doc", "docx", "txt", "rtf", "odt", "xml", 
+                            "wps", "xls", "xlsx", "ppt", "pptx"
+                        ];
+                    
+                        if (!in_array($fileExtension, $arr)) {
+                            $errors[$inputfile] = "{$label} should be a document";
+                    
+                            if ($type == 2) {
+                                $errors[$inputfile] = "Document only";
+                            }
+                        }
+                    }
+                    break;
+
+                case "audio":
+                case "music":
+                    if($_FILES[$inputfile]['full_path']!="" && $_FILES[$inputfile]['full_path'] != null){
+                        $nm = $inputData['name'];
+                        $fileExtension = strtolower(pathinfo($nm, PATHINFO_EXTENSION));
+                        $audioArr = [
+                            "mp3", "wav", "aac", "ogg", "flac", 
+                            "m4a", "wma", "opus"
+                        ];
+                    
+                        if (!in_array($fileExtension, $audioArr)) {
+                            $errors[$inputfile] = "{$label} should be an audio file ".$fileExtension;
+                    
+                            if ($type == 2) {
+                                $errors[$inputfile] = "Audio files only";
+                            }
+                        }
+                    }
+                    break;
+
                 case "type":
                     if($_FILES[$inputfile]['full_path']!="" && $_FILES[$inputfile]['full_path'] != null){
                         $nm = $inputData['name'];
                         $fileExtension = strtolower(pathinfo($nm, PATHINFO_EXTENSION));
                         if($ruleParam == "image" || $ruleParam == "picture" || $ruleParam == "photo"){
-                            $arr = ["jpg", "jpeg", "png", "svg", "webp"];
+                            $arr = ["jpg", "jpeg", "png", "svg", "webp", "ico", "gif"];
                             if(! in_array($fileExtension, $arr)){
-                                $errors[$inputfile] = "{$label} should be an images/pictures"; 
+                                $errors[$inputfile] = "{$label} should be an image/picture"; 
                                 if($type == 2){
-                                    $errors[$inputfile] = "Images/Pictures only";
+                                    $errors[$inputfile] = "Image/Picture only";
                                 }
                             }
                         }
