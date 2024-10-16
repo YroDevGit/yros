@@ -48,24 +48,42 @@ if(! function_exists("get_file_size")){
     }
 }
 
+if(! function_exists("file_size")){
+    function file_size(string $inputname){
+        return get_file_size($inputname);
+    }
+}
+
 if(! function_exists("get_file")){
-    function get_file($inputname){
+    function get_file(string $inputname){
         $YROS = &Yros::get_instance();
         return $YROS->filelib->get_file($inputname);
     }
 }
 
 if(! function_exists("get_file_name")){
-    function get_file_name($inputname){
+    function get_file_name( string $inputname){
         $YROS = &Yros::get_instance();
         return $YROS->filelib->get_file_name($inputname);
     }
 }
 
+if(! function_exists("file_name")){
+    function file_name(string $inputname){
+        return get_file_name($inputname);
+    }
+}
+
 if(! function_exists("get_file_path")){
-    function get_file_path($inputname){
+    function get_file_path(string $inputname){
         $YROS = &Yros::get_instance();
         return $YROS->filelib->get_file_path($inputname);
+    }
+}
+
+if(! function_exists("file_path")){
+    function file_path(string $inputname){
+        return get_file_path($inputname);
     }
 }
 

@@ -187,7 +187,7 @@ if(! function_exists("value_in_array")){
 }
 
 if(! function_exists("file_input")){
-    function file_input(string $inputname){
+    function file_input(string $inputname):array{
         if(empty($_FILES)){
             return null;
         }

@@ -21,7 +21,14 @@ class File_lib{
             $ret = ['code' => '1062', 'message'=>'File already exist', 'filename' => $_FILES[$inputname]["name"], 'filesize' => $_FILES[$inputname]["size"]];
         }
         else{
-            if (move_uploaded_file($_FILES[$inputname]["tmp_name"], uploads($uploads_folder).$filename)) {
+            $mover = "";
+            if($uploads_folder == ""){
+                $mover = "public/uploads/";
+            }
+            else{
+                $mover = "public/uploads/". $uploads_folder . "/";
+            }
+            if (move_uploaded_file($_FILES[$inputname]["tmp_name"], $mover.$filename)) {
                 $ret = ['code' => '200', 'message'=>'File uploaded suuccessfully', 'original_filename' => $_FILES[$inputname]["name"], 'filesize' => $_FILES[$inputname]["size"], 'filename'=>$filename];
             } else {
                 $ret = ['code' => '-1', 'message'=>'Failed to upload file', 'original_filename' => $_FILES[$inputname]["name"], 'filesize' => $_FILES[$inputname]["size"], 'filename'=>$filename];
