@@ -12,7 +12,7 @@ class Validation_lib{
     public function validate_file(string $inputfile, string $label, string $validation, int $type = 1){
         $rules = explode('|', $validation);
     
-        $inputData = $_FILE[$inputfile] ?? [];
+        $inputData = $_FILES[$inputfile] ?? [];
 
         $errors = [];
         $rules = array_reverse($rules);
@@ -27,6 +27,7 @@ class Validation_lib{
                     break;
                 case "required":
                 case "important":
+                    display($inputData);
                     if(empty($inputData)){
                         $errors[$inputfile] = "{$label} is required.";
                         if($type == 2){
