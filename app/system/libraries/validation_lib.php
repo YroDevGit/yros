@@ -9,9 +9,142 @@ class Validation_lib{
 
 	}
 
+    public function validate_file(string $inputfile, string $label, string $validation, int $type = 1){
+        $rules = explode('|', $validation);
+    
+        $inputData = $_FILE[$inputfile] ?? [];
+
+        $errors = [];
+        $rules = array_reverse($rules);
+        foreach($rules as $rule){
+            $parts = explode(':', $rule);
+            $ruleName = $parts[0];
+            $ruleParam = $parts[1] ?? null;
+            switch($ruleName){
+                case "file":
+                case "files":
+                    $cond = 1;
+                    break;
+                case "required":
+                case "important":
+                    if(empty($inputData)){
+                        $errors[$inputfile] = "{$label} is required.";
+                        if($type == 2){
+                            $errors[$inputfile] = "Required";
+                        }
+                    }else{
+                        if($inputData['full_path'] == "" || $inputData['full_path'] == null){
+                            $errors[$inputfile] = "{$label} is required."; 
+                            if($type == 2){
+                                $errors[$inputfile] = "Required";
+                            }
+                        }
+                    }
+                    break;
+                
+                case "max":
+                    if($_FILES[$inputfile]['full_path']!="" && $_FILES[$inputfile]['full_path'] != null){
+                        $fsize = intval($inputData['size'])  / 1024;
+                        if($fsize > intval($ruleParam)){
+                            $errors[$inputfile] = "{$label} should not more than {$ruleParam}mb"; 
+                            if($type == 2){
+                                $errors[$inputfile] = "Size limit {$ruleParam}mb";
+                            }
+                        }
+                    }
+                    break;
+                
+                case "type":
+                    if($_FILES[$inputfile]['full_path']!="" && $_FILES[$inputfile]['full_path'] != null){
+                        $nm = $inputData['name'];
+                        $fileExtension = strtolower(pathinfo($nm, PATHINFO_EXTENSION));
+                        if($ruleParam == "image" || $ruleParam == "picture" || $ruleParam == "photo"){
+                            $arr = ["jpg", "jpeg", "png", "svg", "webp"];
+                            if(! in_array($fileExtension, $arr)){
+                                $errors[$inputfile] = "{$label} should be an images/pictures"; 
+                                if($type == 2){
+                                    $errors[$inputfile] = "Images/Pictures only";
+                                }
+                            }
+                        }
+                        if ($ruleParam == "document" || $ruleParam == "office") {
+                            $arr = [
+                                "pdf", "doc", "docx", "txt", "rtf", "odt", "xml", 
+                                "wps", "xls", "xlsx", "ppt", "pptx", 
+                                "pdf", "doc", "docx", "txt", "rtf", "odt", "xml", 
+                                "wps", "xls", "xlsx", "ppt", "pptx"
+                            ];
+                        
+                            if (!in_array($fileExtension, $arr)) {
+                                $errors[$inputfile] = "{$label} should be a document";
+                        
+                                if ($type == 2) {
+                                    $errors[$inputfile] = "Documents only";
+                                }
+                            }
+                        }
+                        if ($ruleParam == "video" || $ruleParam == "movie") {
+                            $videoArr = [
+                                "mp4", "mkv", "avi", "mov", "wmv", "flv", 
+                                "webm", "mpeg", "mpg", "3gp"
+                            ];
+                        
+                            if (!in_array($fileExtension, $videoArr)) {
+                                $errors[$inputfile] = "{$label} should be a video";
+                        
+                                if ($type == 2) {
+                                    $errors[$inputfile] = "Videos only";
+                                }
+                            }
+                        }
+                        if ($ruleParam == "audio" || $ruleParam == "music") {
+                            $audioArr = [
+                                "mp3", "wav", "aac", "ogg", "flac", 
+                                "m4a", "wma", "opus"
+                            ];
+                        
+                            if (!in_array($fileExtension, $audioArr)) {
+                                $errors[$inputfile] = "{$label} should be an audio file";
+                        
+                                if ($type == 2) {
+                                    $errors[$inputfile] = "Audio files only";
+                                }
+                            }
+                        }
+                    }
+                    break;
+                
+                case "accept":
+                    if($_FILES[$inputfile]['full_path']!="" && $_FILES[$inputfile]['full_path'] != null){
+                        $nm = $inputData['name'];
+                        $fileExtension = strtolower(pathinfo($nm, PATHINFO_EXTENSION));
+                        $xpl = explode(",", $ruleParam);
+                        if(! in_array($fileExtension, $xpl)){
+                            $impp = implode(", ", $xpl);
+                            $errors[$inputfile] = "{$label} only accepts ".$impp. " files";
+                            if ($type == 2) {
+                                $errors[$inputfile] = $impp." files only";
+                            }
+                        }
+                    }
+                    break;
+
+                default: $errors[$inputfile] = "Unknown validation rule: {$ruleName}";
+
+            }
+        }
+        if (!empty($errors)) {
+            $this->validation_errors = $errors;
+            $_SESSION[$this->validation_temp_error.$inputfile] = $errors[$inputfile];
+        }
+    }
 
     public function validate_input(string $inputname, string $label, string $validation, int $type = 1){
         $rules = explode('|', $validation);
+        if(in_array("file", $rules) || in_array("files", $rules)){
+            $this->validate_file($inputname, $label, $validation, $type);
+            return;
+        }
     
         $inputData = $_POST[$inputname] ?? '';
 
