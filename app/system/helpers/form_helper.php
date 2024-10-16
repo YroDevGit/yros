@@ -104,8 +104,19 @@ if(! function_exists("display_error")){
     function display_error(string $message){
         $str = new Exception($message);
         $arr = explode("#", $str);
-        $ff = implode("\n", $arr);
-        $final = "\n\n".date("Y-m-d H:i:s")." ERROR:: ".$ff." ";
+        $err = [];
+        foreach($arr as $r){
+            if (strpos($r, '\app\system\helpers') !== false) {
+                
+            }elseif(strpos($r, '\app\system') !== false){
+
+            }
+            else{
+                $err[] = $r;
+            }
+        }
+        $ff = implode("\n", $err);
+        $final = "\n\n".date("Y-m-d H:i:s")." ERROR:: ".$message." ".$ff." ";
         return $final;
     }
 }

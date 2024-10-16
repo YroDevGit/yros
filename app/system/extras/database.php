@@ -54,10 +54,13 @@ class Database
     {
         $this->lastQuery = $sql;
         $this->lastParams = $params;
-
         $this->stmt = $this->myPDO()->prepare($sql);
         if (!empty($params)) {
             foreach ($params as $key => $value) {
+                if(is_array($value)){
+                    show_error("Table (Column) Value should not be an array. ".json_encode($value));
+                    exit;
+                }
                 if (is_numeric($key)) {
                     $this->stmt->bindValue($key + 1, $value);
                 } else {
@@ -211,6 +214,9 @@ class Database
         $query = $this->lastQuery;
         if (!empty($this->lastParams)) {
             foreach ($this->lastParams as $param) {
+                if(is_array($param)){
+                    $param =  "Error here:: value is an array ".json_encode($param);
+                }
                 $quotedParam = $this->myPDO()->quote($param);
                 $query = preg_replace('/\?/', $quotedParam, $query, 1);
             }
