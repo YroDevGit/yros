@@ -2,11 +2,12 @@
 
 class Model_lib{
     public $receivedData = [];
+    public $modelname;
     public function __construct()
 	{}
 
 
-    public function model(string|array $model_function, array $params = []){
+    public function model_x(string|array $model_function, array $params = []){
         try {
             if (is_array($model_function)) {
                 $model_function = $model_function[0] ?? "";
@@ -41,7 +42,16 @@ class Model_lib{
         }
     }
 
-
+    
+    public function model(string|array $model){
+        $model_path = "app/models/$model.php";
+        if (!file_exists($model_path)) {
+            show_error("Model file not found: $model_path");
+        }
+        include $model_path;
+        $mod = new $model();
+        return $mod;
+    }
 
     public function model_post(string $model_function, array $send_data=[]) {
         try{
