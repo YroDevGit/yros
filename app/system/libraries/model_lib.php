@@ -43,7 +43,7 @@ class Model_lib{
     }
 
     
-    public function model(string|array $model){
+    public function model(string $model){
         $model_path = "app/models/$model.php";
         if (!file_exists($model_path)) {
             show_error("Model file not found: $model_path");
