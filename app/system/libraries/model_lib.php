@@ -5,6 +5,44 @@ class Model_lib{
     public function __construct()
 	{}
 
+
+    public function model(string|array $model_function, array $params = []){
+        try {
+            if (is_array($model_function)) {
+                $model_function = $model_function[0] ?? "";
+            }
+
+            $modelarr = explode("/", $model_function);
+            $class = $modelarr[0];
+            $func = $modelarr[1];
+
+            $model_path = "app/models/$class.php";
+
+            if (!file_exists($model_path)) {
+                show_error("Model file not found: $model_path");
+            }
+
+            include $model_path;
+
+            $classname = new $class();
+            $method = new ReflectionMethod($class, $func);
+            $expectedParams = $method->getParameters();
+
+            $adjustedParams = [];
+            foreach ($expectedParams as $index => $param) {
+                $adjustedParams[] = $params[$index] ?? null;
+            }
+
+            $result = $method->invokeArgs($classname, $adjustedParams);
+
+            return $result;
+        } catch (Exception $e) {
+            trigger_error(display_error($e->getMessage()));
+        }
+    }
+
+
+
     public function model_post(string $model_function, array $send_data=[]) {
         try{
             $modelarr = explode("/", $model_function);
