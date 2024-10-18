@@ -191,7 +191,7 @@ if(! function_exists("img")){
             return img;
         }
         else{
-            return img.$img;
+            return img."/".$img;
         }
     }
 }
@@ -202,7 +202,7 @@ if(! function_exists("src")){
             return src;
         }
         else{
-            return src.$src;
+            return src."/".$src;
         }
     }
 }
@@ -213,7 +213,7 @@ if(! function_exists("assets")){
             return assets;
         }
         else{
-            return assets.$assets;
+            return assets."/".$assets;
         }
     }
 }
@@ -224,7 +224,7 @@ if(! function_exists("uploads")){
             return uploads;
         }
         else{
-            return uploads.$uploads;
+            return uploads."/".$uploads;
         }
     }
 }
