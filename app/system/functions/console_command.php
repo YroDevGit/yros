@@ -116,7 +116,7 @@ function runDev(){
     $port = $app_settings['port'];
     $php_command = "";
     $php_command = 'php -S localhost:'.$port;
-    echo "\nWelcome to Yros, PHP framework (Made by: Tyrone Limen Malocon)\nServer run at: http://localhost:$port\n\n";
+    echo "\nWelcome to Yros, PHP framework (Made by: CodeYro Team)\nServer run at: http://localhost:$port\n\n";
     passthru($php_command); 
 }
 
