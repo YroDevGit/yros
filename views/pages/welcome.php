@@ -28,7 +28,7 @@
     </div>
     <footer style="display:block;">
         <section align='center'>
-            <a href="https://www.facebook.com/Crush.mo05/" target="_blank" class="anchored-link dev-mono">Developed by Tyrone Limen Malocon.</a>
+            <a href="" target="_blank" class="anchored-link dev-mono" title="Tyrone Limen Malocon"><small>Developed by: CodeYro Team</small></a>
         </section>
     </footer>
 
