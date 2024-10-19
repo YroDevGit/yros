@@ -1,0 +1,27 @@
+Yros Framework
+
+Created by: CodeYro Team.
+Main author: Tyrone Limen Malocon.
+Origin: Himamaylan City, Negros Occidental. Philippines.
+Email: tyronemalocon@gmail.com
+
+Yros framework is a PHP lightweight framework.
+
+versions.
+1.0 Release of yros framework
+1.2 Command-Line to run web app using terminal (php yros run)
+1.3 Command-Line tool (Terminal command creating controller and api)
+1.3 Routing version 1. $route['name'] = 'route'
+1.4 App settings, error logs and sql logs added.
+1.5 Add auto run file
+1.6 Add custom component and functions
+1.7 Add model
+1.8 Add postgreSQL in database server
+1.9 File validation
+2.0 Modern Password requirements added to validation
+2.1 Separate Controller and Routes in PHP folder
+2.2 Views tracking json file.
+
+To add.
+* Scheduling
+* Clear logs
