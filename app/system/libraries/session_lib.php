@@ -3,15 +3,23 @@ class Session_lib{
 
     public $flash_mask = "flash_1005_data_yros1005_";
     public $input_mask = "yros_input_old_value_1005_yro_";
+    public $array_mask = "flash_array_yros_data105_1005_yros_";
 
     public $input_storage = [];
     public $error_storage = [];
     public $fash_storage = [];
-    
+    public $flash_array = [];
+
     public function __construct()
 	{
-		
+        foreach($_SESSION as $key=>$value){
+            if(strpos($key, $this->array_mask) !== false){
+                $this->flash_array[$key] = $value;
+                unset($_SESSION[$key]);
+            }
+        }
 	}
+
 
     public function set_session_data(string $key, $data){
         $_SESSION[$key] = $data;
@@ -28,6 +36,16 @@ class Session_lib{
 
     public function remove_session_data(string $key){
         unset($_SESSION[$key]);
+    }
+
+    public function set_flash_array(string $key, array $array){
+        $_SESSION[$this->flash_array.$key] = $array;
+    }
+
+    public function get_flash_array(string $key):array{
+        $arr = [];
+        $arr = isset($this->flash_array[$this->array_mask.$key]) ? $this->flash_array[$this->array_mask.$key] : null;
+        return $arr;
     }
 
     public function set_flash_data(string $key, string|float|int $data){

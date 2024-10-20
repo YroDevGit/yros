@@ -42,6 +42,20 @@ if(! function_exists("flash_data")){
     }
 }
 
+if(! function_exists("set_flash_array")){
+    function set_flash_array(string $key, array $array){
+        $YROS = &Yros::get_instance();
+        $YROS->sessionlib->set_flash_array($key, $array);
+    }
+}
+
+if(! function_exists("flash_array")){
+    function flash_array(string $key){
+        $YROS = &Yros::get_instance();
+        return $YROS->sessionlib->get_flash_array($key);
+    }
+}
+
 
 if(! function_exists("set_cookie_value")){
     function set_cookie_value(string $key, string|int|bool|float $value, $time = null){
