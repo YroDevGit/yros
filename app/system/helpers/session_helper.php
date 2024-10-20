@@ -50,9 +50,16 @@ if(! function_exists("set_flash_array")){
 }
 
 if(! function_exists("flash_array")){
-    function flash_array(string $key){
+    function flash_array(string $key):array{
         $YROS = &Yros::get_instance();
         return $YROS->sessionlib->get_flash_array($key);
+    }
+}
+
+if(! function_exists("remove_flash_array")){
+    function remove_flash_array(string $key){
+        $YROS = &Yros::get_instance();
+        $YROS->sessionlib->remove_flash_array($key);
     }
 }
 

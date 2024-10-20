@@ -42,6 +42,12 @@ class Session_lib{
         $_SESSION[$this->flash_array.$key] = $array;
     }
 
+    public function remove_flash_array(string $key){
+        if(isset($this->flash_array[$this->array_mask.$key])){
+            unset($this->flash_array[$this->array_mask.$key]);
+        }
+    }
+
     public function get_flash_array(string $key):array{
         $arr = [];
         $arr = isset($this->flash_array[$this->array_mask.$key]) ? $this->flash_array[$this->array_mask.$key] : null;
