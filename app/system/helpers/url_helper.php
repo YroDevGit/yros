@@ -186,6 +186,7 @@ if(! function_exists("route")){
 }
 
 if(! function_exists("img")){
+    /** (String) returns the path inside public/img folder */
     function img(string $img=""):string{
         if($img=="" || $img==null){
             return img;
@@ -197,6 +198,7 @@ if(! function_exists("img")){
 }
 
 if(! function_exists("src")){
+    /** (String) returns the path inside public/src folder */
     function src(string $src=""):string{
         if($src=="" || $src==null){
             return src;
@@ -208,6 +210,7 @@ if(! function_exists("src")){
 }
 
 if(! function_exists("assets")){
+    /** (String) returns the path inside public/assets folder */
     function assets(string $assets=""):string{
         if($assets=="" || $assets==null){
             return assets;
@@ -219,6 +222,7 @@ if(! function_exists("assets")){
 }
 
 if(! function_exists("uploads")){
+    /** (String) returns the path inside public/uploads folder */
     function uploads(string $uploads=""):string{
         if($uploads=="" || $uploads==null){
             return uploads;
@@ -230,6 +234,7 @@ if(! function_exists("uploads")){
 }
 
 if(! function_exists("view")){
+    /** (Void) Display/View the php file inside views folder */
     function view(string $view, array $data=[]){
         $YROS = &Yros::get_instance();
         $YROS->view($view, $data);
@@ -237,6 +242,7 @@ if(! function_exists("view")){
 }
 
 if(! function_exists("view_error")){
+    /** (Void) Display/View the php file inside views/errors folder */
     function view_error(string $view, array $data=[]){
         $YROS = &Yros::get_instance();
         $YROS->view_error($view, $data);
@@ -245,6 +251,7 @@ if(! function_exists("view_error")){
 
 
 if(! function_exists("view_include_page")){
+    /** (Void) Display/View the php file inside views/includes folder */
     function view_include_page(string $view, array $data=[]){
         $YROS = &Yros::get_instance();
         $YROS->view_include($view, $data);
@@ -252,12 +259,14 @@ if(! function_exists("view_include_page")){
 }
 
 if(! function_exists("include_page")){
+    /** (Void) Display/View the php file inside views/includes folder */
     function include_page(string $view, array $data=[]){
         view_include_page($view, $data);
     }
 }
 
 if(! function_exists("view_page")){
+    /** (Void) Display/View the php file inside views/pages folder */
     function view_page(string $view, array $data=[]){
         $YROS = &Yros::get_instance();
         $YROS->view_page($view, $data);

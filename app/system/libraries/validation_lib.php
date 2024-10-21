@@ -411,6 +411,16 @@ class Validation_lib{
         
     }
 
+    public function input_has_error(string $name):bool{
+        $ret = false;
+        if($this->get_input_error($name)==""||$this->get_input_error($name)==null){
+            $ret = false;
+        }else{
+            $ret = true;
+        }
+        return $ret;
+    }
+
     public function get_all_input_error(){
         $YROS = &Yros::get_instance();
         $all = $YROS->yros_input_validation_errors;

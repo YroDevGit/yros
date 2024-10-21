@@ -223,19 +223,22 @@ if(! function_exists("validate_input")){
 
 
 if(! function_exists("set_validation")){
+    /** (Void) set the validation in the specific input */
     function set_validation(string $inputname, string $label, string $validation, int $type = 1){
         validate_input($inputname, $label, $validation, $type);
     }
 }
 
 if(! function_exists("validation_failed")){
-    function validation_failed(){
+    /** (Boolean) check if validation is failed (Or has input errors) */
+    function validation_failed():bool{
         $YROS = &Yros::get_instance();
         return $YROS->validationlib->validation_failed();
     }
 }
 
 if(! function_exists("set_input_error")){
+    /** (Void) set the error in the specific input (Triggers the validation to failed) */
     function set_input_error(string $input, string $error_message){
         $YROS = &Yros::get_instance();
         $YROS->validationlib->set_input_error($input, $error_message);
@@ -243,6 +246,7 @@ if(! function_exists("set_input_error")){
 }
 
 if(! function_exists("get_input_error")){
+    /** (String) returns the specific input error */
     function get_input_error(string $input){
         $YROS = &Yros::get_instance();
         return $YROS->validationlib->get_input_error($input);
@@ -250,21 +254,33 @@ if(! function_exists("get_input_error")){
 }
 
 if(! function_exists("input_error")){
+    /** (String) returns the specific input error */
     function input_error(string $input){
         return get_input_error($input);
     }
 }
 
-if(! function_exists("get_all_input_error")){
-    function get_all_input_error():array{
+if(! function_exists("get_all_input_errors")){
+    /** (ARRAY) array list of all input errors during validation */
+    function get_all_input_errors():array{
         $YROS = &Yros::get_instance();
         return $YROS->validationlib->get_all_input_error();
     }
 }
 
-if(! function_exists("has_input_errors")){
-    function has_input_errors():bool{
-        $data = get_all_input_error();
+if(! function_exists("input_has_error")){
+    /** (Boolean) check if specific input has errors during validation */
+    function input_has_error(string $name):bool{
+        
+        $YROS = &Yros::get_instance();
+        return $YROS->validationlib->input_has_error($name);
+    }
+}
+
+if(! function_exists("has_validation_errors")){
+    /** (Boolean) check if there is errors in input validation */
+    function has_validation_errors():bool{
+        $data = get_all_input_errors();
         if(empty($data)){
             return false;
         }
@@ -275,6 +291,7 @@ if(! function_exists("has_input_errors")){
 }
 
 if(! function_exists("old_value")){
+    /** (String/int/float/any) returns/remains the previous value of the specific input */
     function old_value(string $input){
         $YROS = &Yros::get_instance();
         $mask = $YROS->old_input_value_mask_yros;
@@ -292,6 +309,7 @@ if(! function_exists("old_value")){
 
 
 if(! function_exists("saved_value")){
+    /** (String/int/float/any) returns/remains the previous value of the specific input */
     function saved_value(string $input){
         return old_value($input);
     }
@@ -299,6 +317,7 @@ if(! function_exists("saved_value")){
 
 if(! function_exists("input_value")){
     function input_value(string $input){
+        /** (String/int/float/any) returns/remains the previous value of the specific input */
         // same with saved_value($input);
         return old_value($input);
     }
