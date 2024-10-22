@@ -323,6 +323,22 @@ if(! function_exists("input_value")){
     }
 }
 
+if(! function_exists("csrf")){
+    /** (HTML/String) put the hidden input */
+    function csrf(){
+        $YROS = &Yros::get_instance();
+        return $YROS->validationlib->csrf();
+    }
+}
+
+if(! function_exists("validate_csrf")){
+    /** (Void) validate the csrf token in form submission*/
+    function validate_csrf(bool $reuse_token = false){
+        $YROS = &Yros::get_instance();
+        $YROS->validationlib->validate_csrf($reuse_token);
+    }
+}
+
 
 
 
