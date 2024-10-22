@@ -34,7 +34,7 @@ else{
                     }
                     $createcontroller = addController($filename);
                     if($createcontroller==200){
-                        echo "\n✅ Controller $filename created.\nOpen @: php/controller/$filename.php\n\n";exit;
+                        echo "\n✅ Controller $filename created.\nOpen @: access/controller/$filename.php\n\n";exit;
                     }
                     elseif($createcontroller==-1){
                         echo "❌ Error";exit;

@@ -281,7 +281,7 @@ class Yros {
     }
 
     public function record_view_in_json_file(string $viewName, string $controllerName, string $functionName) {
-        $filePath = "php/views.json";
+        $filePath = "access/views.json";
          
         if (!file_exists($filePath)) {
             file_put_contents($filePath, json_encode(new stdClass()));
@@ -304,7 +304,7 @@ class Yros {
     }
 
     public function get_view_logs_inside_json(string $keyContains=""):array{
-        $jsonFilePath = "php/views.json";
+        $jsonFilePath = "access/views.json";
         $jsonData = file_get_contents($jsonFilePath);
         $dataArray = json_decode($jsonData, true);
 

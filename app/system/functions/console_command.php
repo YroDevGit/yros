@@ -3,7 +3,7 @@
 function addController($name){
 
     $newname = ucfirst($name);
-    $phpFile = "php/controller/".ucfirst($newname).".php"; // Name of the PHP file to be created
+    $phpFile = "access/controller/".ucfirst($newname).".php"; // Name of the PHP file to be created
 
     $phpContent = <<<EOT
     <?php

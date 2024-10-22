@@ -15,7 +15,7 @@ class RouteTest
         $success = 0;
         $failed = 0;
 
-        $directory = 'php/controller/*.php'; 
+        $directory = 'access/controller/*.php'; 
 
         $files = glob($directory);
         $filenames = [];
@@ -42,13 +42,13 @@ class RouteTest
                 $failed++;
                 continue;
             }
-            else if(! file_exists("php/controller/".$controllerClass.".php")){
+            else if(! file_exists("access/controller/".$controllerClass.".php")){
                 echo "❌ Controller $controllerClass for route '$route' :: '$controllerMethod' does not exist.\n";
                 $failed++;
                 continue;
             }
             else{
-                include_once "php/controller/".$controllerClass.".php";
+                include_once "access/controller/".$controllerClass.".php";
                 if (!class_exists($controllerClass)) {
                     echo "❌ Class $controllerClass for route '$route' :: '$controllerMethod' does not exist.\n";
                     $failed++;
