@@ -74,10 +74,10 @@ class Display{
        
     }
 
-    public function getAllPost(){
-        if(!empty($_POST)){
+    public function getAllPost($pdata){
+        if(!empty($pdata)){
             $postdata = [];
-            foreach($_POST as $post=>$value){
+            foreach($pdata as $post=>$value){
                 $postdata[] = "[".$post."]";
             }
             $imp = implode(" ", $postdata);
@@ -103,19 +103,20 @@ class Display{
     }
 
     public function display_route(){
+        $posts = post_data();
         ?>
         <div class="yros-screen-routes-display" align="center">
             <div class="yros-screen-text-wrapped" style="color:black;">
                 <?=$this->getRouteURL()?>
             </div>
-            <?php if(! empty($_POST) || ! empty($_GET)): ?>
+            <?php if(! empty($posts) || ! empty($_GET)): ?>
                 <div class="yros-screen-text-wrapped">
                     <span style="color:blue;cursor:pointer;" onclick="yros_screen_see_more_dd(this)"><<== see more ==>></span>
                 </div>
                 <div class="yros-screen-text-wrapped" style="display: none;" id="yros_screen_see_more">
-                    <?php if(! empty($_POST)): ?>
+                    <?php if(! empty($posts)): ?>
                         <div style="color:#fc3154;">
-                            <?=$this->getAllPost()?>
+                            <?=$this->getAllPost($posts)?>
                         </div>
                     <?php endif; ?>
                     <?php if(! empty($_GET)): ?>

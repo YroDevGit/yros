@@ -10,23 +10,31 @@ if(! function_exists('escapeString')){
 
 
 if(! function_exists('post_data')){
+    /** (Array) return the array data from from submission */
     function post_data() :array{
         /**
          * Array
          * return the array data from from submission
          */
+        $return = [];
+        $ret = [];
         if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] === 'application/json') {
             $json = file_get_contents('php://input');
             $data = json_decode($json, true);
     
             if (json_last_error() === JSON_ERROR_NONE) {
-                return $data; // Return the JSON data as an associative array
+                $return = $data; // Return the JSON data as an associative array
             } else {
-                return ['error' => 'Invalid JSON format'];
+                $return = ['error' => 'Invalid JSON format'];
             }
         } else {
-            return $_POST;
+            $return = $_POST;
         }
+        $ret = $return;
+        if(isset($ret['csrf_token_yros5'])){
+            unset($ret['csrf_token_yros5']);
+        }
+        return $ret;
     }
 }
 

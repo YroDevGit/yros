@@ -449,18 +449,18 @@ class Validation_lib{
     }
 
     public function csrf(){
-        if (!isset($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        if (!isset($_SESSION['csrf_token_yros5'])) {
+            $_SESSION['csrf_token_yros5'] = bin2hex(random_bytes(32));
         }
-        return '<input type="hidden" name="csrf_token" value="' . $_SESSION['csrf_token'] . '">';
+        return '<input type="hidden" name="csrf_token_yros5" value="' . $_SESSION['csrf_token_yros5'] . '">';
     }
 
     public function validate_csrf(bool $reuse_token = false){
-        if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        if (!isset($_POST['csrf_token_yros5']) || $_POST['csrf_token_yros5'] !== $_SESSION['csrf_token_yros5']) {
             die("Invalid CSRF token");
         }else{
             if($reuse_token == false){
-                unset($_SESSION['csrf_token']);
+                unset($_SESSION['csrf_token_yros5']);
             }
         }
     }
