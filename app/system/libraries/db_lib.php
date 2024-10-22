@@ -57,7 +57,41 @@ class Db_lib{
             }
         }
         $query= 'SELECT ' . $str . ' FROM ' . $table . ' ' . $conditions;
-        return $this->setQuery($query, $parameters);
+        $ret = $this->setQuery($query, $parameters);
+        $return = null;
+        if(isset($ret['data'])){
+            $return = $ret['data'];
+        }
+        else{
+            $return = [];
+        }
+        return $return;
+    }
+
+    public function select_all_where(string|array $table, array|string $where, array $param = []){
+        $sql = "";
+        $par = [];
+        if(is_array($table)){
+            $table = $table[0] ? $table[0] : "";
+        }
+        if(is_array($where)){
+            if(array_is_multidimensional($where)){
+                $eex = [];
+                foreach($where as $key=>$value){
+                    $eex[] = $key." = ?";
+                    $par[] = $value;
+                }
+                $imp = implode(" & ", $eex);
+                $param = $par;
+                $sql = "SELECT * from $table where ".$imp;
+            }else{
+                $imp = implode(" & ", $where);
+                $sql = "SELECT * from $table where ".$imp;
+            }
+        }else{
+            $sql = "SELECT * from $table where ".$where;  
+        }
+        return $this->setQuery($sql, $param);
     }
 
     public function insert($table, $data){
@@ -108,7 +142,14 @@ class Db_lib{
         catch (Exception $e) {
             write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
             $YROS->db->pdo_success = false;
-            return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
+            $return = [];
+            if (stripos(trim($command), 'select') === 0) {
+                $return = ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine(), "single" => [], "first_row" => [], "data" => [], "results" => []];
+            }
+            else{
+                $return = ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
+            }
+            return $return;
         }
     }
 

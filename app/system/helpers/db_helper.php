@@ -47,9 +47,22 @@ if(! function_exists("db_insert")){
 }
 
 if(! function_exists("db_select")){
-    function db_select(string $table, array|string $columns =["*"], string $conditions="", array $parameters =[] ){
+    function db_select(string $table, array|string $columns =["*"], string $patern="", array $parameters =[] ){
         $YROS = &Yros::get_instance();
-        return $YROS->dblib->db_select($table, $columns, $conditions, $parameters);
+        return $YROS->dblib->db_select($table, $columns, $patern, $parameters);
+    }
+}
+
+if(! function_exists("db_select_all_where")){
+    function db_select_all_where(string|array $table, array|string $where, array $parameters=[]){
+        $YROS = &Yros::get_instance();
+        return $YROS->dblib->select_all_where($table, $where, $parameters);
+    }
+}
+
+if(! function_exists("db_select_all")){
+    function db_select_all(string|array $table){
+        return db_select($table);
     }
 }
 
