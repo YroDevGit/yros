@@ -58,14 +58,7 @@ class Db_lib{
         }
         $query= 'SELECT ' . $str . ' FROM ' . $table . ' ' . $conditions;
         $ret = $this->setQuery($query, $parameters);
-        $return = null;
-        if(isset($ret['data'])){
-            $return = $ret['data'];
-        }
-        else{
-            $return = [];
-        }
-        return $return;
+        return $ret;
     }
 
     public function select_all_where(string|array $table, array|string $where, array $param = []){
@@ -91,7 +84,7 @@ class Db_lib{
         }else{
             $sql = "SELECT * from $table where ".$where;  
         }
-        return $this->setQuery($sql, $param);
+        return $this->setQuery($sql, $param)['data'];
     }
 
     public function insert($table, $data){
@@ -142,13 +135,7 @@ class Db_lib{
         catch (Exception $e) {
             write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
             $YROS->db->pdo_success = false;
-            $return = [];
-            if (stripos(trim($command), 'select') === 0) {
-                $return = ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine(), "single" => [], "first_row" => [], "data" => [], "results" => []];
-            }
-            else{
-                $return = ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
-            }
+            $return = ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
             return $return;
         }
     }
