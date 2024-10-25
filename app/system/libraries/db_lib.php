@@ -189,6 +189,39 @@ class Db_lib{
         }
     }
 
+
+
+    public function db_dump(array $result, string $error_map=""){
+        if(! isset($result['code'])){
+            die("Key: code is not found inside result array");
+        }
+        if($result['code'] != SUCCESS){
+            if($error_map=="" || $error_map==null){
+                show_error($result['message']);
+            }else{
+                trigger_error("Error: ".$result['message']." @ ".$error_map);exit;
+            }
+        }
+    }
+
+   public function db_result_dump(array $result, string $key=null):bool{
+        $ret = false;
+        if(! isset($result['code'])){
+            die("code is not found inside result array");
+        }
+        if($result['code'] != SUCCESS){
+            show_error(" ===> SQL ERROR: ".$result['message']);
+        }else{
+            if($key != null && $key != ""){
+                if(! isset($result[$key])){
+                    die("Your Key: [$key] is not found inside result array");
+                }      
+            }
+            $ret = true;
+        }
+        return $ret;
+   }
+
     public function db_last_query(){
         $YROS = &Yros::get_instance();
         return $YROS->db->getLastQuery();

@@ -16,6 +16,39 @@ if(! function_exists("db_set_query")){
 }
 
 
+if(! function_exists("db_dump")){
+    /** (Void) display/track sql result error */
+    function db_dump(array $result, string $error_map = ""){
+        $YROS = &Yros::get_instance();
+        $YROS->dblib->db_dump($result, $error_map);
+    }
+}
+
+if(! function_exists("db_result_dump")){
+     /** (Mixed) display/track result sql result error */
+     /** If changeValue is true: when the sql result is success, the result value will changed as the selected key */
+    function db_result_dump(array &$result, string $key=null, $changeValue = true){
+        $r = null;
+        $YROS = &Yros::get_instance();
+        $ret = $YROS->dblib->db_result_dump($result, $key);
+        if($ret == true){
+            if($key != null && $key != ""){
+                if($changeValue==true){$result = $result[$key];}else{
+                    $result = $result;
+                }
+                $r = $result;
+            }else{
+                $result = $result;
+                $r = $result;
+            }
+        }else{
+            $result = $result;
+            $r = $result;
+        }
+        return $r;
+    }
+}
+
 
 if(! function_exists("db_insert")){
     function db_insert(string $table, string|array|int &$data, bool $array_data_remain = false){
