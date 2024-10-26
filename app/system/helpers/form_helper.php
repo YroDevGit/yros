@@ -23,7 +23,7 @@ if(! function_exists('post_data')){
             $data = json_decode($json, true);
     
             if (json_last_error() === JSON_ERROR_NONE) {
-                $return = $data; // Return the JSON data as an associative array
+                $return = $data; 
             } else {
                 $return = ['error' => 'Invalid JSON format'];
             }
@@ -51,8 +51,8 @@ if(! function_exists("post_exist")){
 }
 
 if(! function_exists("has_post_data")){
+    /** Bool: check if there is a form/post submitted */
     function has_post_data():bool{
-        /** Bool: check if there is a form/post submitted */
         $data = post_data();
         if(empty($data)){
             return false;
@@ -64,48 +64,44 @@ if(! function_exists("has_post_data")){
 }
 
 if(! function_exists("form_input_exist")){
+    /** Bool: check if the form input exist */
     function form_input_exist(string $inputname):bool{
-        /** Bool: check if the form input exist */
         return post_exist($inputname);
     }
 }
 
 if(! function_exists("form_checkbox_checked")){
+    /** Bool: check if the form checkbox is checked/selected */
     function form_checkbox_checked(string $cboxName):bool{
-        /** Bool: check if the form checkbox is checked/selected */
         return post_exist($cboxName);
     }
 }
 
 if(! function_exists("form_radioBTN_selected")){
+    /** Bool: check if the form radio button is checked/selected */
     function form_radio_selected(string $radioName):bool{
-        /** Bool: check if the form radio button is checked/selected */
         return post_exist($radioName);
     }
 }
 
 if(! function_exists("post")){
+    /** (Any) returns the value of the post */
     function post(string $inputname){
-        /**
-         * Any
-         * get post data from your form submission
-         */
-        $post = post_data();
-        
-        if(empty($post)){
-            return null;
-        }
-        else{
-            if(value_in_array($inputname, $post)){
-                return $post[$inputname];
+        $post = [];
+         if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] === 'application/json') {
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $post = $data;
+            } else {
+                $post = [];
             }
-            else{
-                return null;
-            }
+        } else {
+            $post = $_POST;
         }
+        return isset($post[$inputname]) ? $post[$inputname] : null;
     }
 }
-
 
 
 if(! function_exists("display_error")){
