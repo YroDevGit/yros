@@ -15,11 +15,11 @@ $route = isset($arguments[1]) ? $arguments[1] : '';
 $filename = isset($arguments[2]) ? $arguments[2] : '';
 $filelower = strtolower($filename);
 if($route==null ||$route ==""){
-    runDev();
+    echo "Welcome to YROS framework v 2.4\nCreated by CodeYro (TLM)\n\n";
 }
 else{
     $routelower = strtolower($route);
-    if($routelower == "make_api"||$routelower == "+api" || $routelower == "m_a" || $routelower == "make_controller"||$routelower == "+controller" || $routelower == "m_c" || $routelower == "make_model"||$routelower == "+model" || $routelower == "m_m"){
+    if($routelower == "make_api"||$routelower == "+api" || $routelower == "m_a" || $routelower == "make_controller"||$routelower == "+controller" || $routelower == "m_c" || $routelower == "make_model"||$routelower == "+model" || $routelower == "m_m" || $routelower == "+m" || $routelower == "+c" || $routelower == "+a"){
             if($filename==""||$filename==null){
                 echo "No file to create, please add filename";exit;
             }
@@ -28,7 +28,7 @@ else{
             }
             else{
                 $cmnd = strtolower($route);
-                if($cmnd == "make_controller"|| $cmnd == "+controller" || $cmnd == "m_c"){
+                if($cmnd == "make_controller"|| $cmnd == "+controller" || $cmnd == "m_c" || $cmnd == "+c"){
                     if(strtolower($filename)=="public" || strtolower($filename)=="app" || strtolower($filename)=="api" || strtolower($filename)=="views"){
                         echo "❌ ERROR:: Controller name '$filename' is a case sensitive name.";exit;
                     }
@@ -43,7 +43,7 @@ else{
                         echo "❌ ERROR:: Controller: filename is already exist.!";exit;
                     }
                 }
-                else if($cmnd == "make_model"|| $cmnd == "+model" || $cmnd == "m_m"){
+                else if($cmnd == "make_model"|| $cmnd == "+model" || $cmnd == "m_m" || $cmnd == "+m"){
                     $createcontroller = addModel($filename);
                     if($createcontroller==200){
                         echo "\n✅ Model $filename created.\nOpen @: app/model/$filename.php\n\n";exit;
@@ -55,7 +55,7 @@ else{
                         echo "❌ ERROR:: Model: filename is already exist.!";exit;
                     }
                 }
-                else if($cmnd == "make_api" || $cmnd == "+api" || $cmnd == "m_a"){
+                else if($cmnd == "make_api" || $cmnd == "+api" || $cmnd == "m_a" || $cmnd == "+a"){
                     $createcontroller = addApi($filename);
                     if($createcontroller==200){
                         echo "\n✅ Api created.\nOpen @: app/api/$filename.php\n\n";exit;
