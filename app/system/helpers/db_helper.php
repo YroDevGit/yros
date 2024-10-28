@@ -191,6 +191,39 @@ if(! function_exists("db_tracker_complete")){
         FunctionPair::callSecond('db_tracker_complete');
     }
 }
+
+if(! function_exists("db_errors")){
+    /** (Array) get the array list of all database errors */
+    function db_errors(){
+        $YROS = &Yros::get_instance();
+        return $YROS->dblib->db_errors;
+    }
+}
+
+if(! function_exists("db_last_error")){
+    /** (Any) display the error from last query */
+    function db_last_error(){
+        $YROS = &Yros::get_instance();
+        $errs = $YROS->dblib->db_errors;
+        if(empty($errs)){
+            return null;
+        }
+        return end($errs);
+    }
+}
+
+if(! function_exists("db_dump_last_error")){
+    /** (Void) display the last database error */
+    function db_dump_last_error(){
+        $YROS = &Yros::get_instance();
+        $errs = $YROS->dblib->db_errors;
+        if(! empty($errs)){
+            $last = end($errs);
+            display_error($last);
+        }
+    }
+}
+
 FunctionPair::pair('db_tracker_start', 'db_tracker_complete');
 
 ?>

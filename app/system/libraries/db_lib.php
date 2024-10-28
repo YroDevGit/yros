@@ -1,6 +1,7 @@
 <?php
 class Db_lib{
     public $storage = [];
+    public $db_errors = [];
     public function __construct()
 	{
 
@@ -100,9 +101,12 @@ class Db_lib{
 
         }
         catch (Exception $e) {
-            write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
+            $err = $e->getMessage();
+            $disp = display_error($err);
+            write_sql_log($disp);
             $YROS->db->pdo_success = false;
-            return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
+            $this->db_errors[] = $err;
+            return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
         }
     }
 
@@ -133,9 +137,12 @@ class Db_lib{
             }
             }
         catch (Exception $e) {
-            write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
+            $err = $e->getMessage();
+            $disp = display_error($err);
+            write_sql_log($disp);
             $YROS->db->pdo_success = false;
-            $return = ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
+            $this->db_errors[] = $err;
+            $return = ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
             return $return;
         }
     }
@@ -159,9 +166,12 @@ class Db_lib{
             }
         }
         catch(Exception $e){
-            write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
+            $err = $e->getMessage();
+            $disp = display_error($err);
+            write_sql_log($disp);
             $YROS->db->pdo_success = false;
-            return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
+            $this->db_errors[] = $err;
+            return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
         }    
     }
 
@@ -183,9 +193,12 @@ class Db_lib{
             }
         }
         catch(Exception $e){
-            write_sql_log("Previous query failed: ".$e->getMessage()." @ ".$e->getFile()." line ".$e->getLine());
+            $err = $e->getMessage();
+            $disp = display_error($err);
+            write_sql_log($disp);
             $YROS->db->pdo_success = false;
-            return ["code"=>-1, "status"=>"error", "message"=>$e->getMessage(), "file"=>$e->getFile()." line ".$e->getLine()];
+            $this->db_errors[] = $err;
+            return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
         }
     }
 
