@@ -219,8 +219,7 @@ if(! function_exists("db_dump_last_error")){
         $errs = $YROS->dblib->db_errors;
         if(! empty($errs)){
             $last = end($errs);
-            echo display_error($last);
-            exit;
+            die(display_error($last));
         }
     }
 }
