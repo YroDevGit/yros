@@ -220,6 +220,7 @@ if(! function_exists("db_dump_last_error")){
         if(! empty($errs)){
             $last = end($errs);
             echo display_error($last);
+            exit;
         }
     }
 }
