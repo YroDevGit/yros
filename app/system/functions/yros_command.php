@@ -75,6 +75,9 @@ else{
     else if($routelower=="test_routes"){
         yrosTestRoutes();  
     }
+    else if($routelower == "db"){
+        echo "Database config here (Shift + click): app/config/database.php";
+    }
     else if($routelower=="clear_viewlogs" || $routelower=="del_viewlogs" || $routelower=="-viewlogs"){
         deleteAllViewsLogs(); 
     }
