@@ -16,11 +16,24 @@ if(! function_exists("db_set_query")){
 }
 
 
-if(! function_exists("db_dump")){
+if(! function_exists("db_dump_errors")){
     /** (Void) display/track sql result error */
-    function db_dump(array $result, string $error_map = ""){
-        $YROS = &Yros::get_instance();
-        $YROS->dblib->db_dump($result, $error_map);
+    function db_dump_errors(){
+        $errs = db_errors();
+        if(! empty($errs)){
+            $sz = sizeof($errs);
+            $msg = "";
+            $count = 1;
+            foreach($errs as $key){
+                $msg .= strval($count).". ".$key."<br>";
+                $count += 1;
+            }
+            if($sz<=1){
+                echo "<br>DB transaction error:<br>"."<span style='color:red;'>$msg</span>";exit;
+            }else{
+                echo "<br>DB transaction errors:<br>"."<span style='color:red;'>$msg</span>";exit;
+            }
+        }
     }
 }
 
@@ -194,7 +207,7 @@ if(! function_exists("db_tracker_complete")){
 
 if(! function_exists("db_errors")){
     /** (Array) get the array list of all database errors */
-    function db_errors(){
+    function db_errors():array{
         $YROS = &Yros::get_instance();
         return $YROS->dblib->db_errors;
     }
@@ -219,7 +232,7 @@ if(! function_exists("db_dump_last_error")){
         $errs = $YROS->dblib->db_errors;
         if(! empty($errs)){
             $last = end($errs);
-            die(display_error($last));
+            echo "<br><span style='color:red;'>".$last."</span>";exit;
         }
     }
 }

@@ -114,6 +114,8 @@ if(! function_exists("display_error")){
                 
             }elseif(strpos($r, '\app\system') !== false){
 
+            }elseif(strpos($r, '\index.php(11): require_once(') !== false){
+
             }
             else{
                 $err[] = $r;
@@ -121,6 +123,29 @@ if(! function_exists("display_error")){
         }
         $ff = implode("\n", $err);
         $final = "\n\n".date("Y-m-d H:i:s")." ERROR:: ".$message." ".$ff." ";
+        return $final;
+    }
+}
+
+if(! function_exists("display_error111")){
+    function display_error111(string $message){
+        $str = new Exception($message);
+        $arr = explode("#", $str);
+        $err = [];
+        foreach($arr as $r){
+            if (strpos($r, '\app\system\helpers') !== false) {
+                
+            }elseif(strpos($r, '\app\system') !== false){
+
+            }elseif(strpos($r, '\index.php(11): require_once(') !== false){
+
+            }
+            else{
+                $err[] = $r;
+            }
+        }
+        $ff = implode("\n", $err);
+        $final = $message." ".$ff;
         return $final;
     }
 }

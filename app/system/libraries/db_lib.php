@@ -102,10 +102,10 @@ class Db_lib{
         }
         catch (Exception $e) {
             $err = $e->getMessage();
-            $disp = display_error($err);
+            $disp = display_error111($err);
             write_sql_log($disp);
             $YROS->db->pdo_success = false;
-            $this->db_errors[] = $err;
+            $this->db_errors[] = $disp;
             return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
         }
     }
@@ -138,10 +138,10 @@ class Db_lib{
             }
         catch (Exception $e) {
             $err = $e->getMessage();
-            $disp = display_error($err);
+            $disp = display_error111($err);
             write_sql_log($disp);
             $YROS->db->pdo_success = false;
-            $this->db_errors[] = $err;
+            $this->db_errors[] = $disp;
             $return = ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
             return $return;
         }
@@ -167,10 +167,10 @@ class Db_lib{
         }
         catch(Exception $e){
             $err = $e->getMessage();
-            $disp = display_error($err);
+            $disp = display_error111($err);
             write_sql_log($disp);
             $YROS->db->pdo_success = false;
-            $this->db_errors[] = $err;
+            $this->db_errors[] = $disp;
             return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
         }    
     }
@@ -194,10 +194,10 @@ class Db_lib{
         }
         catch(Exception $e){
             $err = $e->getMessage();
-            $disp = display_error($err);
+            $disp = display_error111($err);
             write_sql_log($disp);
             $YROS->db->pdo_success = false;
-            $this->db_errors[] = $err;
+            $this->db_errors[] = $disp;
             return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
         }
     }
