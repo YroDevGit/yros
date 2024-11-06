@@ -181,7 +181,7 @@ class Db_lib{
             $result = $YROS->db->update($table, $data, $conditions);
             if(isset($result)){
                 if($result == 0||$result=="0"){
-                    return ["code"=>200, "status"=>"success", "message"=>"Success, but no data has been deleted", "affected_rows"=>$result, "conditions"=>$conditions];
+                    return ["code"=>200, "status"=>"success", "message"=>"Success, but no data has been affected", "affected_rows"=>$result, "conditions"=>$conditions];
                 }
                 else{
                     return ["code"=>200, "status"=>"success", "message"=>"Data updated successfully", "affected_rows"=>$result, "conditions"=>$conditions];

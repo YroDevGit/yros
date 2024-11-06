@@ -162,6 +162,15 @@ if(! function_exists("write_sql_log")){
     }
 }
 
+
+if(! function_exists("alert")){
+    function alert(string $message){
+        ?>
+        <script>window.addEventListener("load", function(){alert("<?=$message?>");})</script>
+        <?php
+    }
+}
+
 if(! function_exists("write_view_logs")){
     function write_view_logs(string $path, string $view){
         $filename = "sql_".date("Y-M-d")."_y.log";
