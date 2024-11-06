@@ -11,7 +11,6 @@ class Main extends Yros{
 
     // Main controller is YROS index controller, you can add functions but don't delete any (might cause system errors).
 
-
     function welcome_page(){
         view_page("welcome.php");
     }
