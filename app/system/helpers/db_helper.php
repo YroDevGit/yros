@@ -113,6 +113,9 @@ if(! function_exists("db_select_all")){
 }
 
 if(! function_exists("db_delete")){
+    /** (Array) return the result of the delete command */
+    /** $table = name of the table where the data you want to delete */
+    /** $conditions (where) = where the data to delete */
     function db_delete(string $table, array|string|int &$conditions, bool $array_data_remain = false){
         $YROS = &Yros::get_instance();
         if(is_array($conditions)){
@@ -154,6 +157,10 @@ if(! function_exists("dbData")){
 }
 
 if(! function_exists("db_update")){
+    /** (Array) return the result of the delete command */
+    /** $table = name of the table you want to update */
+    /** $data (set) = set the new value in the specific column*/
+    /** $conditions (where) = where the data to update */
     function db_update(string $table, array|int &$data, array|int &$conditions, bool $array_data_remain = false){
         $YROS = &Yros::get_instance();
         if(is_array($data) && is_array($conditions)){
