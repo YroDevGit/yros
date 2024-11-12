@@ -4,8 +4,8 @@
 $email_config['protocol'] = 'smtp';
 $email_config['smtp_host'] = 'smtp.gmail.com';
 $email_config['smtp_port'] = 587;
-$email_config['smtp_user'] = 'tyronemalocon@gmail.com';
-$email_config['smtp_password'] = 'ucknhqhimyzzmstf';
+$email_config['smtp_user'] = '';
+$email_config['smtp_password'] = '';
 $email_config['mail_type'] = 'html';
 $email_config['charset'] = 'utf-8';
 

@@ -12,6 +12,7 @@ if(! function_exists("redirect_to")){
 
 if(! function_exists("redirect")){
     function redirect(string $controller, bool $save_input_values = false, int $delay=0){
+        $controller = $controller[0] === '/' ? substr($controller, 1) : $controller;
         $YROS =  &Yros::get_instance();
         if($YROS->removeinputvalues == true){
             remove_saved_values();
@@ -141,6 +142,7 @@ if(! function_exists("get_main_page_url")){
 
 if(! function_exists("path")){
     function path(string|array $path, array $parameters = [], bool $secure = false):string{
+        $path = $path[0] === '/' ? substr($path, 1) : $path;
         $YROS = &Yros::get_instance();
         return $YROS->routelib->getPathUrl($path, $parameters, $secure);
     }
@@ -148,6 +150,7 @@ if(! function_exists("path")){
 
 if(! function_exists("controller")){
     function controller(string|array $controller, array $parameters = [], bool $secure = false):string{
+        $controller = $controller[0] === '/' ? substr($controller, 1) : $controller;
         $YROS = &Yros::get_instance();
         return $YROS->routelib->getControllerURL($controller, $parameters, $secure);
     }
@@ -155,6 +158,7 @@ if(! function_exists("controller")){
 
 if(! function_exists('controller_name')){
     function controller_name(string $controller, string $function="", array $parameters = []):string{
+        $controller = $controller[0] === '/' ? substr($controller, 1) : $controller;
         $YROS = &Yros::get_instance();
         $class = "";
         if(substr($controller, -4)==".php"){
