@@ -39,7 +39,8 @@ class Session_lib{
     }
 
     public function set_flash_array(string $key, array $array){
-        $_SESSION[$this->flash_array.$key] = $array;
+        $this->flash_array[$this->array_mask.$key] = $array;
+        $_SESSION[$this->array_mask.$key] = $array;
     }
 
     public function remove_flash_array(string $key){
@@ -55,13 +56,15 @@ class Session_lib{
     }
 
     public function set_flash_data(string $key, string|float|int $data){
+        $YROS = &Yros::get_instance();
+        $YROS->yros_back_up_flash_data1005[$this->flash_mask.$key] = $data;
         $_SESSION[$this->flash_mask.$key] = $data;
     }
 
     public function get_flash_data($key){
         $YROS = &Yros::get_instance();
         $rarr = $YROS->yros_back_up_flash_data1005;
-        return isset($rarr[$this->flash_mask.$key]) ? $rarr[$this->flash_mask.$key] : "";
+        return isset($rarr[$this->flash_mask.$key]) ? $rarr[$this->flash_mask.$key] : null;
     }
 
     public function remove_flash_data(string $key){
