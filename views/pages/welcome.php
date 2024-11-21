@@ -12,14 +12,17 @@
 <body>
     <div class="body">
         <div class="container">
+        
+            
+            <h1>Welcome to Yros Framework</h1>
             <div class="logo">
                 <img src="<?=img('giphy.gif')?>" alt="Yros Logo">
             </div>
-            <h1>Welcome to Yros Framework</h1>
             <div>
-                <p><small>version <b>2.4</b> (Updated: Oct 22 2024)</small></p>
+                <p><small>version <b>2.5</b> (Updated: Nov 21 2024)</small></p>
             </div>
             <p><small style="font-family:monospace;font-size:16px;">Yros is a light-weight PHP framework but can create high quality web applications</small></p>
+            
             <div class="row">
                 <small>Download updated version <a href="https://yrosframework.blogspot.com/p/blog-page.html" target="_blank">@Yros website</a></small>
             </div>
@@ -27,6 +30,12 @@
         </div>
     </div>
     <footer style="display:block;">
+        <div class="row">
+                <div align='center'>
+                    <div><img height="40" width="100" src="<?=img('yrosphp.gif')?>" alt=""></div>
+                    <div><small style="font-size: 10px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Fast PHP</small></div>
+                </div>
+            </div>
         <section align='center'>
             <a href="" target="_blank" class="anchored-link dev-mono" title="Tyrone Limen Malocon"><small>Developed by: CodeYro Team</small></a>
         </section>
@@ -71,7 +80,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 80vh;
+        height: 65vh;
     }
 
     .container {

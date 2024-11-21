@@ -8,6 +8,33 @@ if(! function_exists("set_session_data")){
     }
 }
 
+if(! function_exists("set_session")){
+    function set_session(string $key, $data){
+        set_session_data($key, $data);
+    }
+}
+
+if(! function_exists("session")){
+    function session(string $key){
+        return get_session_data($key);
+    }
+}
+
+if(! function_exists("has_session")){
+    /** (Boolean)
+     * return true if the session exist
+     */
+    function has_session(string $key){
+        return isset($_SESSION[$key]);
+    }
+}
+
+if(! function_exists("remove_session")){
+    function remove_session(string $key){
+        remove_session_data($key);
+    }
+}
+
 if(! function_exists("get_session_data")){
     function get_session_data(string $key){
         $YROS = &Yros::get_instance();
@@ -78,6 +105,12 @@ if(! function_exists("get_cookie_value")){
     function get_cookie_value(string $key){
         $YROS = &Yros::get_instance();
         return $YROS->sessionlib->get_cookie_value($key);
+    }
+}
+
+if(! function_exists("has_cookie")){
+    function has_cookie(string $key){
+        return isset($_COOKIE[$key]);
     }
 }
 

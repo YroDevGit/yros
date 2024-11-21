@@ -23,6 +23,7 @@ versions.
 2.2 Views tracking json file.
 2.3 Controller and Routes inside access folder
 2.4 csrf in form submission for security.
+2.5 has cookie, has session
 
 To add.
 * Scheduling
