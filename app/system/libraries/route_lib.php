@@ -135,7 +135,7 @@ class Route_lib{
         $className = isset($arr[0]) ? $arr[0] : "";
         $functionName = isset($arr[1]) ? $arr[1] : "index";
         $className = ucfirst($className);
-        $file = "access/controller/".$className.".php";
+        $file = "_php/controller/".$className.".php";
         $param = $this->getParam($param);
         $parameters = "";
         if(!empty($param)){
