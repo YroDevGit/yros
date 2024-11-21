@@ -213,6 +213,18 @@ if(! function_exists("src")){
     }
 }
 
+if(! function_exists("javascripts")){
+    /** (String) returns the path inside public/src folder */
+    function javascripts(string $javascripts=""):string{
+        if($javascripts=="" || $javascripts==null){
+            return javascripts;
+        }
+        else{
+            return javascripts."/".$javascripts;
+        }
+    }
+}
+
 if(! function_exists("assets")){
     /** (String) returns the path inside public/assets folder */
     function assets(string $assets=""):string{

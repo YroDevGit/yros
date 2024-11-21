@@ -93,6 +93,10 @@ if(! defined("home")){
     define("home", getProjectRoot()."public/home");
 }
 
+if(! defined("javascripts")){
+    define("javascripts", getProjectRoot()."public/javascripts");
+}
+
 
 
 function getRoute(string $router, callable $func){
