@@ -33,7 +33,7 @@
         <div class="row">
                 <div align='center'>
                     <div><img height="40" width="100" src="<?=img('yrosphp.gif')?>" alt=""></div>
-                    <div><small style="font-size: 10px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Fast PHP</small></div>
+                    <div><small style="font-size: 10px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Fast & Secure PHP framework</small></div>
                 </div>
             </div>
         <section align='center'>
