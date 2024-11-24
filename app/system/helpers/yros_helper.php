@@ -51,10 +51,10 @@ if(! function_exists("get_file_size")){
 
 
 if(! function_exists("check_file")){
-    function check_file(string $inputname){
-        /** error when file is not exist.
+    /** error when file is not exist.
          * might need to add enctype="multipart/form-data" in form
          */
+    function check_file(string $inputname){
         if(! isset($_FILES)){
             show_error("No files has been submitted");
         }
@@ -64,6 +64,21 @@ if(! function_exists("check_file")){
         if($_FILES[$inputname]["name"]==""||$_FILES[$inputname]["name"]==null){
             show_error("File $inputname not found.!");
         }
+    }
+}
+
+if(! function_exists("has_file_submitted")){
+    function has_file_submitted(string $inputname){
+        if(! isset($_FILES)){
+            return false;
+        }
+        if(! isset($_FILES[$inputname]["name"])){
+            return false;
+        }
+        if($_FILES[$inputname]["name"]==""||$_FILES[$inputname]["name"]==null){
+            return false;
+        }
+        return true;
     }
 }
 
