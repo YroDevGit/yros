@@ -42,20 +42,41 @@ if(! function_exists("delete_file")){
 }
 
 if(! function_exists("get_file_size")){
-    function get_file_size($inputname){
+    function get_file_size(string $inputname){
+        check_file($inputname);
         $YROS = &Yros::get_instance();
         return $YROS->filelib->get_file_size($inputname);
     }
 }
 
+
+if(! function_exists("check_file")){
+    function check_file(string $inputname){
+        /** error when file is not exist.
+         * might need to add enctype="multipart/form-data" in form
+         */
+        if(! isset($_FILES)){
+            show_error("No files has been submitted");
+        }
+        if(! isset($_FILES[$inputname]["name"])){
+            show_error("File $inputname not found");
+        }
+        if($_FILES[$inputname]["name"]==""||$_FILES[$inputname]["name"]==null){
+            show_error("File $inputname not found.!");
+        }
+    }
+}
+
 if(! function_exists("file_size")){
     function file_size(string $inputname){
+        check_file($inputname);
         return get_file_size($inputname);
     }
 }
 
 if(! function_exists("get_file")){
     function get_file(string $inputname){
+        check_file($inputname);
         $YROS = &Yros::get_instance();
         return $YROS->filelib->get_file($inputname);
     }
@@ -63,6 +84,7 @@ if(! function_exists("get_file")){
 
 if(! function_exists("get_file_name")){
     function get_file_name( string $inputname){
+        check_file($inputname);
         $YROS = &Yros::get_instance();
         return $YROS->filelib->get_file_name($inputname);
     }
@@ -76,6 +98,7 @@ if(! function_exists("file_name")){
 
 if(! function_exists("get_file_path")){
     function get_file_path(string $inputname){
+        check_file($inputname);
         $YROS = &Yros::get_instance();
         return $YROS->filelib->get_file_path($inputname);
     }

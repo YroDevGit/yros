@@ -7,6 +7,12 @@ class File_lib{
 
     public function upload(string $inputname, string $rename = "", string $uploads_folder=""){
         $filename = "";
+        if(! isset($_FILES[$inputname])){
+            show_error("Files not found.!");
+        }
+        if($_FILES[$inputname]["name"]==""||$_FILES[$inputname]["name"]==null){
+            show_error("No filename found.!");
+        }
         if($uploads_folder != "" && $uploads_folder != null){
             $filename = $uploads_folder."/";
         }
