@@ -121,6 +121,87 @@ class File_lib{
         }
     }
 
+    public function download_longblob(string $blob_data, string $file_name=""){
+        $base64Data = $blob_data;
+        $explodedData = explode(',', $base64Data);
+        $dataHeader = $explodedData[0];  
+        $base64Image = $explodedData[1]; 
+
+        preg_match('/^data:(.*?);base64/', $dataHeader, $matches);
+        $contentType = $matches[1];
+
+        $imageData = base64_decode($base64Image);
+        $filename = 'downloaded_file';
+        if($file_name == null || $file_name == ""){
+            $filename = "YrosFile_".date("y_m_d_H_i_s")."fl";
+        }else{
+            $filename = $file_name;
+        }
+
+        $extension = '';
+        switch ($contentType) {
+            case 'image/jpeg':
+                $extension = 'jpg';
+                break;
+            case 'image/png':
+                $extension = 'png';
+                break;
+            case 'video/mp4':
+                $extension = 'mp4';
+                break;
+            case 'image/gif':
+                $extension = 'gif'; 
+                break;
+            case 'video/webm':
+                $extension = 'webm';
+                break;
+            case 'audio/mpeg':
+                $extension = 'mp3';
+                break;
+            case 'audio/wav':
+                $extension = 'wav';  
+                break;
+            case 'application/pdf':
+                $extension = 'pdf';  
+                break;
+            case 'application/zip':
+                $extension = 'zip'; 
+                break;
+            case 'application/msword':
+                $extension = 'doc';  
+                break;
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                $extension = 'docx';  
+                break;
+            case 'text/plain':
+                $extension = 'txt';  
+                break;
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                $extension = 'xlsx';  
+                break;
+            case 'application/vnd.ms-excel':
+                $extension = 'xls'; 
+                break;
+            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+                $extension = 'pptx'; 
+                break;
+            case 'application/vnd.ms-powerpoint':
+                $extension = 'ppt'; 
+                break;
+            default:
+                $extension = 'bin'; 
+                break;
+        }
+
+        $filename .= '.' . $extension;
+
+        header('Content-Type: ' . $contentType); 
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Content-Length: ' . strlen($imageData));
+
+        echo $imageData;
+    }
+
 
    
 

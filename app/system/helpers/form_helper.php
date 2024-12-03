@@ -180,6 +180,13 @@ if(! function_exists("file_to_longblob")){
     }
 }
 
+if(! function_exists("download_longblob")){
+    function download_blob_file(string $blob_data, string $filename = ""){
+        $YROS = &Yros::get_instance();
+        $YROS->filelib->download_longblob($blob_data, $filename);
+    }
+}
+
 
 if(! function_exists("input_value")){
     function input_value(string $inputname){
