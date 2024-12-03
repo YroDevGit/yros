@@ -167,6 +167,20 @@ if(! function_exists("input")){
     }
 }
 
+if(! function_exists("file_submitted")){
+    function file_submitted(string $inputname){
+        return has_file_submitted($inputname);
+    }
+}
+
+if(! function_exists("file_to_longblob")){
+    function file_to_longblob(string $fileinput){
+        $YROS = &Yros::get_instance();
+        return $YROS->filelib->file_to_longblob($fileinput);
+    }
+}
+
+
 if(! function_exists("input_value")){
     function input_value(string $inputname){
         /**

@@ -105,6 +105,22 @@ class File_lib{
         }
     }
 
+    public function file_to_longblob(string $fileinput){
+        if (isset($_FILES[$fileinput]) && isset($_FILES[$fileinput]['tmp_name'])) {
+            $fileTmpPath = $_FILES[$fileinput]['tmp_name'];
+
+            $fileData = file_get_contents($fileTmpPath);
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mimeType = $finfo->file($fileTmpPath);
+        
+            $base64Data = base64_encode($fileData);
+        
+            return "data:$mimeType;base64,$base64Data";
+        }else{
+            return null;
+        }
+    }
+
 
    
 
