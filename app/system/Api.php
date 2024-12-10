@@ -44,14 +44,14 @@ class Api {
         require_once "app/config/api_config.php";
         if($api_config['api_key_enabled']){
             $headersTR = getallheaders();
-            if(! array_key_exists("api_key", $headersTR)){
-                echo json_encode(["code"=>-1, "status"=>"Error", "message"=>"No api_key found"."!"]);
+            if(! array_key_exists("apikey", $headersTR)){
+                echo json_encode(["code"=>-1, "status"=>"Error", "message"=>"No api_key found"."!", "source"=>"YROS framework"]);
                 exit;
             }
-            $apiKey = isset($headersTR['api_key']) ? $headersTR['api_key'] : "";
-            if (! in_array($apiKey,$api_config['api_key'])) {
+            $apiKey = isset($headersTR['apikey']) ? $headersTR['apikey'] : "";
+            if (! in_array($apiKey,$api_config['apikey'])) {
                 //http_response_code(401);
-                echo json_encode(["code"=>-1, "status"=>"Error", "message"=>"Invalid api_key !"]);
+                echo json_encode(["code"=>-1, "status"=>"Error", "message"=>"Invalid api_key !", "source"=>"YROS framework"]);
                 exit;
             }
         }
@@ -59,7 +59,7 @@ class Api {
         if($api_config['yros_key_enabled']){
             $headersTR = getallheaders();
             if(! array_key_exists("yros_key", $headersTR)){
-                echo json_encode(["code"=>-1, "status"=>"Error", "message"=>"No yros_key found"."!"]);
+                echo json_encode(["code"=>-1, "status"=>"Error", "message"=>"No yros_key found"."!", "source"=>"YROS framework"]);
                 exit;
             }
             $apiKey = isset($headersTR['yros_key']) ? $headersTR['yros_key'] : "";
