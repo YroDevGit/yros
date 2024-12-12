@@ -21,6 +21,9 @@ if(! function_exists('post_data')){
         if (isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] === 'application/json') {
             $json = file_get_contents('php://input');
             $data = json_decode($json, true);
+            if($data == null || empty($data)){
+                $data = [];
+            }
     
             if (json_last_error() === JSON_ERROR_NONE) {
                 $return = $data; 
