@@ -89,8 +89,10 @@ function addApi($name){
             public function __construct() {
                 parent::__construct();
                 \$YROS = &Yros::get_instance();
-                //This is a API file, where we can share our data across sites.
+                \$this->default_header();
             }
+
+            //API:: stores universal functions that can be called across sites/apps.
 
             function test(){
                 \$data = ["code"=>200, "status"=>"success", "message"=>"Yros PHP framework"];

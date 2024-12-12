@@ -5,6 +5,7 @@
         public function __construct() {
             parent::__construct();
             $YROS = &Yros::get_instance();
+            $this->default_header();
         }
 
         //API:: stores universal functions that can be called across sites/apps.
