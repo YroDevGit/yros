@@ -41,7 +41,7 @@ class Api {
         require_once "app/system/helpers/url_helper.php";
         require_once "app/system/helpers/yros_helper.php";
 
-        require_once "app/config/api_config.php";
+        include "app/config/api_config.php";
         if($api_config['api_key_enabled']){
             $headersTR = getallheaders();
             if(! array_key_exists("apikey", $headersTR)){
@@ -79,10 +79,11 @@ class Api {
 	}
 
     public function default_header(){
-        header('Content-Type: application/json');
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-        header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+        include "app/config/api_config.php";
+        $headers_arr = $api_config['api_default_headers'];
+        foreach($headers_arr as $arr){
+            header($arr);
+        }
     }
 
    
