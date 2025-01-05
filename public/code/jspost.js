@@ -1,3 +1,14 @@
+
+/**
+ * jspost is a javascript post, get and put function created by CodeYro team
+ * Author: Tyrone L. Malocon
+ * 2025/01/06
+ * @param {*}  
+ * @param {*}  
+ * @param {*}  
+ * @returns 
+ */
+
 async function jspost(url, data, headers = { 'Content-Type': 'application/json' }) {
     let ret = { code: -1, status: 'error', message: 'error message' };
 
