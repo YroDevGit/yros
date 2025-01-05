@@ -182,6 +182,17 @@ if(! function_exists("public_path")){
     }
 }
 
+if(! function_exists("public_code_path")){
+    function public_code_path(string $path = ""):string{
+        if($path==""||$path==null){
+            return rootpath."public/code/";
+        }
+        else{
+            return rootpath."public/code/".$path;
+        }
+    }
+}
+
 if(! function_exists("route")){
     function route(string|array $route_name, array $parameters = [], bool $secure = false, bool $show_controller = false):string{
         $YROS = &Yros::get_instance();
