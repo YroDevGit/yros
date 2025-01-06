@@ -143,6 +143,29 @@ function get_form_data(id){
     return dataObject; 
 }
 
+function on_submit(id, callable) {
+    const form = document.getElementById(id);
+    if (!form) {
+        console.error(`Form with id '${id}' not found.`);
+        return;
+    }
+    form.onsubmit = function (event) {
+        callable(event); 
+    };
+}
+
+function on_click(id, callable) {
+    const form = document.getElementById(id);
+    if (!form) {
+        console.error(`Tag with id '${id}' not found.`);
+        return;
+    }
+    form.onclick = function (event) {
+        callable(event); 
+    };
+}
+
+
 
 
 
