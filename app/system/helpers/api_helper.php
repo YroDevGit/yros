@@ -6,10 +6,10 @@ if(! function_exists("json_response")){
         $YROS = &Yros::get_instance();
         if($direct==true){
             if($YROS->arraylib->isJsonArray($arr)){
-                echo $arr;
+                echo $arr;exit;
             }
             else{
-                echo json_encode($arr);
+                echo json_encode($arr);exit;
             }
             
         }
