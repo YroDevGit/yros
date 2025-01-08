@@ -270,7 +270,7 @@ if(! function_exists("file_input")){
 if(! function_exists("validate_input")){
     function validate_input(string $inputname, string $label, string $validation, int $type = 1){
         $YROS = &Yros::get_instance();
-        $YROS->validationlib->validate_input($inputname, $label,$validation, $type);
+        return $YROS->validationlib->validate_input($inputname, $label,$validation, $type);
     }
 }
 

@@ -220,8 +220,8 @@ class Validation_lib{
             $this->validate_file($inputname, $label, $validation, $type);
             return;
         }
-    
-        $inputData = $_POST[$inputname] ?? '';
+        $POST = post_data();
+        $inputData = $POST[$inputname] ?? '';
 
         $errors = [];
         $rules = array_reverse($rules);
@@ -384,6 +384,7 @@ class Validation_lib{
             $this->validation_errors = $errors;
             $_SESSION[$this->validation_temp_error.$inputname] = $errors[$inputname];
         }
+        return $POST[$inputname] ?? null;
     }
 
 
