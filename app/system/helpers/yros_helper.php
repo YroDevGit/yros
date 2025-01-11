@@ -52,7 +52,7 @@ if(! function_exists("get_file_size")){
 if (!function_exists("load_class")) {
     function load_class(string $classname) {
 
-        $classFile = yrosclasses . "/" . $classname . ".php";
+        $classFile =  "app/system/classes/" . $classname . ".php";
         if (!file_exists($classFile)) {
             throw new Exception("Class file not found: " . $classFile);
         }
