@@ -97,6 +97,10 @@ if(! defined("javascripts")){
     define("javascripts", getProjectRoot()."public/javascripts");
 }
 
+if(! defined("yrosclasses")){
+    define("yrosclasses", getProjectRoot()."app/system/classes");
+}
+
 
 
 function getRoute(string $router, callable $func){

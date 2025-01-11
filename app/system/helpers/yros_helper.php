@@ -49,6 +49,22 @@ if(! function_exists("get_file_size")){
     }
 }
 
+if (!function_exists("load_class")) {
+    function load_class(string $classname) {
+
+        $classFile = yrosclasses . "/" . $classname . ".php";
+        if (!file_exists($classFile)) {
+            throw new Exception("Class file not found: " . $classFile);
+        }
+        include_once $classFile;
+        if (!class_exists($classname, false)) {
+            throw new Exception("Class not found after including file: " . $classname);
+        }
+        return new $classname();
+    }
+}
+
+
 
 if(! function_exists("check_file")){
     /** error when file is not exist.
