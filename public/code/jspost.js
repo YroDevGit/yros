@@ -27,6 +27,7 @@ async function jspost(url, data, headers = { 'Content-Type': 'application/json' 
                 message: 'Okay',
                 data: result,
                 result: result,
+                backend: result,
             };
         } else {
             ret = {
@@ -104,6 +105,7 @@ async function jsget(url, headers = { 'Content-Type': 'application/json' }) {
                 message: 'Okay',
                 data: result,
                 result: result,
+                backend: result,
             };
         } else {
             ret = {
@@ -179,6 +181,7 @@ async function jsput(url, data, where = {}, headers = { 'Content-Type': 'applica
                 message: 'Okay',
                 data: result,
                 result: result,
+                backend: result
             };
         } else {
             ret = {
