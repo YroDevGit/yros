@@ -358,13 +358,17 @@ function set_form_values(form, array, by="name") {
     }
 }
 
+function set_form_data(form, array, by="name") {
+    return set_form_values(form, array, by);
+}
+
 
 function get_form_value(form, name, by="name"){
     let element;
     if (by == "name") {
-        element = document.querySelector(`#${form} input[name="${name}"]`);
+        element = document.querySelector(`#${form} *[name="${name}"]`);
     } else {
-        element = document.querySelector(`#${form} input[id="${name}"]`);
+        element = document.querySelector(`#${form} *[id="${name}"]`);
     }
     if (element) {
         
@@ -373,6 +377,10 @@ function get_form_value(form, name, by="name"){
     }
 
     return element.value;
+}
+
+function get_form_values(id){
+    return get_form_data(id)
 }
 
 
