@@ -390,6 +390,13 @@ if(! function_exists("import_jspost")){
     }
 }
 
+if(! function_exists("jspost_script")){
+    function jspost_script(){
+        $jspost = public_code_path("jspost.js");
+        return "<script src='$jspost'></script>";
+    }
+}
+
 
 
 
