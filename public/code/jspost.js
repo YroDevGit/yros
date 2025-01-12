@@ -359,6 +359,23 @@ function set_form_values(form, array, by="name") {
 }
 
 
+function get_form_value(form, name, by="name"){
+    let element;
+    if (by == "name") {
+        element = document.querySelector(`#${form} input[name="${name}"]`);
+    } else {
+        element = document.querySelector(`#${form} input[id="${name}"]`);
+    }
+    if (element) {
+        
+    } else {
+        console.warn(`No input found for ${key} in form ${form}`);
+    }
+
+    return element.value;
+}
+
+
 function get_value(name, by="name"){
     let element = null;
     if(by=="name"){
