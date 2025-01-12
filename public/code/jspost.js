@@ -307,6 +307,104 @@ function direct_get(url, data = null, headers = { 'Content-Type': 'application/j
 }
 
 
+function window_loaded(callable){
+    window.addEventListener("load", callable());
+}
+
+function reload(){
+    window.location.reload();
+}
+
+function log(text){
+    console.log(text);
+}
+
+function set_value(name, value, by="name"){
+    let element = null;
+    if(by=="name"){
+       element = document.getElementsByName(name);
+    }else{
+        element = document.getElementById(name);
+    }
+    element.value = value;
+}
+
+function set_values(array, by="name"){
+    let element = null;
+    for (let key in array){
+        if(by=="name"){
+            element = document.getElementsByName(key);
+         }else{
+             element = document.getElementById(key);
+         } 
+         element.value = array[key];
+    }  
+}
+
+
+function set_form_values(form, array, by="name") {
+    let element;
+    for (let key in array) {
+        if (by == "name") {
+            element = document.querySelector(`#${form} input[name="${key}"]`);
+        } else {
+            element = document.querySelector(`#${form} input[id="${key}"]`);
+        }
+        if (element) {
+            element.value = array[key];
+        } else {
+            console.warn(`No input found for ${key} in form ${form}`);
+        }
+    }
+}
+
+
+function get_value(name, by="name"){
+    let element = null;
+    if(by=="name"){
+       element = document.getElementsByName(name);
+    }else{
+        element = document.getElementById(name);
+    }
+    return element.value;
+}
+
+function get_element(id){
+    return document.getElementById(id);
+}
+
+function get_attribute(name, attr, by="id"){
+    let element = null;
+    if(by=="name"){
+       element = document.getElementsByName(name);
+    }else{
+        element = document.getElementById(name);
+    }
+    return element.getAttribute(attr);
+}
+
+
+function set_attribute(id, attributes) {
+    el = document.getElementById(id);
+    for (let key in attributes) {
+        if (attributes.hasOwnProperty(key)) {
+            el.setAttribute(key, attributes[key]);
+        }
+    }
+}
+
+function js_tostring(array){
+    return JSON.stringify(array);
+}
+
+function js_stringfy(array){
+    return js_tostring(array);
+}
+
+function js_toarray(string){
+    return JSON.parse(string);
+}
+
 
 
 
