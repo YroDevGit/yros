@@ -383,6 +383,13 @@ if(! function_exists("array_exclude")){
     }
 }
 
+if(! function_exists("import_jspost")){
+    function import_jspost(){
+        $jspost = public_code_path("jspost.js");
+        echo "<script src='$jspost'></script>";
+    }
+}
+
 
 
 
