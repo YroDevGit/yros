@@ -346,9 +346,9 @@ function set_form_values(form, array, by="name") {
     let element;
     for (let key in array) {
         if (by == "name") {
-            element = document.querySelector(`#${form} input[name="${key}"]`);
+            element = document.querySelector(`#${form} *[name="${key}"]`);
         } else {
-            element = document.querySelector(`#${form} input[id="${key}"]`);
+            element = document.querySelector(`#${form} *[id="${key}"]`);
         }
         if (element) {
             element.value = array[key];
