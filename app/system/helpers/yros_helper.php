@@ -376,6 +376,13 @@ if(! function_exists("encrypt_password")){
     }
 }
 
+if(! function_exists("array_exclude")){
+    function array_exclude(array &$array, $key){
+        unset($array[$key]);
+        return $array;
+    }
+}
+
 
 
 
