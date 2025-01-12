@@ -284,6 +284,26 @@ function filter_json_array(data, column, contains, wildcard = "%") {
     return filteredData;
 }
 
+function direct_post(id, url, data=null, headers = { 'Content-Type': 'application/json' }){
+    const formdata = get_form_data(id);
+    if(data==null || arr.length === 0){
+        data = formdata;
+    }
+    return jspost(url,data,headers);
+}
+
+
+function direct_get(url, data = null, headers = { 'Content-Type': 'application/json' }) {
+    if (data == null || Object.keys(data).length === 0) {
+        return jsget(url, headers);
+    } else {
+        const queryParams = new URLSearchParams(data).toString();
+        url = `${url}?${queryParams}`;
+        return jsget(url, headers);
+    }
+}
+
+
 
 
 
