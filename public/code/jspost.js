@@ -431,6 +431,18 @@ function js_toarray(string){
 }
 
 
+function set_html(id, strhtml){
+    const dive = document.getElementById(id);
+    dive.innerHTML = strhtml;
+}
+
+function add_html(id, strhtml){
+    const dive = document.getElementById(id);
+    dive.insertAdjacentHTML('beforeend', strhtml);
+}
+
+
+
 
 
 
