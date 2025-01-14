@@ -289,7 +289,7 @@ function filter_json_array(data, column, contains, wildcard = "%") {
 
 function direct_post(id, url, data=null, headers = { 'Content-Type': 'application/json' }){
     const formdata = get_form_data(id);
-    if(data==null || arr.length === 0){
+    if(data==null || data.length === 0){
         data = formdata;
     }
     return jspost(url,data,headers);
@@ -373,7 +373,7 @@ function get_form_value(form, name, by="name"){
     if (element) {
         
     } else {
-        console.warn(`No input found for ${key} in form ${form}`);
+        console.warn(`No input found for ${name} in form ${form}`);
     }
 
     return element.value;
@@ -410,7 +410,7 @@ function get_attribute(name, attr, by="id"){
 
 
 function set_attribute(id, attributes) {
-    el = document.getElementById(id);
+    let el = document.getElementById(id);
     for (let key in attributes) {
         if (attributes.hasOwnProperty(key)) {
             el.setAttribute(key, attributes[key]);
