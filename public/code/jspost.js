@@ -441,6 +441,14 @@ function add_html(id, strhtml){
     dive.insertAdjacentHTML('beforeend', strhtml);
 }
 
+function js_href(url, target="this"){
+    if(target == "this"){
+        window.location.href = url;
+    }else{
+        window.open(url, target);
+    }
+}
+
 
 
 
