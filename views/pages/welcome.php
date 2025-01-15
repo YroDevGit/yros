@@ -18,8 +18,9 @@
             <div class="logo">
                 <img src="<?=img('giphy.gif')?>" alt="Yros Logo">
             </div>
+            <div><small>Powerd by</small> <span style="font-size: 18px;">J</span><span>spost</span></div>
             <div>
-                <p><small>version <b>2.5</b> (Updated: Nov 21 2024)</small></p>
+                <p><small>version <b>2.6</b> (Updated: Nov 21 2024)</small></p>
             </div>
             <p><small style="font-family:monospace;font-size:16px;">Yros is a light-weight PHP framework but can create high quality web applications</small></p>
             
@@ -62,6 +63,12 @@
 <style>
     body {
         background: linear-gradient(to right, rgba(254, 197, 19, 0.8), rgba(255, 255, 255, 0.9));
+    }
+
+    span{
+        font-family: 'Courier New', Courier, monospace;
+        color:rgb(121, 199, 11);
+        font-weight: 800;
     }
 
 
