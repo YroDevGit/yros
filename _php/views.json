@@ -1,9 +1,0 @@
-{
-    "pages/welcome.php@Main/welcome_page": {
-        "view": "pages/welcome.php",
-        "controller": "Main",
-        "function": "welcome_page",
-        "path": "Main/welcome_page",
-        "description": "Last access to this view, if view controller is changed, we can't track it."
-    }
-}
