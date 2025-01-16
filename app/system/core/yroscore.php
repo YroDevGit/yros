@@ -37,11 +37,13 @@ if(! function_exists("getProjectRoot")){
 
             $path = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
             $rt = null;
-            if($host === "localhost"){
+            if($host === "localhost" || $host == $app_settings['local_ip']){
                 $_url = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
                 $str = explode("/", $_url);
                 $root = $protocol . $host."/".$str[0] ;
                 $rt =  $root."/";
+            }elseif($host == "192.168.254.110"){
+               
             }
             else{
                 $root = $protocol . $host ;
@@ -128,7 +130,7 @@ if(! isset($routes['default'])){
     $_url = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
     
     $_all = null;
-    if($_SERVER['HTTP_HOST'] === "localhost"){
+    if($_SERVER['HTTP_HOST'] === "localhost" || $_SERVER['HTTP_HOST'] == $app_settings['local_ip']){
         $str = explode("/", $_url);
         $col1= isset($str[1]) ? $str[1]: "";
         $col1 = strtoupper($col1);

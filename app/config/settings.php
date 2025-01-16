@@ -23,6 +23,7 @@ $app_settings['single_route'] = false; // if page route has set, you can't navig
 
 //$app_settings['project_root_url'] is the root url of the app. Ex: http://localhost:5010
 $app_settings['project_root_url'] = "";   // Leave it empty/null for auto detect root url
+$app_settings['local_ip'] = "192.168.254.110";
 
 
 
