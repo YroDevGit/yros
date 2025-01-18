@@ -311,6 +311,10 @@ function window_loaded(callable){
     window.addEventListener("load", callable());
 }
 
+function on_load(){
+    window.addEventListener("load", callable());
+}
+
 function reload(){
     window.location.reload();
 }
@@ -383,8 +387,7 @@ function get_form_values(id){
     return get_form_data(id)
 }
 
-
-function get_value(name, by="name"){
+function get_value(name, by="id"){
     let element = null;
     if(by=="name"){
        element = document.getElementsByName(name);
@@ -430,6 +433,13 @@ function js_toarray(string){
     return JSON.parse(string);
 }
 
+function json_stringfy(array){
+    return js_tostring(array);
+}
+
+function json_parse(string){
+    return js_toarray(string);
+}
 
 function set_html(id, strhtml){
     const dive = document.getElementById(id);
@@ -449,8 +459,37 @@ function js_href(url, target="this"){
     }
 }
 
+function js_selector(selector){
+    return document.querySelector(selector);
+}
 
+function js_selector_all(selector){
+const elements = document.querySelectorAll(selector);
+return elements;
+}
 
+function get_selector_value(selector){
+    return document.querySelector(selector).value;
+}
 
+function js_timer(timer, callable){
+    setTimeout(callable, timer);
+}
+
+function set_session(key, value){
+    sessionStorage.setItem(key,value);
+}
+
+function get_session(key){
+    return sessionStorage.getItem(key);
+}
+
+function remove_session(key){
+    sessionStorage.removeItem(key);
+}
+
+function clear_session(){
+    sessionStorage.clear();
+}
 
 
