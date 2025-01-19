@@ -47,6 +47,7 @@ async function jspost(url, data, headers = { 'Content-Type': 'application/json' 
             error: error.message || error,
             allerror: error
         };
+        console.error(ret);
     }
 
     return ret;
@@ -83,6 +84,7 @@ async function jspost_plain(url, data, headers = { 'Content-Type': 'application/
             error: error.message || error,
             allerror: error
         };
+        console.error(ret);
     }
 
     return ret;
@@ -123,6 +125,7 @@ async function jsget(url, headers = { 'Content-Type': 'application/json' }) {
             message: 'Error',
             error: error.message || error,
         };
+        console.error(ret);
     }
 
     return ret;
@@ -156,6 +159,7 @@ async function jsget_plain(url, headers = { 'Content-Type': 'application/json' }
             message: 'Error',
             error: error.message || error,
         };
+        console.error(ret);
     }
 
     return ret;
@@ -199,6 +203,7 @@ async function jsput(url, data, where = {}, headers = { 'Content-Type': 'applica
             message: 'Error',
             error: error.message || error,
         };
+        console.error(ret);
     }
 
     return ret;
@@ -235,6 +240,7 @@ async function jsput_plain(url, data, where = {}, headers = { 'Content-Type': 'a
             message: 'Error',
             error: error.message || error,
         };
+        console.error(ret);
     }
 
     return ret;
@@ -252,6 +258,7 @@ function get_form_data(id){
 
     return dataObject; 
 }
+
 
 function on_submit(id, callable) {
     const form = document.getElementById(id);
