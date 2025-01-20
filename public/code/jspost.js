@@ -25,7 +25,7 @@ async function jspost(url, data, headers = { 'Content-Type': 'application/json' 
             const result = await response.json();
             ret = {
                 code: jssuccesscode,
-                backendcode: result.code || jssuccesscode,
+                backendcode: result.code || 0,
                 status: 'ok',
                 message: result.message || 'Okay',
                 data: result.data || [],
@@ -116,7 +116,7 @@ async function jsget(url, headers = { 'Content-Type': 'application/json' }) {
             const result = await response.json();
             ret = {
                 code: jssuccesscode,
-                backendcode: result.code || jssuccesscode,
+                backendcode: result.code || 0,
                 status: 'ok',
                 message: result.message || 'Okay',
                 data: result.data || [],
@@ -204,7 +204,7 @@ async function jsput(url, data, where = {}, headers = { 'Content-Type': 'applica
             const result = await response.json();
             ret = {
                 code: jssuccesscode,
-                backendcode: result.code || jssuccesscode,
+                backendcode: result.code || 0,
                 status: 'ok',
                 message: result.message || 'Okay',
                 data: result.data || [],
