@@ -23,29 +23,40 @@ async function jspost(url, data, headers = { 'Content-Type': 'application/json' 
             const result = await response.json();
             ret = {
                 code: 200,
+                backendcode: result.code || 200,
                 status: 'ok',
-                message: 'Okay',
-                data: result,
+                message: result.message || 'Okay',
+                data: result.data || [],
                 result: result,
                 backend: result,
+                body: data,
+                headers: headers,
+                url: url
             };
         } else {
             ret = {
                 code: -1,
+                backendcode: 404,
                 status: 'error',
                 message: `HTTP error! status: ${response.status}`,
                 error: `HTTP error! status: ${response.status}`,
+                body: data,
+                headers: headers,
+                url: url
             };
-            console.error(`HTTP error! status: ${response.status}`);
+            console.error(ret);
         }
     } catch (error) {
         ret = {
             code: -1,
             status: 'error',
-            message: 'Error',
-            data: JSON.stringify(data),
+            backendcode: 404,
+            message: error.message || 'Error',
+            body: data,
             error: error.message || error,
-            allerror: error
+            allerror: error,
+            headers: headers,
+            url: url
         };
         console.error(ret);
     }
@@ -103,27 +114,37 @@ async function jsget(url, headers = { 'Content-Type': 'application/json' }) {
             const result = await response.json();
             ret = {
                 code: 200,
+                backendcode: result.code || 200,
                 status: 'ok',
-                message: 'Okay',
-                data: result,
+                message: result.message || 'Okay',
+                data: result.data || [],
                 result: result,
                 backend: result,
+                headers: headers,
+                url: url
             };
         } else {
             ret = {
                 code: -1,
+                backendcode: 404,
                 status: 'error',
                 message: `HTTP error! status: ${response.status}`,
                 error: `HTTP error! status: ${response.status}`,
+                headers: headers,
+                url: url
             };
-            console.error(`HTTP error! status: ${response.status}`);
+            console.error(ret);
         }
     } catch (error) {
         ret = {
             code: -1,
+            backendcode: 404,
             status: 'error',
-            message: 'Error',
+            allerror: error,
+            message: error.message || error,
             error: error.message || error,
+            headers: headers,
+            url: url
         };
         console.error(ret);
     }
@@ -181,27 +202,40 @@ async function jsput(url, data, where = {}, headers = { 'Content-Type': 'applica
             const result = await response.json();
             ret = {
                 code: 200,
+                backendcode: result.code || 200,
                 status: 'ok',
-                message: 'Okay',
-                data: result,
+                message: result.message || 'Okay',
+                data: result.data || [],
                 result: result,
-                backend: result
+                backend: result,
+                body: data,
+                headers: headers,
+                url: url
             };
         } else {
             ret = {
                 code: -1,
+                backendcode: 404,
                 status: 'error',
                 message: `HTTP error! status: ${response.status}`,
                 error: `HTTP error! status: ${response.status}`,
+                body: data,
+                headers: headers,
+                url: url
             };
-            console.error(`HTTP error! status: ${response.status}`);
+            console.error(ret);
         }
     } catch (error) {
         ret = {
             code: -1,
+            backendcode: 404,
             status: 'error',
-            message: 'Error',
+            allerror: error,
+            message: error.message || 'Error',
             error: error.message || error,
+            body: data,
+            headers: headers,
+            url: url
         };
         console.error(ret);
     }
