@@ -8,6 +8,8 @@
  * @param {*}  
  * @returns 
  */
+const jserrorcode =-1;
+const jssuccesscode = 200;
 
 async function jspost(url, data, headers = { 'Content-Type': 'application/json' }) {
     let ret = { code: -1, status: 'error', message: 'error message' };
@@ -22,8 +24,8 @@ async function jspost(url, data, headers = { 'Content-Type': 'application/json' 
         if (response.ok) {
             const result = await response.json();
             ret = {
-                code: 200,
-                backendcode: result.code || 200,
+                code: jssuccesscode,
+                backendcode: result.code || jssuccesscode,
                 status: 'ok',
                 message: result.message || 'Okay',
                 data: result.data || [],
@@ -35,7 +37,7 @@ async function jspost(url, data, headers = { 'Content-Type': 'application/json' 
             };
         } else {
             ret = {
-                code: -1,
+                code: jserrorcode,
                 backendcode: 404,
                 status: 'error',
                 message: `HTTP error! status: ${response.status}`,
@@ -48,7 +50,7 @@ async function jspost(url, data, headers = { 'Content-Type': 'application/json' 
         }
     } catch (error) {
         ret = {
-            code: -1,
+            code: jserrorcode,
             status: 'error',
             backendcode: 404,
             message: error.message || 'Error',
@@ -79,7 +81,7 @@ async function jspost_plain(url, data, headers = { 'Content-Type': 'application/
             ret = result;
         } else {
             ret = {
-                code: -1,
+                code: jserrorcode,
                 status: 'error',
                 message: `HTTP error! status: ${response.status}`,
                 error: `HTTP error! status: ${response.status}`,
@@ -88,7 +90,7 @@ async function jspost_plain(url, data, headers = { 'Content-Type': 'application/
         }
     } catch (error) {
         ret = {
-            code: -1,
+            code: jserrorcode,
             status: 'error',
             message: 'Error',
             data: JSON.stringify(data),
@@ -113,8 +115,8 @@ async function jsget(url, headers = { 'Content-Type': 'application/json' }) {
         if (response.ok) {
             const result = await response.json();
             ret = {
-                code: 200,
-                backendcode: result.code || 200,
+                code: jssuccesscode,
+                backendcode: result.code || jssuccesscode,
                 status: 'ok',
                 message: result.message || 'Okay',
                 data: result.data || [],
@@ -125,7 +127,7 @@ async function jsget(url, headers = { 'Content-Type': 'application/json' }) {
             };
         } else {
             ret = {
-                code: -1,
+                code: jserrorcode,
                 backendcode: 404,
                 status: 'error',
                 message: `HTTP error! status: ${response.status}`,
@@ -137,7 +139,7 @@ async function jsget(url, headers = { 'Content-Type': 'application/json' }) {
         }
     } catch (error) {
         ret = {
-            code: -1,
+            code: jserrorcode,
             backendcode: 404,
             status: 'error',
             allerror: error,
@@ -166,7 +168,7 @@ async function jsget_plain(url, headers = { 'Content-Type': 'application/json' }
             ret = result;
         } else {
             ret = {
-                code: -1,
+                code: jserrorcode,
                 status: 'error',
                 message: `HTTP error! status: ${response.status}`,
                 error: `HTTP error! status: ${response.status}`,
@@ -175,7 +177,7 @@ async function jsget_plain(url, headers = { 'Content-Type': 'application/json' }
         }
     } catch (error) {
         ret = {
-            code: -1,
+            code: jserrorcode,
             status: 'error',
             message: 'Error',
             error: error.message || error,
@@ -201,8 +203,8 @@ async function jsput(url, data, where = {}, headers = { 'Content-Type': 'applica
         if (response.ok) {
             const result = await response.json();
             ret = {
-                code: 200,
-                backendcode: result.code || 200,
+                code: jssuccesscode,
+                backendcode: result.code || jssuccesscode,
                 status: 'ok',
                 message: result.message || 'Okay',
                 data: result.data || [],
@@ -214,7 +216,7 @@ async function jsput(url, data, where = {}, headers = { 'Content-Type': 'applica
             };
         } else {
             ret = {
-                code: -1,
+                code: jserrorcode,
                 backendcode: 404,
                 status: 'error',
                 message: `HTTP error! status: ${response.status}`,
@@ -227,7 +229,7 @@ async function jsput(url, data, where = {}, headers = { 'Content-Type': 'applica
         }
     } catch (error) {
         ret = {
-            code: -1,
+            code: jserrorcode,
             backendcode: 404,
             status: 'error',
             allerror: error,
@@ -260,7 +262,7 @@ async function jsput_plain(url, data, where = {}, headers = { 'Content-Type': 'a
             ret = result;
         } else {
             ret = {
-                code: -1,
+                code: jserrorcode,
                 status: 'error',
                 message: `HTTP error! status: ${response.status}`,
                 error: `HTTP error! status: ${response.status}`,
@@ -269,7 +271,7 @@ async function jsput_plain(url, data, where = {}, headers = { 'Content-Type': 'a
         }
     } catch (error) {
         ret = {
-            code: -1,
+            code: jserrorcode,
             status: 'error',
             message: 'Error',
             error: error.message || error,
@@ -352,7 +354,7 @@ function window_loaded(callable){
     window.addEventListener("load", callable());
 }
 
-function on_load(){
+function on_load(callable){
     window.addEventListener("load", callable());
 }
 
