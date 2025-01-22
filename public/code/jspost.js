@@ -519,6 +519,9 @@ function js_timer(timer, callable){
     setTimeout(callable, timer);
 }
 
+function js_interval(timmer, callable){
+    setInterval(callable, timmer);
+}
 function set_session(key, value){
     sessionStorage.setItem(key,value);
 }
@@ -718,6 +721,11 @@ function jsdownload_base64(base64Data, fileName) {
 function jsimg_base64(imgselector, base64){
     document.querySelector(imgselector).src = base64;
 }
+
+function jsscroll(selector, attr){
+    document.querySelectorAll(selector).scrollTo(attr);
+}
+
 
 
 
