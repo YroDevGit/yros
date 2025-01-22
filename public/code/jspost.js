@@ -723,7 +723,7 @@ function jsimg_base64(imgselector, base64){
 }
 
 function jsscroll(selector, attr){
-    document.querySelectorAll(selector).scrollTo(attr);
+    document.querySelector(selector).scrollTo(attr);
 }
 
 
