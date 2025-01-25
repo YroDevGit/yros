@@ -117,7 +117,7 @@ function runDev(){
     include "app/config/settings.php";
     $port = $app_settings['port'];
     $php_command = "";
-    $php_command = "php -S 0.0.0.0:80 -t public";
+    $php_command = "php -S 0.0.0.0:8080 -t public";
     echo "\nWelcome to Yros, PHP framework (Made by: CodeYro Team)\nServer run at: http://localhost:$port\n\n";
     passthru($php_command); 
 }
