@@ -2,14 +2,14 @@
 
 //This is the database config, all database settings can be customize here...
 
-$hostname = "localhost"; //hostname
+$hostname = getenv("DB_HOST"); //hostname
 
-$dbname = ""; //database name
-$username = "root"; //username
-$password = ""; //password
+$dbname = getenv("DATABASE"); //database name
+$username = getenv("DB_USERNAME"); //username
+$password = getenv("DB_PASSWORD"); //password
 
 
-$db_driver = "pdo"; // We support Mysqli, PDO and PostgreSQL
+$db_driver = getenv("DB_DRIVER"); // We support Mysqli, PDO and PostgreSQL
 /**
  * mysql = for mysql
  * mysqli = for mysql

@@ -71,6 +71,17 @@ else{
     }
     elseif($route=="run"||$route=="RUN"){
         runDev();
+    }elseif(strtolower($route)=="clear_sql_errors" || strtolower($route)=="xsqlerrors"){
+        $file = "app/system/errors/sqlerrors.txt";
+        if (file_exists($file)) {
+            if (unlink($file)) {
+                echo "SQL ERRORS CLEARED ✅";
+            } else {
+                echo "Error !";
+            }
+        } else {
+            echo "SQL ERRORS CLEARED ✅";
+        }
     }
     else if($routelower=="test_routes"){
         yrosTestRoutes();  

@@ -14,6 +14,7 @@ require_once "app/system/Yros.php";
 require_once "app/system/Model.php";
 require_once "app/system/extras/database.php";
 require_once "app/system/functions/myroutes.php";
+require_once "app/system/core/envloader.php";
 
 
 if(! function_exists("define_value")){
@@ -23,6 +24,17 @@ if(! function_exists("define_value")){
         }
     }
 }
+
+function log_msg($message, string $label = "LOG"){
+    if(is_array($message)){
+        file_put_contents("app/logs/".date("Y-m-d"), $label.": ".json_encode($message));
+    }else{
+        file_put_contents("app/logs/".date("Y-m-d"), $label.": ".$message);
+    }
+}
+
+//define("yros_load_group", random_int(1,9).random_int(1,9).random_int(1,9).random_int(1,9).random_int(1,9));
+
 
 require_once "app/config/definitions.php";
 
@@ -102,8 +114,6 @@ if(! defined("javascripts")){
 if(! defined("yrosclasses")){
     define("yrosclasses", getProjectRoot()."app/system/classes");
 }
-
-
 
 function getRoute(string $router, callable $func){
     include_once "app/system/core/frnevt.php";

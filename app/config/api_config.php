@@ -10,8 +10,6 @@ $api_config['yros_key_enabled'] = false;  //Enable or Disable api key/ disable f
 $api_config['yros_key'] = ["yros"]; //Api keys for authentication, you can add more
 
 
-$api_config['local_api_link'] = "http://localhost/php_raw/api/";
-
 
 $api_config['api_default_headers'] = [ // default api headers
     "Content-Type: application/json",
@@ -20,6 +18,8 @@ $api_config['api_default_headers'] = [ // default api headers
     "Access-Control-Allow-Headers: *"
 ];
 
+
+$api_config['local_api_link'] = getenv("LOCAL_API");
 
 
 ?>
