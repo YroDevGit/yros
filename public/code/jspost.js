@@ -283,8 +283,16 @@ async function jsput_plain(url, data, where = {}, headers = { 'Content-Type': 'a
 }
 
 
-function get_form_data(id){
-    const form = document.querySelector(`#${id}`); 
+function get_form_data(selector){
+    let form  = null;
+    if (selector.charAt(0) === "#" || selector.charAt(0) === ".") {
+        form = document.querySelector(selector);
+    }else{
+        form = document.querySelector(`#${selector}`); 
+    }
+
+    if (!form) return null;
+
     const formData = new FormData(form);  
 
     const dataObject = {};
@@ -296,10 +304,19 @@ function get_form_data(id){
 }
 
 
-function on_submit(id, callable) {
-    const form = document.getElementById(id);
+function on_submit(selector, callable) {
+    let form = null;
+    if (selector.charAt(0) === "#" || selector.charAt(0) === ".") {
+        form = document.querySelector(selector);
+    }else{
+        form = document.getElementById(selector);
+    }
     if (!form) {
-        console.error(`Form with id '${id}' not found.`);
+        console.error(`Form with id '${selector}' not found.`);
+        return;
+    }
+    if (typeof callable !== "function") {
+        console.error("Callable is not a function.");
         return;
     }
     form.onsubmit = function (event) {
@@ -307,10 +324,19 @@ function on_submit(id, callable) {
     };
 }
 
-function on_click(id, callable) {
-    const form = document.getElementById(id);
+function on_click(selector, callable) {
+    let form = null;
+    if (selector.charAt(0) === "#" || selector.charAt(0) === ".") {
+        form = document.querySelector(selector);
+    }else{
+        form = document.getElementById(selector);
+    }
     if (!form) {
-        console.error(`Tag with id '${id}' not found.`);
+        console.error(`Tag with id '${selector}' not found.`);
+        return;
+    }
+    if (typeof callable !== "function") {
+        console.error("Callable is not a function.");
         return;
     }
     form.onclick = function (event) {
@@ -366,7 +392,7 @@ function log(text){
     console.log(text);
 }
 
-function set_value(name, value, by="name"){
+function set_value(name, value, by="id"){
     let element = null;
     if(by=="name"){
        element = document.getElementsByName(name);
@@ -430,39 +456,59 @@ function get_form_values(id){
     return get_form_data(id)
 }
 
-function get_value(name, by="id"){
+function get_value(selector) {
     let element = null;
-    if(by=="name"){
-       element = document.getElementsByName(name);
-    }else{
-        element = document.getElementById(name);
+    
+    if (selector.charAt(0) === "#" || selector.charAt(0) === ".") {
+        element = document.querySelector(selector);
+    } else {
+        element = document.getElementById(selector);
     }
-    return element.value;
+
+    return element ? element.value : null; // Return null if element is not found
 }
 
-function get_element(id){
-    return document.getElementById(id);
+
+function get_element(selector){
+    if (selector.charAt(0) === "#" || selector.charAt(0) === ".") {
+        return document.querySelector(selector);
+    }else{
+        return document.getElementById(selector);
+    }
 }
 
-function get_attribute(name, attr, by="id"){
+function get_attribute(selector, attr) {
     let element = null;
-    if(by=="name"){
-       element = document.getElementsByName(name);
-    }else{
-        element = document.getElementById(name);
+    
+    if (selector.charAt(0) === "#" || selector.charAt(0) === ".") {
+        element = document.querySelector(selector);
+    } else {
+        element = document.getElementById(selector);
     }
-    return element.getAttribute(attr);
+
+    return element ? element.getAttribute(attr) : null; 
 }
 
 
-function set_attribute(id, attributes) {
-    let el = document.getElementById(id);
+
+function set_attribute(selector, attributes) { // attributes should be an object, not an array
+    let el = null;
+
+    if (selector.charAt(0) === "#" || selector.charAt(0) === ".") {
+        el = document.querySelector(selector);
+    } else {
+        el = document.getElementById(selector);
+    }
+
+    if (!el) return; // Prevent errors if element is not found
+
     for (let key in attributes) {
-        if (attributes.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(attributes, key)) {
             el.setAttribute(key, attributes[key]);
         }
     }
 }
+
 
 function js_tostring(array){
     return JSON.stringify(array);
@@ -484,13 +530,23 @@ function json_parse(string){
     return js_toarray(string);
 }
 
-function set_html(id, strhtml){
-    const dive = document.getElementById(id);
+function set_html(selector, strhtml){
+    let dive = null;
+    if (selector.charAt(0) === "#" || selector.charAt(0) === ".") {
+        dive = document.querySelector(selector);
+    }else{
+        dive = document.getElementById(selector);
+    }
     dive.innerHTML = strhtml;
 }
 
-function add_html(id, strhtml){
-    const dive = document.getElementById(id);
+function add_html(selector, strhtml){
+    let dive = null;
+    if (selector.charAt(0) === "#" || selector.charAt(0) === ".") {
+        dive = document.querySelector(selector);
+    }else{
+        dive = document.getElementById(selector);
+    }
     dive.insertAdjacentHTML('beforeend', strhtml);
 }
 
