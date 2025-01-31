@@ -114,9 +114,11 @@ function addApi($name){
 }
 
 function runDev(){
+    include "app/system/core/primary.php";
+    include "app/system/core/envloader.php";
     include "app/config/settings.php";
-    $port = $app_settings['port'];
-    $host = $app_settings['host'];
+    $port = getenv("APP_PORT");
+    $host = getenv("APP_HOST");
     $php_command = "";
     $php_command = "php -S $host:".$port;
     echo "\nWelcome to Yros, PHP framework (Made by: CodeYro Team)\nServer run at: http://localhost:$port\n\n";

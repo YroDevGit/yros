@@ -8,6 +8,7 @@ function customErrorHandler($errno, $errstr, $errfile, $errline) {
 if($app_settings['error_log']){
     set_error_handler("customErrorHandler");
 }
+include "app/system/core/primary.php";
 
 require_once "app/system/Yros.php";
 
@@ -15,6 +16,7 @@ require_once "app/system/Model.php";
 require_once "app/system/extras/database.php";
 require_once "app/system/functions/myroutes.php";
 require_once "app/system/core/envloader.php";
+require_once "app/system/libraries/middleware.php";
 
 
 if(! function_exists("define_value")){
@@ -22,14 +24,6 @@ if(! function_exists("define_value")){
         if(! defined($title)){
             define($title, $value);
         }
-    }
-}
-
-function log_msg($message, string $label = "LOG"){
-    if(is_array($message)){
-        file_put_contents("app/logs/".date("Y-m-d"), $label.": ".json_encode($message));
-    }else{
-        file_put_contents("app/logs/".date("Y-m-d"), $label.": ".$message);
     }
 }
 

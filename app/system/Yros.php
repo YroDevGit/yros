@@ -77,8 +77,9 @@ class Yros {
         $this->store_input_values_storage_yros();
         $this->store_back_up_flash_data1005();
         //$this->load_all_models();
-
+        
         require_once "app/auto/autorun.php";
+        require_once "app/auto/middleware.php";
         require_once "app/auto/components.php";
         if($isYrosApiOrModel==false){
             //add custom command
