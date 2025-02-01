@@ -4,16 +4,16 @@ class Middleware {
     public static function check(string $middlewarefile, callable $function) {
             $currentController = $_SESSION['yros_p4ge_contr0ll3r_1005055_v13w5'];
             $protectedControllers = self::loadMiddlewaresFromFile($middlewarefile);
-            if (in_array($currentController, $protectedControllers)) {
-                $function();exit;
+            if (in_array(strtolower($currentController), $protectedControllers)) {
+                $function();
             }
         }
 
     public static function except(string $middlewarefile, callable $function) {
         $currentController = $_SESSION['yros_p4ge_contr0ll3r_1005055_v13w5'];
         $protectedControllers = self::loadMiddlewaresFromFile($middlewarefile);
-        if (! in_array($currentController, $protectedControllers)) {
-            $function();exit;
+        if (! in_array(strtolower($currentController), $protectedControllers)) {
+            $function();
         }
     }
 

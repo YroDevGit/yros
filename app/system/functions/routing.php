@@ -82,7 +82,7 @@ function routing_controller($urls, $inRoute = false){
                 }
             }
         }
-        
+        $_SESSION['yros_p4ge_contr0ll3r_1005055_v13w5'] = $className."/".$methodName;
         $classFile = '_php/controller/' . $className . '.php';
 
         if (file_exists($classFile)) {
@@ -91,7 +91,6 @@ function routing_controller($urls, $inRoute = false){
             if (class_exists($className)) {
                 $classInstance = new $className();
                 if (method_exists($classInstance, $methodName)) {
-                    $_SESSION['yros_p4ge_contr0ll3r_1005055_v13w5'] = $className."/".$methodName;
                     $classInstance->$methodName();
                     if($app_settings['page_guide']){
                         include "app/system/screen/Display.php";

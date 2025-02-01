@@ -1,5 +1,7 @@
 <?php
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 function customErrorHandler($errno, $errstr, $errfile, $errline) {
     $logMessage = "[" . date("Y-m-d H:i:s") . "] Error: [$errno] $errstr - $errfile:$errline\n";
     $filename = date("Y-M-d")."_yros.log";
@@ -16,7 +18,6 @@ require_once "app/system/Model.php";
 require_once "app/system/extras/database.php";
 require_once "app/system/functions/myroutes.php";
 require_once "app/system/core/envloader.php";
-require_once "app/system/libraries/middleware.php";
 
 
 if(! function_exists("define_value")){

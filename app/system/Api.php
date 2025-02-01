@@ -18,10 +18,6 @@ class Api {
     public function __construct() {
         new Yros(true);
         self::$instance =& $this;
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        
 
         require_once "app/system/libraries/db_lib.php";
         $this->dblib = new Db_lib();

@@ -31,9 +31,7 @@ class Yros {
     private static $instance;
     public function __construct($isYrosApiOrModel=false) {
         self::$instance =& $this;
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        
         $this->set_status_definitions();
         $this->load_app("system/code/definitions");
         include_once "app/config/database.php";
@@ -77,10 +75,10 @@ class Yros {
         $this->store_input_values_storage_yros();
         $this->store_back_up_flash_data1005();
         //$this->load_all_models();
-        
-        require_once "app/auto/autorun.php";
-        require_once "app/auto/middleware.php";
-        require_once "app/auto/components.php";
+        require_once "app/system/libraries/middleware.php";
+        include "app/auto/autorun.php";
+        include "app/auto/middleware.php";
+        include "app/auto/components.php";
         if($isYrosApiOrModel==false){
             //add custom command
         }
