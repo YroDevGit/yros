@@ -93,21 +93,22 @@ class Db_lib{
         try{
             $result = $YROS->db->insert($table, $data);
             if($result==-1){
-                return ["code"=>-1, "status"=>"error", "message"=>"Data not inserted"];
+                return ["code"=>-1, "status"=>"error", "message"=>"Data not inserted", "query"=>$this->db_last_query()];
             }
             else{
-                return ["code"=>SUCCESS, "status"=>"success", "message"=>"Data inserted", "insert_id"=>$result,"ID"=>$result, "id"=>$result];
+                return ["code"=>SUCCESS, "status"=>"success", "message"=>"Data inserted", "insert_id"=>$result,"ID"=>$result, "id"=>$result, "query"=>$this->db_last_query()];
             }
 
         }
         catch (Exception $e) {
+            $lastquery = $this->db_last_query();
             $err = $e->getMessage();
             $disp = display_error111($err);
             write_sql_log($disp);
-            write_sql_error($disp, db_last_query());
+            write_sql_error($disp, $lastquery);
             $YROS->db->pdo_success = false;
             $this->db_errors[] = $disp;
-            return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
+            return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp, "query"=>$lastquery];
         }
     }
 
@@ -121,30 +122,35 @@ class Db_lib{
             $YROS->db->sql_query($command, $param);
             $results = $YROS->db->resultSet();
             
-            if (stripos(trim($command), 'select') === 0) {
+            if (stripos(strtolower(trim($command)), 'select') === 0) {
                 $frow = [];
                 $has_data = false;
                 if(!empty($results)){
                     $frow = isset($results[0]) ? $results[0] : [];
                     $has_data = true;
                 }
-                return ["code"=>SUCCESS, "status"=>"success", "has_data"=>$has_data, "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$frow, "single" => $frow];
+                return ["code"=>SUCCESS, "status"=>"success", "has_data"=>$has_data, "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$frow, "single" => $frow, "query"=>$this->db_last_query()];
             }
-            else if(stripos(trim($sql), 'insert') === 0){
-                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data inserted successfully", "insert_id"=>$YROS->db->lastInsertId(), "parameters"=>$param];
+            else if(stripos(strtolower(trim($sql)), 'insert') === 0){
+                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data inserted successfully", "insert_id"=>$YROS->db->lastInsertId(), "parameters"=>$param, "query"=>$this->db_last_query()];
+            }else if(stripos(strtolower(trim($sql)), 'update') === 0){
+                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data updated successfully", "parameters"=>$param, "query"=>$this->db_last_query()];
+            }else if(stripos(strtolower(trim($sql)), 'delete') === 0){
+                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data deleted successfully", "parameters"=>$param, "query"=>$this->db_last_query()];
             }
             else{
-                return ["code"=>SUCCESS, "status"=>"success", "message" => $results, "parameters"=>$param];
+                return ["code"=>SUCCESS, "status"=>"success", "message" => $results, "parameters"=>$param, "query"=>$this->db_last_query()];
             }
             }
         catch (Exception $e) {
+            $lastquery = $this->db_last_query();
             $err = $e->getMessage();
             $disp = display_error111($err);
             write_sql_log($disp);
-            write_sql_error($disp, db_last_query());
+            write_sql_error($disp, $lastquery);
             $YROS->db->pdo_success = false;
             $this->db_errors[] = $disp;
-            $return = ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
+            $return = ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp, "query"=>$lastquery];
             return $return;
         }
     }
@@ -156,26 +162,27 @@ class Db_lib{
             $result = $YROS->db->delete($table, $conditions);
             if(isset($result)){
                 if($result == 0||$result=="0"){
-                    return ["code"=>200, "status"=>"success", "message"=>"Success, but no Data has been deleted.", "affected_rows"=>$result, "conditions"=>$conditions];
+                    return ["code"=>200, "status"=>"success", "message"=>"Success, but no Data has been deleted.", "affected_rows"=>$result, "conditions"=>$conditions, "query"=>$this->db_last_query()];
                 }
                 else{
-                    return ["code"=>200, "status"=>"success", "message"=>"Data deleted successfully","affected_rows"=>$result, "conditions"=>$conditions];
+                    return ["code"=>200, "status"=>"success", "message"=>"Data deleted successfully","affected_rows"=>$result, "conditions"=>$conditions, "query"=>$this->db_last_query()];
                 }
             }
             else{
-                return ["code"=>-1, "status"=>"error", "message"=>"Error in deleteQuery db_lib.php libraries"];
+                return ["code"=>-1, "status"=>"error", "message"=>"Error in deleteQuery db_lib.php libraries", "query"=>$this->db_last_query()];
 
             }
         }
         catch(Exception $e){
+            $lastquery = $this->db_last_query();
             $err = $e->getMessage();
             $disp = display_error111($err);
             write_sql_log($disp);
-            write_sql_error($disp, db_last_query());
+            write_sql_error($disp, $lastquery);
             
             $YROS->db->pdo_success = false;
             $this->db_errors[] = $disp;
-            return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
+            return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp, "query"=>$lastquery];
         }    
     }
 
@@ -185,25 +192,26 @@ class Db_lib{
             $result = $YROS->db->update($table, $data, $conditions);
             if(isset($result)){
                 if($result == 0||$result=="0"){
-                    return ["code"=>200, "status"=>"success", "message"=>"Success, but no data has been affected", "affected_rows"=>$result, "conditions"=>$conditions];
+                    return ["code"=>200, "status"=>"success", "message"=>"Success, but no data has been affected", "affected_rows"=>$result, "conditions"=>$conditions, "query"=>$this->db_last_query()];
                 }
                 else{
-                    return ["code"=>200, "status"=>"success", "message"=>"Data updated successfully", "affected_rows"=>$result, "conditions"=>$conditions];
+                    return ["code"=>200, "status"=>"success", "message"=>"Data updated successfully", "affected_rows"=>$result, "conditions"=>$conditions, "query"=>$this->db_last_query()];
                 }
             }
             else{
-                return ["code"=>-1, "status"=>"error", "message"=>"Error in updateQuery db_lib.php libraries"];
+                return ["code"=>-1, "status"=>"error", "message"=>"Error in updateQuery db_lib.php libraries", "query"=>$this->db_last_query()];
 
             }
         }
         catch(Exception $e){
+            $lastquery = $this->db_last_query();
             $err = $e->getMessage();
             $disp = display_error111($err);
             write_sql_log($disp);
-            write_sql_error($disp, db_last_query());
+            write_sql_error($disp, $lastquery);
             $YROS->db->pdo_success = false;
             $this->db_errors[] = $disp;
-            return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp];
+            return ["code"=>-1, "status"=>"error", "message"=>$err, "file"=>$disp, "query"=>$lastquery];
         }
     }
 

@@ -222,7 +222,7 @@ if(! function_exists("write_sql_error")){
         $setting = $app_settings['save_db_errors'];
         if($setting==true){
             $logfile = "app/system/errors/sqlerrors.txt";
-            $formatted_message = "[" . date('Y-m-d H:i:s') . "] "."". $message . PHP_EOL."QUERY: ".$query. PHP_EOL;
+            $formatted_message = "[" . date('Y-m-d H:i:s') . "] "."". $message ." ==>> "."QUERY: ".$query. PHP_EOL;
             file_put_contents($logfile, $formatted_message, FILE_APPEND);
         }
     }
@@ -406,6 +406,24 @@ if(! function_exists("jspost_script")){
     function jspost_script(){
         $jspost = public_code_path("jspost.js");
         return "<script src='$jspost'></script>";
+    }
+}
+
+if(! function_exists("file_to_array")){
+    function file_to_array(string $path):array{
+        $arr = [];
+        if (file_exists($path)) {
+            $fl = fopen($path, 'r');
+        
+            if ($fl) {
+                while (($line = fgets($fl)) !== false) {
+                    $line = trim($line);
+                    $arr[] = $line;
+                }
+                fclose($fl); 
+            }
+        }
+        return $arr;
     }
 }
 

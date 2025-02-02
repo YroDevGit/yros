@@ -38,6 +38,14 @@ class Main extends Yros{
         display_views_tracked_logs();
     }
 
+    function db_errors(){
+        $errs = file_to_array("app/system/errors/sqlerrors.txt");
+        $errs = array_reverse($errs);
+        foreach($errs as $er){
+            display($er."<br>");
+        }
+    }
+
     
 
     
