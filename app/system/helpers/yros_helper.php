@@ -427,6 +427,43 @@ if(! function_exists("file_to_array")){
     }
 }
 
+if(! function_exists("get_random_chars")){
+    function get_random_chars($length = 10, bool $secure =  true) {
+        $addchar = date("YmdHis");
+        if($length==6){
+            return $addchar;
+        }
+        if($length<10){
+            return get_random_code($length);
+        }
+        $arr = str_split("ABCDEFGHIJKLMNOPQRSTUVWXY");
+        shuffle($arr);
+        if($secure){
+            $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            $length = $length -8;
+            for ($i = 0; $i < $length; $i++) {
+                $randomIndex = random_int(0, $charactersLength - 1);
+                $randomString .= $characters[$randomIndex];
+            }
+        
+            return $randomString.$addchar.$arr[0].$arr[1];
+        }else{
+            $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            $length = $length -8;
+            return substr(str_shuffle($characters), 0, $length).$addchar.$arr[0].$arr[1];
+        }
+    }
+}
+
+if(! function_exists("get_random_code")){
+    function get_random_code($length) {
+        $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        return substr(str_shuffle($characters), 0, $length);
+    }
+}
+
 
 
 
