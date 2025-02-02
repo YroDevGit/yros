@@ -226,7 +226,7 @@ if(! function_exists("write_sql_error")){
             $message = preg_replace('/\s+/', ' ', trim($message));
             $query = preg_replace('/\s+/', ' ', trim($query));
     
-            $formatted_message = "[" . date('Y-m-d H:i:s') . "] " . $message . " ==>> QUERY: " . $query . PHP_EOL;
+            $formatted_message = "[" . date('Y-m-d H:i:s') . "] " . $message . " ==>> QUERY: " . $query . PHP_EOL.PHP_EOL;
             file_put_contents($logfile, $formatted_message, FILE_APPEND);
         }
     }
