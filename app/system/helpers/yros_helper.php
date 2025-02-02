@@ -220,9 +220,13 @@ if(! function_exists("write_sql_error")){
     function write_sql_error($message, string $query = ""){
         include "app/config/settings.php";
         $setting = $app_settings['save_db_errors'];
-        if($setting==true){
+        if($setting == true){
             $logfile = "app/system/errors/sqlerrors.txt";
-            $formatted_message = "[" . date('Y-m-d H:i:s') . "] "."". $message ." ==>> "."QUERY: ".$query. PHP_EOL;
+    
+            $message = preg_replace('/\s+/', ' ', trim($message));
+            $query = preg_replace('/\s+/', ' ', trim($query));
+    
+            $formatted_message = "[" . date('Y-m-d H:i:s') . "] " . $message . " ==>> QUERY: " . $query . PHP_EOL;
             file_put_contents($logfile, $formatted_message, FILE_APPEND);
         }
     }
