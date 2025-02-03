@@ -132,6 +132,10 @@ class Yros {
         
     }
 
+    public function secret_script($filename){
+        include "app/system/secret/".$filename;
+    }
+
     public function view_include(string $view, array $data = array()){
         $this->view("includes/".$view, $data);
     }
