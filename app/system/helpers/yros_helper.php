@@ -468,7 +468,11 @@ if(! function_exists("get_random_code")){
     }
 }
 
-
+if(! function_exists("yros_secret_script")){
+    function yros_secret_script(string $filename){
+        echo `<script src=""app/system/secret/".$filename;"></script>`;
+    }
+}
 
 
 
