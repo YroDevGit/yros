@@ -424,6 +424,7 @@ class Validation_lib{
 
     public function get_all_input_error(){
         $YROS = &Yros::get_instance();
+        $this->load_all_errors();
         $all = $YROS->yros_input_validation_errors;
         $ret = [];
         foreach($all as $key=>$value){
@@ -431,6 +432,16 @@ class Validation_lib{
             $ret[$newkey] = $value;
         }
         return $ret;
+    }
+
+    private function load_all_errors(){
+        $YROS = &Yros::get_instance();
+        foreach($_SESSION  as $key=>$value){
+            if(string_contains($key, $YROS->validationlib->validation_temp_error)){
+                $YROS->yros_input_validation_errors[$key] = $value;
+                unset($_SESSION[$key]);
+            }
+        }
     }
     
 
