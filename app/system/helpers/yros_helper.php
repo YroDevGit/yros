@@ -470,7 +470,7 @@ if(! function_exists("get_random_code")){
 
 if(! function_exists("yros_secret_script")){
     function yros_secret_script(string $filename){
-        return `<script src="/app/system/secret/$filename"></script>`;
+        return "<script src='/app/system/secret/$filename'></script>";
     }
 }
 
