@@ -805,6 +805,21 @@ function array_filter(filter, array){ // Filter the array
     return filteredarray;
 }
 
+function is_empty(arr) {//check if array is empty
+    if (arr == null) {
+        return true;
+    }
+    if (Array.isArray(arr) && arr.length === 0) {
+        return true;
+    }
+
+    if (typeof arr === 'object' && Object.keys(arr).length === 0) {
+        return true;
+    }
+
+    return false;
+}
+
 
 
 
