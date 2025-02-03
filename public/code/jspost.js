@@ -782,6 +782,29 @@ function jsscroll(selector, attr){
     document.querySelector(selector).scrollTo(attr);
 }
 
+function array_key_exist(needle, array){//check if the array contains a key needle
+    return array.hasOwnProperty(needle);
+}
+
+function array_element_exist(needle, array){//check if the array has element needle
+    return array.includes(needle);
+}
+
+function array_value_exist(needle, array){ // check the array if it has a value needle
+    return Object.entries(array).find(([key, value]) => value === needle);
+}
+
+function array_value_contains(needle, array){ // check the array contains value needle
+    return Object.values(array).some(value => value.includes(needle));
+}
+
+function array_filter(filter, array){ // Filter the array
+    const filteredarray = Object.fromEntries(
+        Object.entries(array).filter(([key, value]) => value.includes(filter))
+    );
+    return filteredarray;
+}
+
 
 
 
