@@ -85,6 +85,16 @@ else{
     }
     else if($routelower=="test_routes"){
         yrosTestRoutes();  
+    }elseif($routelower == "import"){
+        include_once "app/system/functions/customs.php";
+        $cust = new customs();
+        if($filelower == "yroswal"){
+            $cust->importswal();
+        }else if($filelower == "jspost"){
+            $cust->importjspost();
+        }else{
+            echo "Invalid import! ❌";
+        }
     }
     else if($routelower == "db"){
         echo "Database config here (Shift + click): app/config/database.php";
