@@ -594,14 +594,14 @@ function clear_session(){
     sessionStorage.clear();
 }
 
-const jsform_validate = (formData, rules) => { // usage: rules = {"fname==Firstname": "required"}
+const jsform_validate = (formData, rules) => { // usage: rules = {"fname=>Firstname": "required"}
     const errors = {};
 
     for (const [key, validation] of Object.entries(rules)) {
         let fieldName, label;
 
-        if (key.includes("==")) {
-            [fieldName, label] = key.split("==");
+        if (key.includes("=>")) {
+            [fieldName, label] = key.split("=>");
             label = label || fieldName;
         } else {
             fieldName = key;
