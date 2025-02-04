@@ -32,7 +32,7 @@ class customs{
 
 
     public function importswal(){//https://github.com/YroDevGit/yros/blob/main/app/system/secret/yroswal.js
-        $fileUrl = "https://raw.githubusercontent.com/YroDevGit/yros/blob/main/app/system/secret/yroswal.js";
+        $fileUrl = "https://raw.githubusercontent.com/YroDevGit/yros/main/app/system/secret/yroswal.js";
         $outputDir = "app/system/secret/";  
         $outputFile = $outputDir . "yroswal.js"; 
 
