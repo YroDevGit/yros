@@ -144,6 +144,10 @@ class Yros {
         $this->view("pages/".$view, $data);
     }
 
+    public function use_model(string $modelname){
+        @include "app/models/".$modelname.".php";
+    }
+
 
     public function get_previous_page(){
         $previousUrl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] :rootpath;

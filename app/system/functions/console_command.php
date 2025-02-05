@@ -56,7 +56,7 @@ function addModel($name){
 
             // Model:: stores global functions that can be called accross controllers.
 
-            function test(){
+            static function test(){
                 echo 'Hello Yros user. This is $newname controller';
             }
 
