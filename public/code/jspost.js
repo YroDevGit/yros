@@ -411,7 +411,7 @@ function set_value(name, value, by="id"){
     element.value = value;
 }
 
-function set_values(array, by="name"){
+function set_values(array, by="id"){
     let element = null;
     for (let key in array){
         if(by=="name"){
@@ -425,12 +425,16 @@ function set_values(array, by="name"){
 
 
 function set_form_values(form, array, by="name") {
+    let fform = `#${form}`;
+    if (form.charAt(0) === "#" || form.charAt(0) === ".") {
+        fform = `${form}`;
+    }
     let element;
     for (let key in array) {
         if (by == "name") {
-            element = document.querySelector(`#${form} *[name="${key}"]`);
+            element = document.querySelector(`${fform} *[name="${key}"]`);
         } else {
-            element = document.querySelector(`#${form} *[id="${key}"]`);
+            element = document.querySelector(`${fform} *[id="${key}"]`);
         }
         if (element) {
             element.value = array[key];
@@ -446,11 +450,15 @@ function set_form_data(form, array, by="name") {
 
 
 function get_form_value(form, name, by="name"){
+    let fform = `#${form}`;
+    if (form.charAt(0) === "#" || form.charAt(0) === ".") {
+        fform = `${form}`;
+    }
     let element;
     if (by == "name") {
-        element = document.querySelector(`#${form} *[name="${name}"]`);
+        element = document.querySelector(`${fform} *[name="${name}"]`);
     } else {
-        element = document.querySelector(`#${form} *[id="${name}"]`);
+        element = document.querySelector(`${fform} *[id="${name}"]`);
     }
     if (element) {
         
