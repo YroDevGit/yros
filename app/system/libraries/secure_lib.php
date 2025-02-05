@@ -42,6 +42,7 @@ class Secure_lib{
     public function decrypt($encrypted_data, string $key = null) {
         $cipher = "AES-256-CBC";
         $iv_length = openssl_cipher_iv_length($cipher);
+    
         $encrypted_data = strtr($encrypted_data, [
             '-' => '+',  
             '_' => '/', 
@@ -54,17 +55,27 @@ class Secure_lib{
             $encrypted_data .= str_repeat('=', $padding_needed);
         }
     
-        $decoded_data = base64_decode($encrypted_data);
+        $decoded_data = base64_decode($encrypted_data, true);
+        if ($decoded_data === false) {
+            die("Error: Base64 decoding failed.");
+        }
+    
+        if (strlen($decoded_data) < $iv_length) {
+            die("Error: Invalid encrypted data length.");
+        }
         $iv = substr($decoded_data, 0, $iv_length);
         $encrypted_data = substr($decoded_data, $iv_length);
-        $decrypted_data = null;
-        if($key==null||$key==""){
-            $decrypted_data = openssl_decrypt($encrypted_data, $cipher, $this->key, 0, $iv);
-        }else{
-            $encrypted_data = openssl_decrypt($encrypted_data, $cipher, $key, 0, $iv);
+    
+        $decryption_key = $key ?: $this->key;
+        $decrypted_data = openssl_decrypt($encrypted_data, $cipher, $decryption_key, 0, $iv);
+    
+        if ($decrypted_data === false || !mb_check_encoding($decrypted_data, 'UTF-8')) {
+            die("Error decrypting data.");
         }
+    
         return $decrypted_data;
     }
+    
     
 
 
