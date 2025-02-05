@@ -375,6 +375,15 @@ function direct_get(url, data = null, headers = { 'Content-Type': 'application/j
     }
 }
 
+function url_param(url, param=null){
+    if (param == null || Object.keys(param).length === 0) {
+        return url;
+    }else{
+        const queryParams = new URLSearchParams(param).toString();
+        return `${url}?${queryParams}`;
+    }
+}
+
 
 function window_loaded(callable){
     window.addEventListener("load", callable());
