@@ -838,5 +838,91 @@ function is_empty(arr) {//check if array is empty
 }
 
 
+function image_capture(callable) { // ussage image_capture((blob)=>{document.querySelector('#id').src = blob});
+    const modal = document.createElement("div");
+    modal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); display: flex; flex-direction: column;
+        align-items: center; justify-content: center; color: white; z-index: 9999;
+    `;
+
+    const video = document.createElement("video");
+    video.style.cssText = "width: 80%; max-width: 40%; border: 2px solid white;";
+
+    const canvas = document.createElement("canvas");
+    canvas.style.display = "none";
+
+    const btnContainer = document.createElement("div");
+    btnContainer.style.cssText = "margin-top: 10px; display: flex; gap: 10px;";
+
+    const captureBtn = document.createElement("button");
+    captureBtn.innerText = "Capture";
+    
+    const retakeBtn = document.createElement("button");
+    retakeBtn.innerText = "Retake";
+    retakeBtn.style.display = "none";
+
+    const confirmBtn = document.createElement("button");
+    confirmBtn.innerText = "Confirm";
+    confirmBtn.style.display = "none";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.innerText = "Close";
+
+    btnContainer.append(captureBtn, retakeBtn, confirmBtn, closeBtn);
+    modal.append(video, canvas, btnContainer);
+    document.body.appendChild(modal);
+
+    let stream = null, imageBlob = null;
+
+    navigator.mediaDevices.getUserMedia({ video: true }).then(mediaStream => {
+        stream = mediaStream;
+        video.srcObject = stream;
+        video.play();
+    }).catch(err => alert("Camera access denied!"));
+
+    captureBtn.onclick = () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+        canvas.style.display = "block";
+        video.style.display = "none";
+        captureBtn.style.display = "none";
+        retakeBtn.style.display = "inline-block";
+        confirmBtn.style.display = "inline-block";
+
+        canvas.toBlob(blob => { imageBlob = blob; }, "image/jpeg");
+    };
+
+    retakeBtn.onclick = () => {
+        video.style.display = "block";
+        canvas.style.display = "none";
+        captureBtn.style.display = "inline-block";
+        retakeBtn.style.display = "none";
+        confirmBtn.style.display = "none";
+        imageBlob = null;
+    };
+
+    confirmBtn.onclick = () => {
+        if (imageBlob) {
+            const reader = new FileReader();
+            reader.readAsDataURL(imageBlob);
+            reader.onloadend = () => {
+                if (callable && typeof callable === "function") {
+                    callable(reader.result);
+                }
+            };
+        }
+        closeModal();
+    };
+
+    closeBtn.onclick = closeModal;
+    function closeModal() {
+        if (stream) stream.getTracks().forEach(track => track.stop());
+        modal.remove();
+    }
+}
+
+
 
 
