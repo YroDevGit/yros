@@ -923,6 +923,61 @@ function image_capture(callable) { // ussage image_capture((blob)=>{document.que
     }
 }
 
+function jsimage_show(imagePathOrBlob) { //display image popup //show_image // image_show
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = 0;
+    overlay.style.left = 0;
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    overlay.style.zIndex = 9999;
+    overlay.style.display = 'flex';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.cursor = 'pointer';
+
+    const img = document.createElement('img');
+    img.style.maxHeight = '90vh'; 
+    img.style.maxWidth = '90vw';
+    img.style.objectFit = 'contain';
+    img.style.borderRadius = '8px'; 
+    img.style.cursor = 'default'; 
+
+    if (imagePathOrBlob instanceof Blob) {
+        img.src = URL.createObjectURL(imagePathOrBlob);
+    } else {
+        img.src = imagePathOrBlob;
+    }
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'X';
+    closeButton.style.position = 'absolute';
+    closeButton.style.top = '20px';
+    closeButton.style.right = '20px';
+    closeButton.style.fontSize = '20px';
+    closeButton.style.padding = '10px';
+    closeButton.style.color = '#fff';
+    closeButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    closeButton.style.border = 'none';
+    closeButton.style.cursor = 'pointer';
+
+    overlay.onclick = function (event) {
+        if (event.target === overlay) {
+            document.body.removeChild(overlay);
+        }
+    };
+
+    closeButton.onclick = function () {
+        document.body.removeChild(overlay);
+    };
+
+    overlay.appendChild(img);
+    overlay.appendChild(closeButton);
+
+    document.body.appendChild(overlay);
+}
+
 
 
 
