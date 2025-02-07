@@ -92,6 +92,8 @@ else{
             $cust->importswal();
         }else if($filelower == "jspost"){
             $cust->importjspost();
+        }elseif($filelower == "qrcode"){
+            $cust->importqrcode();
         }else{
             echo "Invalid import! ❌";
         }

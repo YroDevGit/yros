@@ -978,6 +978,28 @@ function jsimage_show(imagePathOrBlob) { //display image popup //show_image // i
     document.body.appendChild(overlay);
 }
 
+function generateQRCode(selector = "qrcode", text, height=300, width=300) {//needs to import qrcode (REQUIRED)
+    //Libraries: https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js
+    // yros: php yros import qrcode
+    if (!text) {
+        alert("Please enter text to generate a QR code.");
+        return;
+    }
+
+    // Clear previous QR code
+    document.querySelector(selector).innerHTML = "";
+
+    // Generate new QR code
+    new QRCode(document.querySelector(selector), {
+        text: text,
+        width: width,
+        height: height,
+        colorDark: "#000000", // Black color for QR code
+        colorLight: "#ffffff", // White background
+        correctLevel: QRCode.CorrectLevel.H // High error correction
+    });
+}
+
 
 
 
