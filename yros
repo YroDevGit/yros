@@ -3,7 +3,13 @@
 /**
  * Yros console command
  */
-
+/**
+ * import commands:
+ * yroswal
+ * jspost
+ * jsqrcode
+ * jsqrscanner
+ */
  /**
   * Welcome to YROS, PHP light weight framework
   * can create high quality web applications

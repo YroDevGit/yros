@@ -1001,9 +1001,9 @@ function jsqrcode(selector = "qrcode", text, height=300, width=300) {//needs to 
 }
 
 
-function jsqrscanner(callable, height=500, width=500) {
-    //public library: https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js
-    // import via yros: php yros import jsqrscanner
+function jsqrscanner(callable, height = 500, width = 500) {
+    // Public library: https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js
+    // Import via Yros: php yros import jsqrscanner
     const overlay = document.createElement('div');
     overlay.style.position = 'fixed';
     overlay.style.top = 0;
@@ -1017,15 +1017,13 @@ function jsqrscanner(callable, height=500, width=500) {
     overlay.style.alignItems = 'center';
     overlay.style.flexDirection = 'column';
 
-    // Create scanner container
     const scannerDiv = document.createElement('div');
     scannerDiv.id = 'reader';
-    scannerDiv.style.width = width+'px';
-    scannerDiv.style.height = height+'500px';
+    scannerDiv.style.width = width + 'px';
+    scannerDiv.style.height = height + 'px'; 
     scannerDiv.style.background = '#fff';
     scannerDiv.style.borderRadius = '8px';
 
-    // Create close button
     const closeButton = document.createElement('button');
     closeButton.textContent = 'X';
     closeButton.style.position = 'absolute';
@@ -1038,22 +1036,20 @@ function jsqrscanner(callable, height=500, width=500) {
     closeButton.style.border = 'none';
     closeButton.style.cursor = 'pointer';
 
-
     overlay.appendChild(scannerDiv);
     overlay.appendChild(closeButton);
     document.body.appendChild(overlay);
-
 
     const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
     scanner.render(decodedText => {
         scanner.clear();
         document.body.removeChild(overlay); 
-        if (callable && typeof callable === "function") {
+
+        if (typeof callable === "function") {
             callable(decodedText);
         }
     });
 
-  
     closeButton.onclick = function () {
         scanner.clear();
         document.body.removeChild(overlay);
