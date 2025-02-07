@@ -1001,7 +1001,7 @@ function jsqrcode(selector = "qrcode", text, height=300, width=300) {//needs to 
 }
 
 
-function jsqrscanner(height=500, width=500) {
+function jsqrscanner(callable, height=500, width=500) {
     //public library: https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js
     // import via yros: php yros import jsqrscanner
     const overlay = document.createElement('div');
@@ -1046,10 +1046,11 @@ function jsqrscanner(height=500, width=500) {
 
     const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
     scanner.render(decodedText => {
-        //document.getElementById("result").innerText = "QR Code: " + decodedText;
         scanner.clear();
         document.body.removeChild(overlay); 
-        return decodedText;
+        if (callable && typeof callable === "function") {
+            callable(decodedText);
+        }
     });
 
   
