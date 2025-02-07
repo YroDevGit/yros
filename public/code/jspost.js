@@ -978,9 +978,9 @@ function jsimage_show(imagePathOrBlob) { //display image popup //show_image // i
     document.body.appendChild(overlay);
 }
 
-function generateQRCode(selector = "qrcode", text, height=300, width=300) {//needs to import qrcode (REQUIRED)
+function jsqrcode(selector = "qrcode", text, height=300, width=300) {//needs to import qrcode (REQUIRED)
     //Libraries: https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js
-    // yros: php yros import qrcode
+    // yros: php yros import jsqrcode
     if (!text) {
         alert("Please enter text to generate a QR code.");
         return;
@@ -999,6 +999,66 @@ function generateQRCode(selector = "qrcode", text, height=300, width=300) {//nee
         correctLevel: QRCode.CorrectLevel.H // High error correction
     });
 }
+
+
+function jsqrscanner(height=500, width=500) {
+    //public library: https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js
+    // import via yros: php yros import jsqrscanner
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = 0;
+    overlay.style.left = 0;
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    overlay.style.zIndex = 9999;
+    overlay.style.display = 'flex';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.flexDirection = 'column';
+
+    // Create scanner container
+    const scannerDiv = document.createElement('div');
+    scannerDiv.id = 'reader';
+    scannerDiv.style.width = width+'px';
+    scannerDiv.style.height = height+'500px';
+    scannerDiv.style.background = '#fff';
+    scannerDiv.style.borderRadius = '8px';
+
+    // Create close button
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'X';
+    closeButton.style.position = 'absolute';
+    closeButton.style.top = '20px';
+    closeButton.style.right = '20px';
+    closeButton.style.fontSize = '20px';
+    closeButton.style.padding = '10px';
+    closeButton.style.color = '#fff';
+    closeButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    closeButton.style.border = 'none';
+    closeButton.style.cursor = 'pointer';
+
+
+    overlay.appendChild(scannerDiv);
+    overlay.appendChild(closeButton);
+    document.body.appendChild(overlay);
+
+
+    const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+    scanner.render(decodedText => {
+        //document.getElementById("result").innerText = "QR Code: " + decodedText;
+        scanner.clear();
+        document.body.removeChild(overlay); 
+        return decodedText;
+    });
+
+  
+    closeButton.onclick = function () {
+        scanner.clear();
+        document.body.removeChild(overlay);
+    };
+}
+
 
 
 
