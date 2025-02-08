@@ -705,7 +705,7 @@ function jsinput_to_base64(selector){
         const fileInput = document.querySelector(selector);
 
         if (fileInput.files.length === 0) {
-            reject('No file selected.');
+            resolve(null);
             return;
         }
 

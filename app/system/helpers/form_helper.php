@@ -274,6 +274,13 @@ if(! function_exists("validate_input")){
     }
 }
 
+if(! function_exists("validate_value")){
+    function validate_input_value(int|string|float|bool|null $givenvalue=null,string $inputname, string $label, string $validation, int $type = 1){
+        $YROS = &Yros::get_instance();
+        return $YROS->validationlib->validate_value($givenvalue,$inputname, $label,$validation, $type);
+    }
+}
+
 
 if(! function_exists("set_validation")){
     /** (Void) set the validation in the specific input */

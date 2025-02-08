@@ -13,6 +13,9 @@ class Secure_lib{
 
 
     public function encrypt($data, string $key = null) {
+        if($data == null || $data == ""){
+            return null;
+        }
         $cipher = "AES-256-CBC";
         $iv_length = openssl_cipher_iv_length($cipher);
         $iv = openssl_random_pseudo_bytes($iv_length);
@@ -40,6 +43,9 @@ class Secure_lib{
     }
     
     public function decrypt($encrypted_data, string $key = null) {
+        if($encrypted_data == null || $encrypted_data == ""){
+            return null;
+        }
         $cipher = "AES-256-CBC";
         $iv_length = openssl_cipher_iv_length($cipher);
     

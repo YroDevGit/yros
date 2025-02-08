@@ -214,14 +214,22 @@ class Validation_lib{
         }
     }
 
-    public function validate_input(string $inputname, string $label, string $validation, int $type = 1){
+
+    public function validate_value(int|string|float|bool|null $givenvalue=null, string $inputname, string $label, string $validation, int $type = 1){
         $rules = explode('|', $validation);
         if(in_array("file", $rules) || in_array("files", $rules)){
             $this->validate_file($inputname, $label, $validation, $type);
             return;
         }
-        $POST = post_data();
-        $inputData = $POST[$inputname] ?? '';
+        $POST = [];
+        $inputData = null;
+        if($givenvalue == null || $givenvalue == ""){
+            $POST = post_data();
+            $inputData = $POST[$inputname] ?? '';
+        }else{
+            $POST = post_data();
+            $inputData = $givenvalue ?? '';
+        }
 
         $errors = [];
         $rules = array_reverse($rules);
@@ -384,7 +392,15 @@ class Validation_lib{
             $this->validation_errors = $errors;
             $_SESSION[$this->validation_temp_error.$inputname] = $errors[$inputname];
         }
-        return $POST[$inputname] ?? null;
+        if($givenvalue == null || $givenvalue == ""){
+            return $POST[$inputname] ?? null;
+        }else{
+            return $givenvalue ?? null;
+        }
+    }
+
+    public function validate_input(string $inputname, string $label, string $validation, int $type = 1){
+        return $this->validate_value(null, $inputname, $label, $validation, $type);
     }
 
 
