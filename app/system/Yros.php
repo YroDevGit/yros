@@ -99,6 +99,7 @@ class Yros {
     }
 
     public function view(string $view, array $data = array()){
+        $view = $view[0] === '/' ? substr($view, 1) : $view;
         include "app/config/settings.php";
         if(! empty($data)){
             extract($data);
