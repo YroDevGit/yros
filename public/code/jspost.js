@@ -154,6 +154,22 @@ async function jsget(url, headers = { 'Content-Type': 'application/json' }) {
     return ret;
 }
 
+function jschange_effect(effect, dependencies){
+    //effect is a callable
+    //dependencies is an array
+    let previousDeps = myUseEffect.previousDeps || [];
+
+    const hasChanged = dependencies.some((dep, i) => dep !== previousDeps[i]);
+
+    if (hasChanged) {
+        if (typeof myUseEffect.cleanup === "function") {
+            myUseEffect.cleanup(); 
+        }
+        myUseEffect.cleanup = effect(); 
+        myUseEffect.previousDeps = dependencies; 
+    }
+}
+
 async function jsget_plain(url, headers = { 'Content-Type': 'application/json' }) {
     let ret = { code: -1, status: 'error', message: 'error message' };
 
