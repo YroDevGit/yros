@@ -359,14 +359,14 @@ class Db_lib{
                     $frow = isset($results[0]) ? $results[0] : [];
                     $has_data = true;
                 }
-                return ["code"=>SUCCESS, "status"=>"success", "has_data"=>$has_data, "result"=>$results, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$frow, "single" => $frow, "query"=>$this->db_last_query()];
+                return ["code"=>SUCCESS, "status"=>"success", "has_data"=>$has_data, "result"=>$results, "row_count"=>$YROS->db->stmnt()->rowCount() ?? 0, "data"=>$results, "message"=>"data has been fetched", "first_row"=>$frow, "single" => $frow, "query"=>$this->db_last_query()];
             }
             else if(stripos(strtolower(trim($sql)), 'insert') === 0){
-                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data inserted successfully", "insert_id"=>$YROS->db->lastInsertId(), "parameters"=>$param, "query"=>$this->db_last_query()];
+                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data inserted successfully", "insert_id"=>$YROS->db->lastInsertId(), "row_count"=>$YROS->db->stmnt()->rowCount() ?? 0, "parameters"=>$param, "query"=>$this->db_last_query()];
             }else if(stripos(strtolower(trim($sql)), 'update') === 0){
-                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data updated successfully", "parameters"=>$param, "query"=>$this->db_last_query()];
+                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data updated successfully", "parameters"=>$param, "affected_row"=>$YROS->db->stmnt()->rowCount() ?? 0, "query"=>$this->db_last_query()];
             }else if(stripos(strtolower(trim($sql)), 'delete') === 0){
-                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data deleted successfully", "parameters"=>$param, "query"=>$this->db_last_query()];
+                return ["code"=>SUCCESS, "status"=>"success", "message" => "Data deleted successfully", "parameters"=>$param, "affected_row"=>$YROS->db->stmnt()->rowCount() ?? 0, "query"=>$this->db_last_query()];
             }
             else{
                 return ["code"=>SUCCESS, "status"=>"success", "message" => $results, "parameters"=>$param, "query"=>$this->db_last_query()];

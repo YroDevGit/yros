@@ -41,6 +41,10 @@ class Database
            
     }
 
+    public function stmnt(){
+        return $this->stmt;
+    }
+
     public function myPDO(){
         if($this->dbn=="" || $this->dbn ==null){
             die("You haven't yet set up database/dbname in your system.");
