@@ -263,23 +263,27 @@ class Db_lib{
     
         $clauses = [];
     
-        // If conditions is a string, use it directly
         if (is_string($conditions)) {
             return $conditions;
         }
     
-        // Handle associative array (e.g., ["id" => 1, "name" => "test"])
         if ($this->is_associative($conditions)) {
             foreach ($conditions as $column => $value) {
-                if ($matchType == 'LIKE') {
-                    $boundValues[] = "%$value%";
-                    $clauses[] = "`$column` LIKE ?";
+                if (is_array($value)) { // Handle `IN` condition
+                    $placeholders = implode(', ', array_fill(0, count($value), '?'));
+                    $boundValues = array_merge($boundValues, $value);
+                    $clauses[] = "`$column` IN ($placeholders)";
                 } else {
-                    $boundValues[] = $value;
-                    $clauses[] = "`$column` = ?";
+                    if ($matchType == 'LIKE') {
+                        $boundValues[] = "%$value%";
+                        $clauses[] = "`$column` LIKE ?";
+                    } else {
+                        $boundValues[] = $value;
+                        $clauses[] = "`$column` = ?";
+                    }
                 }
             }
-        } else { // Handle indexed array (e.g., [["id", "=", 1], ["name", "LIKE", "%test%"]])
+        } else { 
             foreach ($conditions as $condition) {
                 if (is_array($condition) && count($condition) === 3) {
                     [$column, $operator, $value] = $condition;
@@ -292,9 +296,9 @@ class Db_lib{
             }
         }
     
-        // Join all conditions correctly
         return !empty($clauses) ? "(" . implode(" $logicalOperator ", $clauses) . ")" : "";
     }
+    
     
     /**
      * Detects if an array is associative.
