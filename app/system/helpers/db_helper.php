@@ -99,6 +99,34 @@ if(! function_exists("db_select")){
     }
 }
 
+if(! function_exists("db_execute_select")){
+    function db_execute_select(array $dataset):array{
+        $YROS = &Yros::get_instance();
+        return $YROS->dblib->execute_select($dataset);
+    }
+}
+
+if(! function_exists("db_execute_insert")){
+    function db_execute_insert(array $dataset):array{
+        $YROS = &Yros::get_instance();
+        return $YROS->dblib->execute_insert($dataset);
+    }
+}
+
+if(! function_exists("db_execute_delete")){
+    function db_execute_delete(array $dataset):array{
+        $YROS = &Yros::get_instance();
+        return $YROS->dblib->execute_delete($dataset);
+    }
+}
+
+if(! function_exists("db_execute_update")){
+    function db_execute_update(array $dataset):array{
+        $YROS = &Yros::get_instance();
+        return $YROS->dblib->execute_update($dataset);
+    }
+}
+
 if(! function_exists("db_select_all_where")){
     function db_select_all_where(string|array $table, array|string $where, array $parameters=[]){
         $YROS = &Yros::get_instance();

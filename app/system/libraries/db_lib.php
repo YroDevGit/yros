@@ -88,6 +88,232 @@ class Db_lib{
         return $this->setQuery($sql, $param)['data'];
     }
 
+
+    public function execute_insert(array $dataset) {
+        $table = $dataset['table'] ?? $dataset['into'] ?? null;
+        if (!$table || empty($dataset['data'])) {
+            return false;
+        }
+    
+        $columns = array_keys($dataset['data']);
+        $placeholders = array_fill(0, count($columns), '?');
+        $values = array_values($dataset['data']);
+    
+        $query = "INSERT INTO `$table` (`" . implode("`, `", $columns) . "`) VALUES (" . implode(", ", $placeholders) . ")";
+    
+        // Debugging: Replace placeholders with actual values
+        $finalQuery = $this->replace_placeholders($query, $values);
+    
+        return $this->setQuery($finalQuery,[]);
+    }
+
+
+    public function execute_update(array $dataset) {
+        $table = $dataset['table'] ?? null;
+        if (!$table || empty($dataset['data']) || empty($dataset['where'])) {
+            return false;
+        }
+    
+        $setClauses = [];
+        $values = [];
+    
+        foreach ($dataset['data'] as $column => $value) {
+            $setClauses[] = "`$column` = ?";
+            $values[] = $value;
+        }
+    
+        $query = "UPDATE `$table` SET " . implode(", ", $setClauses);
+        $boundValues = [];
+    
+        // Add WHERE conditions
+        if (!empty($dataset['where'])) {
+            $whereCondition = $this->build_conditions($dataset['where'], $boundValues, 'AND');
+            $query .= " WHERE " . $whereCondition;
+        }
+    
+        $values = array_merge($values, $boundValues);
+    
+        // Debugging: Replace placeholders with actual values
+        $finalQuery = $this->replace_placeholders($query, $values);
+    
+        return $this->setQuery($finalQuery,[]);
+    }
+
+
+    public function execute_delete(array $dataset) {
+        $table = $dataset['table'] ?? $dataset['from'] ?? null;
+        if (!$table) {
+            return "Error: No table specified";
+        }
+    
+        if (empty($dataset['where']) && empty($dataset['or_where']) && empty($dataset['like']) && empty($dataset['or_like'])) {
+            return "Error: DELETE operation requires at least one WHERE condition to prevent full table deletion.";
+        }
+    
+        $query = "DELETE FROM `$table`";
+        $boundValues = [];
+        $conditions = [];
+    
+        // Handle AND conditions
+        if (!empty($dataset['where'])) {
+            $conditions[] = $this->build_conditions($dataset['where'], $boundValues, 'AND');
+        }
+    
+        // Handle OR conditions
+        if (!empty($dataset['or_where'])) {
+            $conditions[] = $this->build_conditions($dataset['or_where'], $boundValues, 'OR');
+        }
+    
+        // Handle LIKE conditions
+        if (!empty($dataset['like'])) {
+            $conditions[] = $this->build_conditions($dataset['like'], $boundValues, 'AND', 'LIKE');
+        }
+    
+        // Handle OR LIKE conditions
+        if (!empty($dataset['or_like'])) {
+            $conditions[] = $this->build_conditions($dataset['or_like'], $boundValues, 'OR', 'LIKE');
+        }
+    
+        // Combine conditions properly
+        $conditions = array_filter($conditions);
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" OR ", $conditions);
+        }
+    
+        // Debugging: Replace placeholders with actual values
+        $finalQuery = $this->replace_placeholders($query, $boundValues);
+    
+        return $this->setQuery($finalQuery,[]);
+    }
+    
+    
+    
+    
+
+    public function execute_select(array $dataset) {
+        $table = $dataset['table'] ?? $dataset['from'] ?? null;
+        $table = is_array($table) ? $table[0] : $table;
+    
+        $columns = $dataset['columns'] ?? $dataset['select'] ?? ["*"];
+        $columnsString = is_array($columns) ? implode(", ", $columns) : $columns;
+    
+        $query = "SELECT $columnsString FROM `$table`";
+        $boundValues = [];
+    
+        // Build conditions
+        $conditions = [];
+        if (!empty($dataset['where'])) {
+            $conditions[] = $this->build_conditions($dataset['where'], $boundValues, 'AND');
+        }
+        if (!empty($dataset['or_where'])) {
+            $conditions[] = $this->build_conditions($dataset['or_where'], $boundValues, 'OR');
+        }
+        if (!empty($dataset['like'])) {
+            $conditions[] = $this->build_conditions($dataset['like'], $boundValues, 'AND', 'LIKE');
+        }
+        if (!empty($dataset['or_like'])) {
+            $conditions[] = $this->build_conditions($dataset['or_like'], $boundValues, 'OR', 'LIKE');
+        }
+    
+        // Filter out empty conditions and join them properly
+        $conditions = array_filter($conditions);
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(" OR ", $conditions);
+        }
+    
+        // Add GROUP BY if specified
+        if (!empty($dataset['group_by'])) {
+            $groupBy = is_array($dataset['group_by']) ? implode(", ", $dataset['group_by']) : $dataset['group_by'];
+            $query .= " GROUP BY $groupBy";
+        }
+    
+        // Add HAVING if specified
+        if (!empty($dataset['having'])) {
+            $query .= " HAVING " . (is_array($dataset['having']) ? implode(" AND ", $dataset['having']) : $dataset['having']);
+        }
+    
+        // Add ORDER BY if specified
+        if (!empty($dataset['order_by'])) {
+            $orderBy = is_array($dataset['order_by']) ? implode(", ", $dataset['order_by']) : $dataset['order_by'];
+            $query .= " ORDER BY $orderBy";
+        }
+    
+        // Add LIMIT if specified
+        if (!empty($dataset['limit'])) {
+            $query .= " LIMIT " . (int) $dataset['limit'];
+        }
+    
+        // Add OFFSET if specified
+        if (!empty($dataset['offset'])) {
+            $query .= " OFFSET " . (int) $dataset['offset'];
+        }
+    
+        // Debug: Replace placeholders for debugging
+        $finalQuery = $this->replace_placeholders($query, $boundValues);
+    
+        return $this->setQuery($finalQuery,[]);
+    }
+    
+    
+    /**
+     * Builds WHERE, OR WHERE, LIKE, and OR LIKE conditions.
+     */
+    private function build_conditions($conditions, &$boundValues, $logicalOperator = 'AND', $matchType = '=') {
+        if (!$conditions) return "";
+    
+        $clauses = [];
+    
+        // If conditions is a string, use it directly
+        if (is_string($conditions)) {
+            return $conditions;
+        }
+    
+        // Handle associative array (e.g., ["id" => 1, "name" => "test"])
+        if ($this->is_associative($conditions)) {
+            foreach ($conditions as $column => $value) {
+                if ($matchType == 'LIKE') {
+                    $boundValues[] = "%$value%";
+                    $clauses[] = "`$column` LIKE ?";
+                } else {
+                    $boundValues[] = $value;
+                    $clauses[] = "`$column` = ?";
+                }
+            }
+        } else { // Handle indexed array (e.g., [["id", "=", 1], ["name", "LIKE", "%test%"]])
+            foreach ($conditions as $condition) {
+                if (is_array($condition) && count($condition) === 3) {
+                    [$column, $operator, $value] = $condition;
+                    if ($matchType == 'LIKE') {
+                        $value = "%$value%";
+                    }
+                    $boundValues[] = $value;
+                    $clauses[] = "`$column` $operator ?";
+                }
+            }
+        }
+    
+        // Join all conditions correctly
+        return !empty($clauses) ? "(" . implode(" $logicalOperator ", $clauses) . ")" : "";
+    }
+    
+    /**
+     * Detects if an array is associative.
+     */
+    private function is_associative(array $array) {
+        return array_keys($array) !== range(0, count($array) - 1);
+    }
+    
+    /**
+     * Replace placeholders in query with actual values for debugging.
+     */
+    private function replace_placeholders($query, $values) {
+        foreach ($values as $value) {
+            $query = preg_replace('/\?/', "'" . addslashes($value) . "'", $query, 1);
+        }
+        return $query;
+    }
+    
+
     public function insert($table, $data){
         $YROS = &Yros::get_instance();
         try{
