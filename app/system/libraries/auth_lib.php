@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Auth_lib{
 
     public $auth_mask_code = "yros_authentication_code_199363_";
+    public static $logintoken = "yros_user_login_token";
 
     public function __construct()
 	{
@@ -41,6 +42,37 @@ class Auth_lib{
     public function remove_status(){
         remove_cookie($this->auth_mask_code."status");
         remove_cookie($this->auth_mask_code."data");
+    }
+
+    public static function set_user_data(array $data = [], $expires = null){
+        if(! empty($data)){
+            if($expires == null){
+                setcookie(self::$logintoken, encrypt(json_encode($data)));
+            }else{
+                setcookie(self::$logintoken, encrypt(json_encode($data)), $expires);
+            }
+        }
+    }
+
+    public static function get_user_data(string $key=""){
+        $data =  $_COOKIE[self::$logintoken] ?? null;
+
+        if($data){
+          $data = decrypt($data);
+          $data = json_decode($data, true); 
+        }
+
+        return $key == "" || $key == null ? $data ?? []: $data[$key] ?? null;
+    
+    }
+
+    public static function has_user_data(){
+        return isset($_COOKIE[self::$logintoken]);
+    }
+
+    public static function clear_user_data(){
+        setcookie(self::$logintoken, "", time() - 3600, "/");
+        unset($_COOKIE[self::$logintoken]);
     }
 
     

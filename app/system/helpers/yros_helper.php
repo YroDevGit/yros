@@ -474,6 +474,12 @@ if(! function_exists("yros_secret_script")){
     }
 }
 
+if(! function_exists("hash_password")){
+    function hash_password($password, $algo = PASSWORD_DEFAULT, array $options){
+        return password_hash($password, $algo,$options);
+    }
+}
+
 
 
 
