@@ -31,7 +31,11 @@ $app_settings['project_root_url'] = getenv("APP_URL");   // Leave it empty/null 
 $app_settings['local_ip'] = getenv("LOCALIPV4");
 
 
-
+$app_settings['default_header'] = [ // default headers
+    "Access-Control-Allow-Origin: *",
+    "Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers: *"
+];
 
 
 

@@ -140,6 +140,18 @@ if(! function_exists("get_main_page_url")){
     }
 }
 
+if(! function_exists("main_page_url")){
+    function main_page_url():string{
+        return get_main_page_url();
+    }
+}
+
+if(! function_exists("default_route")){
+    function default_route():string{
+        return get_root_page();
+    }
+}
+
 if(! function_exists("path")){
     function path(string|array $path, array $parameters = [], bool $secure = false):string{
         $path = $path[0] === '/' ? substr($path, 1) : $path;

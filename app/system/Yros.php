@@ -347,4 +347,13 @@ class Yros {
     }
 
     
+    public function default_header(){
+            include "app/config/settings.php";
+            $headers_arr = $app_settings['controller_default_header'];
+            foreach($headers_arr as $arr){
+                header($arr);
+            }
+    }
+
+    
 }

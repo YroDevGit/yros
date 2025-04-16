@@ -10,6 +10,7 @@
  */
 const jserrorcode =-1;
 const jssuccesscode = 200;
+const jsbaseurl = "";
 
 async function jspost(url, data, headers = { 'Content-Type': 'application/json' }) {
     let ret = { code: -1, status: 'error', message: 'error message' };
