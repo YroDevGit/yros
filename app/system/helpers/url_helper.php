@@ -6,7 +6,9 @@ if(! function_exists("redirect_to")){
         /** Void
          * Don't save input values.
          */
-        redirect($controller, false, $delay);
+        $controller = $controller[0] === '/' ? substr($controller, 1) : $controller;
+        $main_url = rootpath;
+        redirect($main_url.".".$controller, false, $delay);
     }
 }
 
@@ -25,6 +27,12 @@ if(! function_exists("redirect")){
         }
         header("refresh:$delay;url=".rootpath.$controller);
         exit;
+    }
+}
+
+if(! function_exists("href")){
+    function href(string $path, int $delay=0){
+        header("refresh:$delay;url=".$path);
     }
 }
 
@@ -142,6 +150,12 @@ if(! function_exists("get_main_page_url")){
 
 if(! function_exists("main_page_url")){
     function main_page_url():string{
+        return get_main_page_url();
+    }
+}
+
+if(! function_exists("base_url")){
+    function base_url():string{
         return get_main_page_url();
     }
 }

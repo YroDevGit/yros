@@ -83,6 +83,10 @@ if(! defined("rootpath")){
     define("rootpath", getProjectRoot());
 }
 
+if(! defined("base_url")){
+    define("base_url", getProjectRoot());
+}
+
 if(! defined("assets")){
     define("assets", getProjectRoot()."public/assets");
 }
