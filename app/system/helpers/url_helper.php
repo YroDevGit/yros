@@ -7,8 +7,7 @@ if(! function_exists("redirect_to")){
          * Don't save input values.
          */
         $controller = $controller[0] === '/' ? substr($controller, 1) : $controller;
-        $main_url = rootpath;
-        redirect($main_url.".".$controller, false, $delay);
+        redirect($controller, false, $delay);
     }
 }
 
