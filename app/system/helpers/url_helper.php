@@ -2,18 +2,23 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 if(! function_exists("redirect_to")){
-    function redirect_to(string $controller, int $delay=0){
+    function redirect_to(string $controller="", int $delay=0){
         /** Void
          * Don't save input values.
          */
-        $controller = $controller[0] === '/' ? substr($controller, 1) : $controller;
-        redirect($controller, false, $delay);
+        if($controller=="" || $controller==null || $controller == "/"){
+           $cont =  $controller;
+           redirect($cont, false, $delay);
+        }else{
+            $controller = $controller[0] === '/' ? substr($controller, 1) : $controller;
+            redirect($controller, false, $delay);
+        }
+        
     }
 }
 
 if(! function_exists("redirect")){
-    function redirect(string $controller, bool $save_input_values = false, int $delay=0){
-        $controller = $controller[0] === '/' ? substr($controller, 1) : $controller;
+    function redirect(string $controller="", bool $save_input_values = false, int $delay=0){
         $YROS =  &Yros::get_instance();
         if($YROS->removeinputvalues == true){
             remove_saved_values();
@@ -24,7 +29,13 @@ if(! function_exists("redirect")){
         if($save_input_values==true){
             save_input_values();
         }
-        header("refresh:$delay;url=".rootpath.$controller);
+        if($controller=="" || $controller==null || $controller == "/"){
+            header("refresh:$delay;url=".rootpath);
+        }else{
+            $controller = $controller[0] === '/' ? substr($controller, 1) : $controller;
+            header("refresh:$delay;url=".rootpath.$controller);
+        }
+        
         exit;
     }
 }
